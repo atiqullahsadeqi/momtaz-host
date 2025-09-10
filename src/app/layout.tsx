@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -16,7 +17,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Momtaz Host - Professional Hosting & Web Services",
-  description: "Professional hosting and web services provider offering VPS, shared hosting, cloud solutions, domain registration, and web development services.",
+  description:
+    "Professional hosting and web services provider offering VPS, shared hosting, cloud solutions, domain registration, and web development services.",
 };
 
 export default function RootLayout({
@@ -25,14 +27,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
         <Header />
-        <main className="flex-1">
-          {children}
-        </main>
+        <main className="flex-1">{children}</main>
+        <Toaster />
         <Footer />
       </body>
     </html>

@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -9,15 +9,22 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu"
+} from "@/components/ui/navigation-menu";
+import { ThemeToggle } from "@/components/theme-toggle";
+import Image from "next/image";
 
 export function Header() {
   return (
-    <header className="border-b bg-white">
+    <header className="sticky top-0 z-50 border-b bg-background">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="text-2xl font-bold text-blue-600">
-          Momtaz Host
+        <Link href="/" className="text-2xl font-bold text-primary">
+          <Image
+            src="/images/logo.png"
+            alt="Momtaz Host Logo"
+            width={60}
+            height={60}
+          />
         </Link>
 
         {/* Navigation */}
@@ -28,27 +35,47 @@ export function Header() {
               <NavigationMenuContent>
                 <div className="grid gap-3 p-6 w-[400px]">
                   <NavigationMenuLink asChild>
-                    <Link href="/hosting/vps" className="block p-2 hover:bg-gray-50 rounded">
+                    <Link
+                      href="/hosting/vps"
+                      className="block p-2 hover:bg-accent rounded"
+                    >
                       <div className="font-medium">VPS Hosting</div>
-                      <div className="text-sm text-gray-600">Scalable virtual private servers</div>
+                      <div className="text-sm text-muted-foreground">
+                        Scalable virtual private servers
+                      </div>
                     </Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <Link href="/hosting/shared" className="block p-2 hover:bg-gray-50 rounded">
+                    <Link
+                      href="/hosting/shared"
+                      className="block p-2 hover:bg-accent rounded"
+                    >
                       <div className="font-medium">Shared Hosting</div>
-                      <div className="text-sm text-gray-600">Affordable web hosting</div>
+                      <div className="text-sm text-muted-foreground">
+                        Affordable web hosting
+                      </div>
                     </Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <Link href="/hosting/cloud" className="block p-2 hover:bg-gray-50 rounded">
+                    <Link
+                      href="/hosting/cloud"
+                      className="block p-2 hover:bg-accent rounded"
+                    >
                       <div className="font-medium">Cloud Hosting</div>
-                      <div className="text-sm text-gray-600">High-performance cloud solutions</div>
+                      <div className="text-sm text-muted-foreground">
+                        High-performance cloud solutions
+                      </div>
                     </Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <Link href="/hosting/windows" className="block p-2 hover:bg-gray-50 rounded">
+                    <Link
+                      href="/hosting/windows"
+                      className="block p-2 hover:bg-accent rounded"
+                    >
                       <div className="font-medium">Windows Hosting</div>
-                      <div className="text-sm text-gray-600">ASP.NET and Windows applications</div>
+                      <div className="text-sm text-muted-foreground">
+                        ASP.NET and Windows applications
+                      </div>
                     </Link>
                   </NavigationMenuLink>
                 </div>
@@ -60,27 +87,47 @@ export function Header() {
               <NavigationMenuContent>
                 <div className="grid gap-3 p-6 w-[400px]">
                   <NavigationMenuLink asChild>
-                    <Link href="/domains" className="block p-2 hover:bg-gray-50 rounded">
+                    <Link
+                      href="/domains"
+                      className="block p-2 hover:bg-accent rounded"
+                    >
                       <div className="font-medium">Domain Registration</div>
-                      <div className="text-sm text-gray-600">Register your perfect domain</div>
+                      <div className="text-sm text-muted-foreground">
+                        Register your perfect domain
+                      </div>
                     </Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <Link href="/web-development" className="block p-2 hover:bg-gray-50 rounded">
+                    <Link
+                      href="/web-development"
+                      className="block p-2 hover:bg-accent rounded"
+                    >
                       <div className="font-medium">Web Development</div>
-                      <div className="text-sm text-gray-600">Custom websites & WordPress</div>
+                      <div className="text-sm text-muted-foreground">
+                        Custom websites & WordPress
+                      </div>
                     </Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <Link href="/database-development" className="block p-2 hover:bg-gray-50 rounded">
+                    <Link
+                      href="/database-development"
+                      className="block p-2 hover:bg-accent rounded"
+                    >
                       <div className="font-medium">Database Development</div>
-                      <div className="text-sm text-gray-600">Database design & optimization</div>
+                      <div className="text-sm text-muted-foreground">
+                        Database design & optimization
+                      </div>
                     </Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <Link href="/mobile-development" className="block p-2 hover:bg-gray-50 rounded">
+                    <Link
+                      href="/mobile-development"
+                      className="block p-2 hover:bg-accent rounded"
+                    >
                       <div className="font-medium">Mobile Development</div>
-                      <div className="text-sm text-gray-600">iOS & Android applications</div>
+                      <div className="text-sm text-muted-foreground">
+                        iOS & Android applications
+                      </div>
                     </Link>
                   </NavigationMenuLink>
                 </div>
@@ -89,7 +136,10 @@ export function Header() {
 
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
-                <Link href="/google-workspace" className="px-4 py-2 hover:text-blue-600">
+                <Link
+                  href="/google-workspace"
+                  className="px-4 py-2 hover:text-primary"
+                >
                   Google Workspace
                 </Link>
               </NavigationMenuLink>
@@ -97,7 +147,10 @@ export function Header() {
 
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
-                <Link href="/seo-services" className="px-4 py-2 hover:text-blue-600">
+                <Link
+                  href="/seo-services"
+                  className="px-4 py-2 hover:text-primary"
+                >
                   SEO Services
                 </Link>
               </NavigationMenuLink>
@@ -105,7 +158,7 @@ export function Header() {
 
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
-                <Link href="/branding" className="px-4 py-2 hover:text-blue-600">
+                <Link href="/branding" className="px-4 py-2 hover:text-primary">
                   Branding
                 </Link>
               </NavigationMenuLink>
@@ -113,8 +166,9 @@ export function Header() {
           </NavigationMenuList>
         </NavigationMenu>
 
-        {/* Auth Buttons */}
+        {/* Auth Buttons & Theme Toggle */}
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <Button variant="ghost" asChild>
             <Link href="/login">Login</Link>
           </Button>
@@ -124,5 +178,5 @@ export function Header() {
         </div>
       </div>
     </header>
-  )
+  );
 }
