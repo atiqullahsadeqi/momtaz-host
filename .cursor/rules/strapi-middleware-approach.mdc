@@ -1,0 +1,53 @@
+---
+description: Strapi Middleware Approach for API Population
+globs:
+alwaysApply: true
+---
+
+# Strapi Middleware Approach for API Population
+
+## Rule: Use Strapi Middleware for Complex Population Queries
+
+When working with Strapi API population, always use the middleware approach instead of complex query parameters.
+
+### Implementation Steps:
+
+1. **Generate Middleware:**
+   ```bash
+   npx strapi generate
+   # Select: middleware
+   # Name: {content-type}-populate
+   # Select existing API: {content-type}
+   ```
+
+2. **Configure Middleware:**
+   - Edit `src/middlewares/{content-type}-populate.ts`
+   - Add population query logic
+   - Set `populate` variable with desired fields
+
+3. **Update Routes:**
+   - Edit `src/api/{content-type}/routes/{content-type}.ts`
+   - Add middleware to `find` method in `config` object
+
+4. **API Usage:**
+   - Call simple endpoint: `/api/{content-type}`
+   - No complex query parameters needed
+   - All population handled by middleware
+
+### Benefits:
+- Clean API endpoints
+- Centralized population logic
+- Easy to maintain and modify
+- Better performance
+- Follows Strapi best practices
+
+### Example Structure:
+```
+src/middlewares/homepage-populate.ts
+src/api/homepage/routes/homepage.ts
+```
+
+### Next.js Integration:
+- Use simple API calls: `fetchStrapi('/homepage')`
+- No complex query building needed
+- Middleware handles all population automatically

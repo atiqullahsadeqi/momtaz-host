@@ -4,7 +4,7 @@ export default function SignupPage() {
       <div className="max-w-md mx-auto">
         <h1 className="text-4xl font-bold mb-6 text-center">Get Started</h1>
         <p className="text-gray-600 text-center mb-8">
-          Create your Momtaz Host account
+         added this text from nvim Create your Momtaz Host account
         </p>
         <div className="p-8 bg-gray-50 rounded-lg">
           <p className="text-gray-500 text-center">Signup form coming soon...</p>
