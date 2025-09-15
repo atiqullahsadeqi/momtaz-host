@@ -67,7 +67,7 @@ export default function DomainSearch({
             {description}
           </p>
 
-          <div className="bg-background rounded-2xl pr-4 py-2 border border-border">
+          <div className="bg-background rounded-xl px-4 py-2 border border-border">
             <div className="flex flex-col sm:flex-row gap-2">
               <div className="flex-1">
                 <Input
@@ -76,57 +76,7 @@ export default function DomainSearch({
                   className="w-full px-6 text-lg border-0 rounded-xl focus:outline-none focus:border-none bg-background text-foreground"
                 />
               </div>
-              <div className="flex gap-2">
-                <Popover open={open} onOpenChange={setOpen}>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      aria-expanded={open}
-                      className="w-[200px] justify-between py-5"
-                    >
-                      {value
-                        ? tlds.find((tld) => tld.value === value)?.label
-                        : "Select tld..."}
-                      <ChevronsUpDown className="opacity-50" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-[200px] p-0">
-                    <Command>
-                      <CommandInput
-                        placeholder="Search tld..."
-                        className="h-9"
-                      />
-                      <CommandList>
-                        <CommandEmpty>No tld found.</CommandEmpty>
-                        <CommandGroup>
-                          {tlds.map((tld) => (
-                            <CommandItem
-                              key={tld.value}
-                              value={tld.value}
-                              onSelect={(currentValue) => {
-                                setValue(
-                                  currentValue === value ? "" : currentValue
-                                );
-                                setOpen(false);
-                              }}
-                            >
-                              {tld.label}
-                              <Check
-                                className={cn(
-                                  "ml-auto",
-                                  value === tld.value
-                                    ? "opacity-100"
-                                    : "opacity-0"
-                                )}
-                              />
-                            </CommandItem>
-                          ))}
-                        </CommandGroup>
-                      </CommandList>
-                    </Command>
-                  </PopoverContent>
-                </Popover>
+              <div className="flex gap-2 mt-1">
                 <Button
                   size="lg"
                   className="px-8 py-4 text-lg"

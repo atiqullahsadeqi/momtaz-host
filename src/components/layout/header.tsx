@@ -37,7 +37,7 @@ export function Header() {
                   <NavigationMenuLink asChild>
                     <Link
                       href="/hosting/vps"
-                      className="block p-2 hover:bg-accent rounded"
+                      className="block p-2 hover:bg-secondary rounded"
                     >
                       <div className="font-medium">VPS Hosting</div>
                       <div className="text-sm text-muted-foreground">
@@ -48,7 +48,7 @@ export function Header() {
                   <NavigationMenuLink asChild>
                     <Link
                       href="/hosting/shared"
-                      className="block p-2 hover:bg-accent rounded"
+                      className="block p-2 hover:bg-secondary rounded"
                     >
                       <div className="font-medium">Shared Hosting</div>
                       <div className="text-sm text-muted-foreground">
@@ -59,7 +59,7 @@ export function Header() {
                   <NavigationMenuLink asChild>
                     <Link
                       href="/hosting/cloud"
-                      className="block p-2 hover:bg-accent rounded"
+                      className="block p-2 hover:bg-secondary rounded"
                     >
                       <div className="font-medium">Cloud Hosting</div>
                       <div className="text-sm text-muted-foreground">
@@ -70,7 +70,7 @@ export function Header() {
                   <NavigationMenuLink asChild>
                     <Link
                       href="/hosting/windows"
-                      className="block p-2 hover:bg-accent rounded"
+                      className="block p-2 hover:bg-secondary rounded"
                     >
                       <div className="font-medium">Windows Hosting</div>
                       <div className="text-sm text-muted-foreground">
@@ -89,7 +89,7 @@ export function Header() {
                   <NavigationMenuLink asChild>
                     <Link
                       href="/domains"
-                      className="block p-2 hover:bg-accent rounded"
+                      className="block p-2 hover:bg-secondary rounded"
                     >
                       <div className="font-medium">Domain Registration</div>
                       <div className="text-sm text-muted-foreground">
@@ -100,7 +100,7 @@ export function Header() {
                   <NavigationMenuLink asChild>
                     <Link
                       href="/web-development"
-                      className="block p-2 hover:bg-accent rounded"
+                      className="block p-2 hover:bg-secondary rounded"
                     >
                       <div className="font-medium">Web Development</div>
                       <div className="text-sm text-muted-foreground">
@@ -111,7 +111,7 @@ export function Header() {
                   <NavigationMenuLink asChild>
                     <Link
                       href="/database-development"
-                      className="block p-2 hover:bg-accent rounded"
+                      className="block p-2 hover:bg-secondary rounded"
                     >
                       <div className="font-medium">Database Development</div>
                       <div className="text-sm text-muted-foreground">
@@ -122,7 +122,7 @@ export function Header() {
                   <NavigationMenuLink asChild>
                     <Link
                       href="/mobile-development"
-                      className="block p-2 hover:bg-accent rounded"
+                      className="block p-2 hover:bg-secondary rounded"
                     >
                       <div className="font-medium">Mobile Development</div>
                       <div className="text-sm text-muted-foreground">
@@ -138,7 +138,7 @@ export function Header() {
               <NavigationMenuLink asChild>
                 <Link
                   href="/google-workspace"
-                  className="px-4 py-2 hover:text-primary"
+                  className="px-4 py-2 "
                 >
                   Google Workspace
                 </Link>
@@ -149,7 +149,7 @@ export function Header() {
               <NavigationMenuLink asChild>
                 <Link
                   href="/seo-services"
-                  className="px-4 py-2 hover:text-primary"
+                  className="px-4 py-2 "
                 >
                   SEO Services
                 </Link>
@@ -158,7 +158,7 @@ export function Header() {
 
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
-                <Link href="/branding" className="px-4 py-2 hover:text-primary">
+                <Link href="/branding" className="px-4 py-2 ">
                   Branding
                 </Link>
               </NavigationMenuLink>

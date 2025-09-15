@@ -128,7 +128,7 @@ export default function PricingSection({
         {/* CTA */}
         <div className="text-center mt-12">
           <p className="text-muted-foreground mb-4">{ctaText}</p>
-          <Button variant="outline" size="lg" asChild>
+          <Button variant="secondary" size="lg" asChild>
             <Link href={ctaButton.href || "/contact"}>{ctaButton.text}</Link>
           </Button>
         </div>

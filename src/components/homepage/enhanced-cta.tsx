@@ -139,7 +139,7 @@ export default function EnhancedCta({
 
       {/* Final CTA */}
       {finalCta ? (
-        <section className="py-16 bg-muted/50 dark:bg-background">
+        <section className="py-16 bg-muted/50 ">
           <div className="container mx-auto px-4 text-center">
             <h3 className="text-3xl font-bold text-foreground mb-4">
               {finalCta.heading}
@@ -148,7 +148,7 @@ export default function EnhancedCta({
               {finalCta.description}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              {finalCta.primaryCta ? (
+             
                 <Button
                   size={finalCta.primaryCta.size || "lg"}
                   variant={finalCta.primaryCta.variant || "default"}
@@ -161,14 +161,11 @@ export default function EnhancedCta({
                     finalCta.primaryCta.text
                   )}
                 </Button>
-              ) : (
-                <div className="text-sm text-muted-foreground">Primary CTA missing</div>
-              )}
-              {finalCta.secondaryCta ? (
+          
+             
                 <Button
                   variant={finalCta.secondaryCta.variant || "outline"}
                   size={finalCta.secondaryCta.size || "lg"}
-                  className="border-muted-foreground text-muted-foreground hover:bg-muted-foreground hover:text-primary-foreground px-8"
                   asChild={!!finalCta.secondaryCta.href}
                 >
                   {finalCta.secondaryCta.href ? (
@@ -177,9 +174,7 @@ export default function EnhancedCta({
                     finalCta.secondaryCta.text
                   )}
                 </Button>
-              ) : (
-                <div className="text-sm text-muted-foreground">Secondary CTA missing</div>
-              )}
+              
             </div>
           </div>
         </section>
