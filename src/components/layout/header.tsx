@@ -15,7 +15,7 @@ import Image from "next/image";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b bg-background">
+    <header className="sticky top-0 z-50 bg-background">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="text-2xl font-bold text-primary">
@@ -136,10 +136,7 @@ export function Header() {
 
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
-                <Link
-                  href="/google-workspace"
-                  className="px-4 py-2 "
-                >
+                <Link href="/google-workspace" className="px-4 py-2 ">
                   Google Workspace
                 </Link>
               </NavigationMenuLink>
@@ -147,10 +144,7 @@ export function Header() {
 
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
-                <Link
-                  href="/seo-services"
-                  className="px-4 py-2 "
-                >
+                <Link href="/seo-services" className="px-4 py-2 ">
                   SEO Services
                 </Link>
               </NavigationMenuLink>

@@ -1,191 +1,96 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Settings2, Fingerprint, Headset } from "lucide-react";
-import Link from "next/link";
+import { Zap, Shield, Headphones } from "lucide-react";
 
-interface TrustIndicator {
-  title: string;
-  description: string;
-  icon: string;
-}
-
-interface EnhancedCtaProps {
-  heading: string;
-  description: string;
-  primaryCta: {
-    text: string;
-    variant?: "default" | "secondary" | "outline" | "ghost";
-    size?: "sm" | "default" | "lg";
-    href?: string;
-    onClick?: string;
-  };
-  secondaryCta: {
-    text: string;
-    variant?: "default" | "secondary" | "outline" | "ghost";
-    size?: "sm" | "default" | "lg";
-    href?: string;
-    onClick?: string;
-  };
-  trustIndicators: TrustIndicator[];
-  finalCta?: {
-    heading: string;
-    description: string;
-    primaryCta: {
-      text: string;
-      variant?: "default" | "secondary" | "outline" | "ghost";
-      size?: "sm" | "default" | "lg";
-      href?: string;
-    };
-    secondaryCta: {
-      text: string;
-      variant?: "default" | "secondary" | "outline" | "ghost";
-      size?: "sm" | "default" | "lg";
-      href?: string;
-    };
-  };
-}
-
-const iconMap: { [key: string]: React.ComponentType<any> } = {
-  Settings2,
-  Fingerprint,
-  Headset,
-};
-
-export default function EnhancedCta({
-  heading,
-  description,
-  primaryCta,
-  secondaryCta,
-  trustIndicators,
-  finalCta,
-}: EnhancedCtaProps) {
-  const handlePrimaryClick = () => {
-    if (primaryCta.onClick) {
-      console.log("Primary CTA clicked");
-    }
-  };
-
-  // Debug logging
-  console.log("EnhancedCta - finalCta:", finalCta);
-  console.log("EnhancedCta - finalCta.primaryCta:", finalCta?.primaryCta);
-  console.log("EnhancedCta - finalCta.secondaryCta:", finalCta?.secondaryCta);
+export default function EnhancedCta() {
+  const trustIndicators = [
+    {
+      title: "Quick Setup",
+      description:
+        "Get your website online in minutes with our easy setup process.",
+      icon: Zap,
+    },
+    {
+      title: "Secure & Reliable",
+      description: "99.9% uptime guarantee with enterprise-grade security.",
+      icon: Shield,
+    },
+    {
+      title: "24/7 Support",
+      description:
+        "Expert support team available around the clock to help you.",
+      icon: Headphones,
+    },
+  ];
 
   return (
     <>
-      {/* Enhanced CTAs Section */}
-      <section className="py-20 bg-background">
+      {/* Ready to Get Started Section */}
+      <section className="py-20 ">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-foreground">
-              {heading}
+            <h2 className="text-3xl lg:text-4xl font-bold  mb-4">
+              Ready to Get Started?
             </h2>
-            <p className="text-lg text-muted-foreground mb-12 max-w-3xl mx-auto">
-              {description}
+            <p className="text-sm text-muted-foreground mb-12 max-w-3xl mx-auto">
+              Join thousands of satisfied customers who trust Momtaz Host for{" "}
+              <br />
+              their hosting needs. Get started today and experience the
+              difference.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
-              {primaryCta && (
-                <Button
-                  size={primaryCta.size || "lg"}
-                  variant={primaryCta.variant || "default"}
-                  className="px-8"
-                  onClick={handlePrimaryClick}
-                  asChild={!!primaryCta.href}
-                >
-                  {primaryCta.href ? (
-                    <Link href={primaryCta.href}>{primaryCta.text}</Link>
-                  ) : (
-                    primaryCta.text
-                  )}
-                </Button>
-              )}
-              {secondaryCta && (
-                <Button
-                  variant={secondaryCta.variant || "ghost"}
-                  size={secondaryCta.size || "lg"}
-                  className="text-foreground"
-                  asChild={!!secondaryCta.href}
-                >
-                  {secondaryCta.href ? (
-                    <Link href={secondaryCta.href}>{secondaryCta.text}</Link>
-                  ) : (
-                    secondaryCta.text
-                  )}
-                </Button>
-              )}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+              <Button size="lg" className="px-8 py-3">
+                Get Started Now
+              </Button>
+              <Button variant="outline" size="lg" className="px-8 py-3 ">
+                Contact Sales
+              </Button>
             </div>
 
             {/* Trust Indicators */}
-            {trustIndicators && trustIndicators.length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                {trustIndicators.map((indicator, index) => {
-                  const IconComponent = iconMap[indicator.icon] || Settings2;
-                  
-                  return (
-                    <div key={index} className="text-center">
-                      <div className="w-16 h-16 bg-muted/50 dark:bg-input/50 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <IconComponent />
-                      </div>
-                      <h3 className="text-xl font-semibold mb-2">{indicator.title}</h3>
-                      <p className="text-muted-foreground">{indicator.description}</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              {trustIndicators.map((indicator, index) => {
+                const IconComponent = indicator.icon;
+                return (
+                  <div key={index} className="text-center">
+                    <div className="w-12 h-12 bg-primary/10 rounded flex items-center justify-center mx-auto mb-4">
+                      <IconComponent className="w-6 h-6 text-primary" />
                     </div>
-                  );
-                })}
-              </div>
-            )}
+                    <h3 className="text-lg font-semibold mb-2">
+                      {indicator.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm">
+                      {indicator.description}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Final CTA */}
-      {finalCta ? (
-        <section className="py-16 bg-muted/50 ">
-          <div className="container mx-auto px-4 text-center">
-            <h3 className="text-3xl font-bold text-foreground mb-4">
-              {finalCta.heading}
-            </h3>
-            <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-              {finalCta.description}
+      {/* Still Have Questions Section */}
+      <section className="py-16 ">
+        <div className="container mx-auto px-4 text-center">
+          <div className="bg-primary/10 py-20 rounded-lg">
+            <h3 className="text-3xl font-bold  mb-4">Still Have Questions?</h3>
+            <p className="text-muted-foreground text-sm mb-8 max-w-2xl mx-auto">
+              Our team of experts is here to help you choose the perfect hosting
+              solution for your needs.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-             
-                <Button
-                  size={finalCta.primaryCta.size || "lg"}
-                  variant={finalCta.primaryCta.variant || "default"}
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-8"
-                  asChild={!!finalCta.primaryCta.href}
-                >
-                  {finalCta.primaryCta.href ? (
-                    <Link href={finalCta.primaryCta.href}>{finalCta.primaryCta.text}</Link>
-                  ) : (
-                    finalCta.primaryCta.text
-                  )}
-                </Button>
-          
-             
-                <Button
-                  variant={finalCta.secondaryCta.variant || "outline"}
-                  size={finalCta.secondaryCta.size || "lg"}
-                  asChild={!!finalCta.secondaryCta.href}
-                >
-                  {finalCta.secondaryCta.href ? (
-                    <Link href={finalCta.secondaryCta.href}>{finalCta.secondaryCta.text}</Link>
-                  ) : (
-                    finalCta.secondaryCta.text
-                  )}
-                </Button>
-              
+              <Button size="lg" className="px-8 py-3">
+                Get Free Consultation
+              </Button>
+              <Button variant="outline" size="lg" className="px-8 py-3">
+                View FAQ
+              </Button>
             </div>
           </div>
-        </section>
-      ) : (
-        <section className="py-16 bg-muted/50 dark:bg-background">
-          <div className="container mx-auto px-4 text-center">
-            <div className="text-sm text-muted-foreground">Final CTA section missing data</div>
-          </div>
-        </section>
-      )}
+        </div>
+      </section>
     </>
   );
 }
-

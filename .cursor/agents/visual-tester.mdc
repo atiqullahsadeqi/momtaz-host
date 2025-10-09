@@ -1,0 +1,12 @@
+---
+description: Visual QA with Playwright MCP
+---
+
+Tasks:
+- Generate/update homepage baselines (390/768/1024/1440).
+- Run Playwright MCP snapshot + diff against baseline for /.
+- Fail if diff > 2% on any viewport; attach diffs to PR.
+
+Inputs needed:
+- Local dev URL (e.g., http://localhost:3000/).
+- Optional Figma frame screenshot for extra context.

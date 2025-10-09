@@ -1,0 +1,12 @@
+---
+description: UI Implementer
+---
+
+Process:
+1) Review baseline (Figma screenshot or approved image).
+2) Choose shadcn components; confirm via demo.
+3) Implement with tokens only; mobile-first.
+4) Hand off to Visual QA for snapshots at 390/768/1024/1440.
+
+Notes:
+- Services list: one open at a time (Accordion/Collapsible); ensure keyboard support.

@@ -1,38 +1,67 @@
-import React from "react";
+"use client";
 
-interface CompanyLogo {
-  name: string;
-  logo?: {
-    url: string;
-    alt: string;
-  };
-}
+import LogoLoop from "../LogoLoop";
+import { useEffect, useState } from "react";
 
-interface CompanyLogosProps {
-  logos: CompanyLogo[];
-}
+const imageLogos = [
+  { src: "/images/logos/awec_logo.png", alt: "AWEC", href: "#" },
+  { src: "/images/logos/BMALogo.png", alt: "BMA", href: "#" },
+  {
+    src: "/images/logos/HIHAO-new-logo-2021-transparent-1.png",
+    alt: "HIHAO",
+    href: "#",
+  },
 
-export default function CompanyLogos({ logos }: CompanyLogosProps) {
+  {
+    src: "/images/logos/MISFA-Final-logo-01-scaled.jpg",
+    alt: "MISFA",
+    href: "#",
+  },
+  { src: "/images/logos/Transparent3.png", alt: "Company", href: "#" },
+];
+
+export default function CompanyLogos() {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const updateTheme = () => {
+      if (typeof document !== "undefined") {
+        setIsDark(document.documentElement.classList.contains("dark"));
+      }
+    };
+
+    // Initial check
+    updateTheme();
+
+    // Listen for theme changes
+    const observer = new MutationObserver(updateTheme);
+    if (typeof document !== "undefined") {
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class']
+      });
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const fadeOutColor = isDark ? "#262624" : "#faf9f5";
   return (
-    <section className="py-12 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="flex justify-center items-center space-x-8 lg:space-x-12 opacity-40 flex-wrap">
-          {logos.map((logo, index) => (
-            <div key={index} className="text-2xl lg:text-4xl font-bold text-muted-foreground">
-              {logo.logo ? (
-                <img
-                  src={logo.logo.url}
-                  alt={logo.logo.alt}
-                  className="h-8 lg:h-12 w-auto"
-                />
-              ) : (
-                logo.name
-              )}
-            </div>
-          ))}
-        </div>
+    <section className="pt-10 pb-25">
+      <div className="container mx-auto">
+        <LogoLoop
+          logos={imageLogos}
+          speed={50}
+          direction="left"
+          logoHeight={55}
+          gap={50}
+          pauseOnHover
+          scaleOnHover
+          fadeOut
+          fadeOutColor={fadeOutColor}
+          ariaLabel="Our Clients"
+        />
       </div>
     </section>
   );
 }
-

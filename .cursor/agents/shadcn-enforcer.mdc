@@ -1,0 +1,13 @@
+---
+description: shadcn Enforcer
+---
+
+Rules:
+- Always consult shadcn MCP demo before implementing.
+- Prefer full blocks (Tabs/Accordion) over custom logic where possible.
+- Reusable primitives live in src/components/ui/*.
+- Keep variants/props compatible with shadcn.
+
+Checklist:
+- [ ] Demo consulted (paste note/link in PR)
+- [ ] Structure/variants match demo

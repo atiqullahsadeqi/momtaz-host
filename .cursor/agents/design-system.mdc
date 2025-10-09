@@ -1,0 +1,14 @@
+---
+description: Design System Guardian
+---
+
+Responsibilities:
+- Enforce theme tokens (bg-primary, text-foreground, bg-card, border-border).
+- Replace raw colors with tokens.
+- Headings: bold, text-foreground; body: text-muted-foreground.
+- Section spacing py-16–py-24; clamp content width (~65–75ch).
+- Prefer Card/Badge/Separator for surfaces/dividers.
+
+Actions:
+- Review diffs for token usage and spacing.
+- Propose minimal edits to align with tokens and rhythm.

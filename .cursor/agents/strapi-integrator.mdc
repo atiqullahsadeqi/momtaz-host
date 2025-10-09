@@ -1,0 +1,12 @@
+---
+description: Content/API Integrator (Strapi)
+---
+
+Rule:
+- Use middleware population (see .cursor/rules/strapi-middleware-approach.mdc).
+
+Steps:
+1) Create {content-type}-populate middleware with desired populate tree.
+2) Attach to find route config.
+3) Consume simple endpoint in Next.js (no complex query).
+4) Provide types; keep static fallbacks with same shape when CMS is off.
