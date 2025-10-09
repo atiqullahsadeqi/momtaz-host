@@ -35,10 +35,7 @@ export function Header() {
               <NavigationMenuContent>
                 <div className="grid gap-3 p-6 w-[400px]">
                   <NavigationMenuLink asChild>
-                    <Link
-                      href="/hosting/vps"
-                      className="block p-2 hover:bg-secondary rounded"
-                    >
+                    <Link href="/hosting/vps" className="block p-2  rounded">
                       <div className="font-medium">VPS Hosting</div>
                       <div className="text-sm text-muted-foreground">
                         Scalable virtual private servers
@@ -48,7 +45,7 @@ export function Header() {
                   <NavigationMenuLink asChild>
                     <Link
                       href="/hosting/shared"
-                      className="block p-2 hover:bg-secondary rounded"
+                      className="block p-2   rounded"
                     >
                       <div className="font-medium">Shared Hosting</div>
                       <div className="text-sm text-muted-foreground">
@@ -57,10 +54,7 @@ export function Header() {
                     </Link>
                   </NavigationMenuLink>
                   <NavigationMenuLink asChild>
-                    <Link
-                      href="/hosting/cloud"
-                      className="block p-2 hover:bg-secondary rounded"
-                    >
+                    <Link href="/hosting/cloud" className="block p-2   rounded">
                       <div className="font-medium">Cloud Hosting</div>
                       <div className="text-sm text-muted-foreground">
                         High-performance cloud solutions
@@ -70,7 +64,7 @@ export function Header() {
                   <NavigationMenuLink asChild>
                     <Link
                       href="/hosting/windows"
-                      className="block p-2 hover:bg-secondary rounded"
+                      className="block p-2   rounded"
                     >
                       <div className="font-medium">Windows Hosting</div>
                       <div className="text-sm text-muted-foreground">
@@ -88,19 +82,8 @@ export function Header() {
                 <div className="grid gap-3 p-6 w-[400px]">
                   <NavigationMenuLink asChild>
                     <Link
-                      href="/domains"
-                      className="block p-2 hover:bg-secondary rounded"
-                    >
-                      <div className="font-medium">Domain Registration</div>
-                      <div className="text-sm text-muted-foreground">
-                        Register your perfect domain
-                      </div>
-                    </Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild>
-                    <Link
                       href="/web-development"
-                      className="block p-2 hover:bg-secondary rounded"
+                      className="block p-2   rounded"
                     >
                       <div className="font-medium">Web Development</div>
                       <div className="text-sm text-muted-foreground">
@@ -111,7 +94,7 @@ export function Header() {
                   <NavigationMenuLink asChild>
                     <Link
                       href="/database-development"
-                      className="block p-2 hover:bg-secondary rounded"
+                      className="block p-2   rounded"
                     >
                       <div className="font-medium">Database Development</div>
                       <div className="text-sm text-muted-foreground">
@@ -122,7 +105,7 @@ export function Header() {
                   <NavigationMenuLink asChild>
                     <Link
                       href="/mobile-development"
-                      className="block p-2 hover:bg-secondary rounded"
+                      className="block p-2   rounded"
                     >
                       <div className="font-medium">Mobile Development</div>
                       <div className="text-sm text-muted-foreground">
@@ -132,6 +115,14 @@ export function Header() {
                   </NavigationMenuLink>
                 </div>
               </NavigationMenuContent>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link href="/domains" className="px-4 py-2">
+                  Domains
+                </Link>
+              </NavigationMenuLink>
             </NavigationMenuItem>
 
             <NavigationMenuItem>
