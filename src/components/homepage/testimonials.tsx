@@ -1,6 +1,5 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 interface Testimonial {
   quote: string;
@@ -28,18 +27,6 @@ interface TestimonialsProps {
   overallRating: OverallRating;
 }
 
-const getAvatarClass = (bgColor: string) => {
-  switch (bgColor) {
-    case "primary":
-      return "bg-primary text-primary-foreground";
-    case "secondary":
-      return "bg-secondary text-secondary-foreground";
-    case "accent":
-      return "bg-accent text-accent-foreground";
-    default:
-      return "bg-primary text-primary-foreground";
-  }
-};
 
 const getAvatarColor = (index: number) => {
   const colors = [
@@ -94,7 +81,7 @@ export default function Testimonials({
                 </div>
               </div>
               <blockquote className="text-card-foreground mb-6 italic">
-                "{testimonial.quote}"
+                &quot;{testimonial.quote}&quot;
               </blockquote>
               <div className="flex items-center">
                 <div className={`w-12 h-12 ${getAvatarColor(index)} rounded-full flex items-center justify-center text-white font-bold text-lg mr-4`}>

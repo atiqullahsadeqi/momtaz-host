@@ -203,7 +203,7 @@ export default function PricingSection() {
         <div className="mt-16">
           <div className="text-center mb-8">
             <h3 className="text-2xl font-bold mb-2">Need Something More Powerful?</h3>
-            <p className="text-muted-foreground">We've got you covered with specialized hosting solutions</p>
+            <p className="text-muted-foreground">We&apos;ve got you covered with specialized hosting solutions</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

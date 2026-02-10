@@ -18,10 +18,8 @@ import {
 import {
   CheckCircle,
   Star,
-  Globe,
   Shield,
   Headphones,
-  ArrowRight,
   Users,
   Cloud,
   Mail,
@@ -30,7 +28,6 @@ import {
   MapPin,
   X,
 } from "lucide-react";
-import Link from "next/link";
 import SplitText from "@/components/SplitText";
 
 export default function GoogleWorkspacePage() {
@@ -301,7 +298,7 @@ export default function GoogleWorkspacePage() {
               Simple, transparent pricing
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Choose the plan that's right for your business. All plans include
+              Choose the plan that&apos;s right for your business. All plans include
               24/7 support and a 14-day free trial.
             </p>
           </div>
@@ -483,7 +480,7 @@ export default function GoogleWorkspacePage() {
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-sm">
-                  We're an official Google Cloud Partner with certified
+                  We&apos;re an official Google Cloud Partner with certified
                   expertise in Google Workspace deployment and management.
                 </CardDescription>
               </CardContent>

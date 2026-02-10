@@ -1,6 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
+import React from "react";
 import MagicBento from "../MagicBento";
 
 export default function ServicesSection() {

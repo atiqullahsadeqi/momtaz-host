@@ -1,21 +1,10 @@
 import type { Metadata } from "next";
-import { Exo, Geist, Geist_Mono } from "next/font/google";
+import { Exo } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import SmoothScrollProvider from "@/components/smooth-scroll-provider";
-import Preloader from "@/components/Preloader";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 const exo = Exo({
   subsets: ["latin"],
@@ -38,7 +27,6 @@ export default function RootLayout({
       <body
         className={` ${exo.variable} antialiased min-h-screen flex flex-col`}
       >
-        {/* <Preloader /> */}
         <SmoothScrollProvider>
           <Header  />
           <main className="flex-1">{children}</main>

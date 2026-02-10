@@ -1,9 +1,6 @@
 "use client";
-import React, { useRef } from 'react';
-import { gsap } from 'gsap';
-import { GridPattern } from "@/components/webdevpage/GridPattern";
+import React from 'react';
 import { FigmaFrame } from "@/components/webdevpage/FigmaFrame";
-import { Monitor, ShoppingBag, Code } from "lucide-react";
 import GridDistortion from '@/components/GridDistortion';
 import Image from 'next/image'
 import { Button } from "@/components/ui/button"
@@ -78,9 +75,9 @@ export default function WebDevelopmentPage() {
                 <h1 className='text-4xl lg:text-6xl text-primary-foreground  leading-tight font-bold'>Is your current <br /> site stuck in the <br /> past?</h1>
               </div>
               <div className="w-full md:w-1/2 h-full pb-16 px-6 md:px-0">
-                <p className='text-white text-xs md:text-base'>We breathe new life into outdated websites. Our redesign process isn't just a facelift; we analyze your current user experience and restructure your site to improve navigation, modern aesthetics, and conversion rates. Keep your content, lose the clutter.</p>
+                <p className='text-white text-xs md:text-base'>We breathe new life into outdated websites. Our redesign process isn&apos;t just a facelift; we analyze your current user experience and restructure your site to improve navigation, modern aesthetics, and conversion rates. Keep your content, lose the clutter.</p>
                 <Button variant="outline" className='mt-6'>
-                  Let's Talk
+                  Let&apos;s Talk
                 </Button>
               </div>
             </div>
@@ -159,7 +156,7 @@ export default function WebDevelopmentPage() {
                 A slow website costs you customers. We obsess over performance metrics to ensure your site ranks high and loads instantly.
               </p>
               <ul className=' flex flex-col gap-4 text-sm'>
-                <li><strong>Core Web Vitals:</strong> We optimize for LCP, FID, and CLS to meet Google's rigorous standards.</li>
+                <li><strong>Core Web Vitals:</strong> We optimize for LCP, FID, and CLS to meet Google&apos;s rigorous standards.</li>
                 <li><strong>Asset Optimization:</strong> Image compression, code minification, and lazy loading implementation.</li>
                 <li><strong>Caching Strategies:</strong> Advanced server-side and browser caching for instant page delivery.</li>
                 <li><strong>Google Analytics (GA4):</strong> Deep dive into user behavior and traffic sources.</li>

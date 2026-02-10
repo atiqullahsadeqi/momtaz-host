@@ -62,7 +62,7 @@ export default function DomainAvailabilityModal({
               Domain Availability Results
             </DialogTitle>
             <DialogDescription>
-              Search results for "{searchedDomain}"
+              Search results for &quot;{searchedDomain}&quot;
             </DialogDescription>
           </DialogHeader>
 

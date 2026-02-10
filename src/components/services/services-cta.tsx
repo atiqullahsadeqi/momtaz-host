@@ -14,7 +14,7 @@ export function ServicesCTA() {
             Ready to Get Started?
           </h2>
           <p className="text-xl mb-8 opacity-90">
-            Let's discuss your project and find the perfect solution for your business needs.
+            Let&apos;s discuss your project and find the perfect solution for your business needs.
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">

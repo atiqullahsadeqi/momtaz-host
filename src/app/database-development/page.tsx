@@ -10,9 +10,7 @@ import {
   BarChart3, 
   CheckCircle, 
   ArrowRight,
-  Server,
   Cloud,
-  Lock,
   Settings
 } from "lucide-react";
 import Link from "next/link";
@@ -232,7 +230,7 @@ export default function DatabaseDevelopmentPage() {
               Ready to Optimize Your Database?
             </h2>
             <p className="text-xl mb-8 opacity-90">
-              Let's discuss your database needs and create a solution that improves performance and reliability.
+              Let&apos;s discuss your database needs and create a solution that improves performance and reliability.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

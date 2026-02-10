@@ -10,8 +10,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ArrowLeft, User, Mail, MapPin, Building } from "lucide-react";
 import { useState } from "react";
-import { ArrowLeft, User, Mail, Phone, MapPin, Building } from "lucide-react";
 
 interface DomainRegistrationFormProps {
   isOpen: boolean;
@@ -157,7 +157,6 @@ export default function DomainRegistrationForm({
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="phone">Phone Number *</Label>
                 <Input
                   id="phone"
                   type="tel"

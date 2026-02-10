@@ -6,10 +6,6 @@ import {
   Code, 
   Database, 
   Smartphone,
-  Search,
-  Palette,
-  Zap,
-  Shield
 } from "lucide-react";
 
 export function ServicesGrid() {

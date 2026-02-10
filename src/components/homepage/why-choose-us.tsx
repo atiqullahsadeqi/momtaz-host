@@ -72,7 +72,7 @@ export default function WhyChooseUs() {
             Why Momtaz Host?
           </h2>
           <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
-            We're committed to providing the best hosting experience with <br />
+            We&apos;re committed to providing the best hosting experience with <br />
             unmatched reliability, security, and support.
           </p>
         </div>

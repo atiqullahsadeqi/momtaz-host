@@ -8,7 +8,6 @@ import {
   Shield, 
   Users, 
   Zap,
-  CheckCircle,
   Star
 } from "lucide-react";
 
@@ -61,7 +60,7 @@ export function WhyChooseServices() {
             Why Choose <span className="text-primary">Our Services</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            We're committed to delivering exceptional value and results that exceed your expectations.
+            We&apos;re committed to delivering exceptional value and results that exceed your expectations.
           </p>
         </div>
 
@@ -108,9 +107,9 @@ export function WhyChooseServices() {
                 ))}
               </div>
               <blockquote className="text-xl italic text-muted-foreground mb-6">
-                "Momtaz Host has been instrumental in our digital transformation. 
+                &quot;Momtaz Host has been instrumental in our digital transformation. 
                 Their expertise in web development and database optimization helped us 
-                scale our business efficiently. Highly recommended!"
+                scale our business efficiently. Highly recommended!&quot;
               </blockquote>
               <div className="flex items-center justify-center gap-3">
                 <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">

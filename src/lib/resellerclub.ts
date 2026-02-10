@@ -51,7 +51,7 @@ class ResellerClubAPI {
     
     try {
       return JSON.parse(responseText);
-    } catch (e) {
+    } catch {
       console.error('Failed to parse JSON:', responseText);
       throw new Error('Invalid JSON response');
     }

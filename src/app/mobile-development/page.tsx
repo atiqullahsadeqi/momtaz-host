@@ -5,7 +5,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { 
   Smartphone, 
-  Code, 
   Zap, 
   Shield, 
   CheckCircle, 
@@ -289,7 +288,7 @@ export default function MobileDevelopmentPage() {
               Ready to Build Your Mobile App?
             </h2>
             <p className="text-xl mb-8 opacity-90">
-              Let's discuss your mobile app idea and create a solution that engages users and drives business growth.
+              Let&apos;s discuss your mobile app idea and create a solution that engages users and drives business growth.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
