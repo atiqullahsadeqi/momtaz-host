@@ -34,7 +34,7 @@ const RippleGrid: React.FC<Props> = ({
   const mousePositionRef = useRef({ x: 0.5, y: 0.5 });
   const targetMouseRef = useRef({ x: 0.5, y: 0.5 });
   const mouseInfluenceRef = useRef(0);
-  const uniformsRef = useRef<Record<string, { value: number | number[] }> | null>(null);
+  const uniformsRef = useRef<Record<string, { value: number | number[] | boolean }> | null>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
