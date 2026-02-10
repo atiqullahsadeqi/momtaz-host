@@ -81,7 +81,7 @@ export default function PricingSection() {
     },
   ];
 
-  const getPrice = (plan) => {
+  const getPrice = (plan: typeof plans[0]) => {
     if (isAnnual) {
       const discountedPrice = plan.monthlyPrice * (1 - plan.annualDiscount / 100);
       return discountedPrice.toFixed(2);
@@ -89,7 +89,7 @@ export default function PricingSection() {
     return plan.monthlyPrice.toFixed(2);
   };
 
-  const getSavings = (plan) => {
+  const getSavings = (plan: typeof plans[0]) => {
     if (isAnnual) {
       return `Save ${plan.annualDiscount}%`;
     }
