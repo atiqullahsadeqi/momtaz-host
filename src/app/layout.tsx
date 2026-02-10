@@ -4,6 +4,8 @@ import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import SmoothScrollProvider from "@/components/smooth-scroll-provider";
+import Preloader from "@/components/Preloader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,10 +38,13 @@ export default function RootLayout({
       <body
         className={` ${exo.variable} antialiased min-h-screen flex flex-col`}
       >
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Toaster />
-        <Footer />
+        {/* <Preloader /> */}
+        <SmoothScrollProvider>
+          <Header  />
+          <main className="flex-1">{children}</main>
+          <Toaster />
+          <Footer />
+        </SmoothScrollProvider>
       </body>
     </html>
   );

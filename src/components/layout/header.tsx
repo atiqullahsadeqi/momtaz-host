@@ -1,5 +1,5 @@
 "use client";
-
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,9 +14,11 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import Image from "next/image";
 
 export function Header() {
+ 
+
   return (
-    <header className="sticky top-0 z-50 bg-background">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+    <header  className=" top-0 z-50 sticky bg-white hidden ">
+      <div className="container mx-auto px-4 py-4 flex items-center justify-between  ">
         {/* Logo */}
         <Link href="/" className="text-2xl font-bold text-primary">
           <Image
