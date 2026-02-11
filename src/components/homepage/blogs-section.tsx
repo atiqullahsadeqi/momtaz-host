@@ -1,7 +1,6 @@
 import React from "react";
 
 import Image from "next/image";
-import { Blog7 } from "../blog7";
 import { ArrowRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
