@@ -69,7 +69,7 @@ export default function DomainsPage() {
     return () => observer.disconnect();
   }, []);
 
-  const fadeOutColor = isDark ? "#382e29" : "#f5eae3";
+  const fadeOutColor = isDark ? "#111111" : "#f8f8f8";
 
   const popularTlds = [
     "com",
@@ -239,7 +239,7 @@ export default function DomainsPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section - Domain Search */}
-      <section className="py-20 bg-primary">
+      <section className="py-20 bg-cover bg-center bg-[url(https://images.unsplash.com/photo-1662581379063-035fab1a0e47?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)]">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-6xl text-primary-foreground font-bold mb-6">
@@ -329,64 +329,17 @@ export default function DomainsPage() {
       </section>
 
       <section className="py-20 bg-background">
-        <div className="container mx-auto px-4 bg-primary/10 rounded-lg ">
-          <div className="min-h-100 w-full relative overflow-hidden flex items-center justify-center">
-            {/* Dashed Bottom Fade Grid */}
-            <div
-              className="absolute inset-0 z-0 -bottom-50"
-              style={{
-                backgroundImage: `
-                        linear-gradient(to right, var(--primary) 1px, transparent 1px),
-                        linear-gradient(to bottom, var(--primary) 1px, transparent 1px)
-                      `,
-                backgroundSize: "20px 20px",
-                backgroundPosition: "0 0, 0 0",
-                maskImage: `
-                        repeating-linear-gradient(
-                              to right,
-                              black 0px,
-                              black 3px,
-                              transparent 3px,
-                              transparent 8px
-                            ),
-                            repeating-linear-gradient(
-                              to bottom,
-                              black 0px,
-                              black 3px,
-                              transparent 3px,
-                              transparent 8px
-                            ),
-                            radial-gradient(ellipse 100% 80% at 50% 100%, #000 50%, transparent 90%)
-                      `,
-                WebkitMaskImage: `
-                        repeating-linear-gradient(
-                                    to right,
-                                    black 0px,
-                                    black 3px,
-                                    transparent 3px,
-                                    transparent 8px
-                                  ),
-                                  repeating-linear-gradient(
-                                    to bottom,
-                                    black 0px,
-                                    black 3px,
-                                    transparent 3px,
-                                    transparent 8px
-                                  ),
-                            radial-gradient(ellipse 100% 80% at 50% 100%, #000 50%, transparent 90%)
-                      `,
-                maskComposite: "intersect",
-                WebkitMaskComposite: "source-in",
-              }}
-            />
+        <div className="container mx-auto px-4  rounded-lg ">
+          <div className="min-h-100 max-w-full md:max-w-5xl rounded-md mx-auto relative bg-center bg-cover bg-[url(https://images.unsplash.com/photo-1761798979861-f79bbaccf6af?q=80&w=1915&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)] overflow-hidden flex items-center justify-center">
+   
             <div className="text-center ">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 What about getting a free domain?
               </h2>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-primary">
                 Get a free domain when you purchase hosting with us
               </p>
-              <Button className="mt-4" size="lg" variant="default">
+              <Button className="mt-4" size="sm" variant="default">
                 <Link href="/hosting/shared">Get a free domain</Link>
               </Button>
             </div>
@@ -399,7 +352,7 @@ export default function DomainsPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Why buy domain names at Momtaz Host?
+              Why buy domain names <br /> at Momtaz Host?
             </h2>
           </div>
 
@@ -426,7 +379,7 @@ export default function DomainsPage() {
       </section>
 
       {/* TLD List */}
-      <section className="py-20 bg-primary/10">
+      <section className="py-20 bg-primary/3">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">

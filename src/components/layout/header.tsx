@@ -16,7 +16,7 @@ export function Header() {
  
 
   return (
-    <header  className=" top-0 z-50 sticky bg-white hidden ">
+    <header  className=" top-0 z-50 sticky bg-white ">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between  ">
         {/* Logo */}
         <Link href="/" className="text-2xl font-bold text-primary">

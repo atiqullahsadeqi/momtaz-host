@@ -4,19 +4,20 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CircleCheckBig, Server, Monitor, FileText } from "lucide-react";
 
-export default function PricingSection() {
-  const [isAnnual, setIsAnnual] = useState(true);
+type TabType = 'shared' | 'vps' | 'dedicated';
 
-  const plans = [
+export default function PricingSection() {
+  const [activeTab, setActiveTab] = useState<TabType>('shared');
+
+  const sharedPlans = [
     {
-      name: "Starter Web",
-      monthlyPrice: 4.99,
-      annualDiscount: 20, // 20% discount
-      storage: "10GB SSD",
+      name: "Starter Plan",
+      price: 2.29,
       features: [
-        "10GB SSD Storage",
+        "15GB SSD Storage",
         "100GB Bandwidth",
         "1 Website",
+        "2 Databases",
         "Free SSL Certificate",
         "cPanel Control Panel",
         "Email Accounts (5)",
@@ -25,75 +26,143 @@ export default function PricingSection() {
       isPopular: false,
     },
     {
-      name: "Business Pro",
-      monthlyPrice: 9.99,
-      annualDiscount: 25, // 25% discount
-      storage: "50GB SSD",
+      name: "Business Plan",
+      price: 6.89,
       features: [
-        "50GB SSD Storage",
+        "100GB SSD Storage",
         "500GB Bandwidth",
         "5 Websites",
+        "10 Databases",
+        "Free SSL Certificate",
+        "cPanel Control Panel",
+        "Email Accounts (10)",
+        "24/7 Support",
+      ],
+      isPopular: true,
+    },
+    {
+      name: "Ultimate Plan",
+      price: 8.59,
+      features: [
+        "Unlimited SSD Storage",
+        "Unlimited Bandwidth",
+        "10 Websites",
+        "20 Databases",
         "Free SSL Certificate",
         "cPanel Control Panel",
         "Unlimited Email Accounts",
-        "Free Domain (1 Year)",
+        "Daily Backups",
+        "24/7 Support",
+      ],
+      isPopular: false,
+    }
+  ];
+
+  const vpsPlans = [
+    {
+      name: "VPS Basic",
+      price: 19.99,
+      features: [
+        "2 CPU Cores",
+        "4GB RAM",
+        "80GB SSD Storage",
+        "2TB Bandwidth",
+        "Full Root Access",
+        "Free SSL Certificate",
+        "1 Dedicated IP",
+        "24/7 Support",
+      ],
+      isPopular: true,
+    },
+    {
+      name: "VPS Pro",
+      price: 39.99,
+      features: [
+        "4 CPU Cores",
+        "8GB RAM",
+        "160GB SSD Storage",
+        "4TB Bandwidth",
+        "Full Root Access",
+        "Free SSL Certificate",
+        "2 Dedicated IPs",
+        "Priority Support",
+      ],
+      isPopular: false,
+    },
+    {
+      name: "VPS Enterprise",
+      price: 79.99,
+      features: [
+        "8 CPU Cores",
+        "16GB RAM",
+        "320GB SSD Storage",
+        "8TB Bandwidth",
+        "Full Root Access",
+        "Free SSL Certificate",
+        "4 Dedicated IPs",
+        "24/7 Priority Support",
+      ],
+      isPopular: false,
+    }
+  ];
+
+  const dedicatedPlans = [
+    {
+      name: "Dedicated Starter",
+      price: 149.99,
+      features: [
+        "Intel Xeon E3-1230",
+        "16GB DDR4 RAM",
+        "1TB SSD Storage",
+        "10TB Bandwidth",
+        "Full Root Access",
+        "5 Dedicated IPs",
+        "Free SSL Certificate",
+        "24/7 Support",
+      ],
+      isPopular: false,
+    },
+    {
+      name: "Dedicated Pro",
+      price: 249.99,
+      features: [
+        "Intel Xeon E5-2670",
+        "32GB DDR4 RAM",
+        "2TB SSD Storage",
+        "20TB Bandwidth",
+        "Full Root Access",
+        "10 Dedicated IPs",
+        "Free SSL Certificate",
         "24/7 Priority Support",
       ],
       isPopular: true,
     },
     {
-      name: "Enterprise Plus",
-      monthlyPrice: 19.99,
-      annualDiscount: 30, // 30% discount
-      storage: "100GB SSD",
+      name: "Dedicated Enterprise",
+      price: 399.99,
       features: [
-        "100GB SSD Storage",
+        "Dual Intel Xeon E5-2690",
+        "64GB DDR4 RAM",
+        "4TB SSD Storage",
         "Unlimited Bandwidth",
-        "Unlimited Websites",
+        "Full Root Access",
+        "20 Dedicated IPs",
         "Free SSL Certificate",
-        "cPanel Control Panel",
-        "Unlimited Email Accounts",
-        "Free Domain (1 Year)",
-        "Daily Backups",
-        "24/7 Priority Support",
+        "24/7 Premium Support",
       ],
       isPopular: false,
-    },
-    {
-      name: "Ultimate Scale",
-      monthlyPrice: 39.99,
-      annualDiscount: 35, // 35% discount
-      storage: "200GB SSD",
-      features: [
-        "200GB SSD Storage",
-        "Unlimited Bandwidth",
-        "Unlimited Websites",
-        "Free SSL Certificate",
-        "cPanel Control Panel",
-        "Unlimited Email Accounts",
-        "Free Domain (1 Year)",
-        "Daily Backups",
-        "Performance Optimization",
-        "Dedicated IP",
-        "24/7 VIP Support",
-      ],
-      isPopular: false,
-    },
+    }
   ];
 
-  const getPrice = (plan: typeof plans[0]) => {
-    if (isAnnual) {
-      const discountedPrice = plan.monthlyPrice * (1 - plan.annualDiscount / 100);
-      return discountedPrice.toFixed(2);
+  const getCurrentPlans = () => {
+    switch (activeTab) {
+      case 'shared':
+        return sharedPlans;
+      case 'vps':
+        return vpsPlans;
+      case 'dedicated':
+        return dedicatedPlans;
     }
-    return plan.monthlyPrice.toFixed(2);
-  };
-
-  const getSavings = (plan: typeof plans[0]) => {
-    if (isAnnual) {
-      return `Save ${plan.annualDiscount}%`;
-    }
-    return null;
   };
 
   return (
@@ -109,34 +178,44 @@ export default function PricingSection() {
             plan for your needs.
           </p>
 
-          {/* Billing Toggle */}
-          <div className="flex items-center justify-center space-x-4 mb-8 border border-primary rounded-full px-4 py-2 w-fit mx-auto">
+          {/* Hosting Type Tabs */}
+          <div className="flex items-center justify-center space-x-2 mb-8 border border-primary rounded-full px-4 py-2 w-fit mx-auto">
             <button
-              onClick={() => setIsAnnual(false)}
+              onClick={() => setActiveTab('shared')}
               className={`cursor-pointer px-6 py-2 rounded-full text-sm font-medium transition-all ${
-                !isAnnual
+                activeTab === 'shared'
                   ? "bg-primary text-white"
                   : "bg-transparent text-muted-foreground hover:text-primary"
               }`}
             >
-              Monthly
+              Linux Shared
             </button>
             <button
-              onClick={() => setIsAnnual(true)}
+              onClick={() => setActiveTab('vps')}
               className={`cursor-pointer px-6 py-2 rounded-full text-sm font-medium transition-all ${
-                isAnnual
+                activeTab === 'vps'
                   ? "bg-primary text-white"
                   : "bg-transparent text-muted-foreground hover:text-primary"
               }`}
             >
-              Annually
+              Linux VPS
+            </button>
+            <button
+              onClick={() => setActiveTab('dedicated')}
+              className={`cursor-pointer px-6 py-2 rounded-full text-sm font-medium transition-all ${
+                activeTab === 'dedicated'
+                  ? "bg-primary text-white"
+                  : "bg-transparent text-muted-foreground hover:text-primary"
+              }`}
+            >
+              Dedicated
             </button>
           </div>
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {plans.map((plan, index) => (
+        <div className="max-w-full md:max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {getCurrentPlans().map((plan, index) => (
             <Card
               key={index}
               className={`${
@@ -160,20 +239,10 @@ export default function PricingSection() {
                     </h3>
                     <div className="mb-4">
                       <span className="text-3xl font-bold text-foreground">
-                        ${getPrice(plan)}
+                        ${plan.price.toFixed(2)}
                       </span>
                       <span className="text-muted-foreground">/month</span>
-                      {isAnnual && (
-                        <div className="text-xs text-green-600 font-medium mt-1">
-                          {getSavings(plan)}
-                        </div>
-                      )}
                     </div>
-                    {!isAnnual && (
-                      <div className="text-xs text-muted-foreground mb-2">
-                        Save up to {plan.annualDiscount}% with annual billing
-                      </div>
-                    )}
                   </div>
                   <ul className="space-y-3 text-left">
                     {plan.features.map((feature, featureIndex) => (
@@ -198,86 +267,15 @@ export default function PricingSection() {
             </Card>
           ))}
         </div>
+          <div className=" flex flex-col items-center justify-center text-center max-w-full md:max-w-5xl mx-auto  min-h-[20em] bg-cover bg-center bg-[url(https://images.unsplash.com/photo-1761798979861-f79bbaccf6af?q=80&w=1915&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)] rounded-md mt-12">
 
-        {/* Additional Hosting Options */}
-        <div className="mt-16">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold mb-2">Need Something More Powerful?</h3>
-            <p className="text-muted-foreground">We&apos;ve got you covered with specialized hosting solutions</p>
+          <h1 className="text-4xl lg:text-6xl text-primary  leading-tight font-bold">Need Something Custom?</h1>
+          <p className="text-sm text-primary mb-8 mt-4 max-w-2xl mx-auto">Don't see what you need? We specialize in bespoke server configurations. We will analyze your requirements and build the perfect matching server environment for you.</p>
+          <Button variant="default" className="px-8 py-3 cursor-pointer">
+            Contact us
+          </Button>
+        
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* VPS Hosting */}
-            <Card className="border border-primary/20 hover:border-primary/40 transition-colors shadow-none">
-              <CardContent className="p-6">
-                <div className="text-left">
-                  <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <Server className="h-6 w-6 text-primary" />
-                  </div>
-                  <h4 className="text-lg font-bold mb-2">VPS Hosting</h4>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Need dedicated resources? Our VPS servers give you full control with guaranteed performance and scalability.
-                  </p>
-                  <Button className="w-full" asChild>
-                    <a href="/hosting/vps">Explore VPS Plans</a>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Windows Hosting */}
-            <Card className="border border-primary/20 hover:border-primary/40 transition-colors shadow-none">
-              <CardContent className="p-6">
-                <div className="text-left">
-                  <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <Monitor className="h-6 w-6 text-primary" />
-                  </div>
-                  <h4 className="text-lg font-bold mb-2">Windows Hosting</h4>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Running ASP.NET or need Windows-specific features? Our Windows servers are optimized for Microsoft technologies.
-                  </p>
-                  <Button className="w-full" asChild>
-                    <a href="/hosting/windows">View Windows Plans</a>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* WordPress Hosting */}
-            <Card className="border border-primary/20 hover:border-primary/40 transition-colors shadow-none">
-              <CardContent className="p-6">
-                <div className="text-left">
-                  <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <FileText className="h-6 w-6 text-primary" />
-                  </div>
-                  <h4 className="text-lg font-bold mb-2">WordPress Hosting</h4>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Optimized specifically for WordPress with automatic updates, enhanced security, and lightning-fast performance.
-                  </p>
-                  <Button className="w-full" asChild>
-                    <a href="/hosting/wordpress">WordPress Plans</a>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-6">
-                <div className="text-center">
-                  <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                    <div className="text-primary text-lg">📝</div>
-                  </div>
-                  <h4 className="text-lg font-bold mb-2">WordPress Hosting</h4>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Optimized specifically for WordPress with automatic updates, enhanced security, and lightning-fast performance.
-                  </p>
-                  <Button className="w-full" asChild>
-                    <a href="/hosting/wordpress">WordPress Plans</a>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
       </div>
     </section>
   );

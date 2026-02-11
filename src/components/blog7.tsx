@@ -1,7 +1,3 @@
-import React from "react";
-
-import Image from "next/image";
-import { Blog7 } from "../blog7";
 import { ArrowRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -36,7 +32,7 @@ interface Blog7Props {
   className?: string;
 }
 
-export default function BlogsSection({
+const Blog7 = ({
   tagline = "Latest Updates",
   heading = "Blog Posts",
   description = "Discover the latest trends, tips, and best practices in modern web development. From UI components to design systems, stay updated with our expert insights.",
@@ -78,9 +74,7 @@ export default function BlogsSection({
     },
   ],
   className,
-}: Blog7Props) {
-
-
+}: Blog7Props) => {
   return (
     <section className={cn("py-32", className)}>
       <div className="container mx-auto flex flex-col items-center gap-16 lg:px-16">
@@ -146,4 +140,6 @@ export default function BlogsSection({
       </div>
     </section>
   );
-}
+};
+
+export { Blog7 };

@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function GoogleWorkspace() {
   return (
-    <section className="py-20">
+    <section className="py-20 bg-primary/3 ">
       <div className="container mx-auto px-4">
         <div className="text-center space-y-8">
           <h2 className="text-3xl lg:text-4xl font-bold">
@@ -24,7 +24,6 @@ export default function GoogleWorkspace() {
           {/* Google Workspace Visual */}
           <div className="relative flex items-center justify-center mt-12">
             <div className="relative">
-              <div className="z-10 bg-gradient-to-t from-background via-background/80 to-transparent w-full h-50 absolute -bottom-10 left-0"></div>
               <Image
                 src="/images/Google-Workspace.png"
                 alt="Gmail Interface"
@@ -77,13 +76,6 @@ export default function GoogleWorkspace() {
                   className="rounded-lg shadow-md"
                 />
               </div>
-
-              {/* Empty decorative squares */}
-              <div className="absolute -bottom-8 left-20 bg-primary/10 rounded-lg h-12 w-12 -z-10"></div>
-              <div className="absolute top-12 -right-8 bg-primary/10 rounded-lg h-16 w-16 -z-10"></div>
-              <div className="absolute bottom-16 -right-6 bg-primary/10 rounded-lg h-14 w-14 -z-10"></div>
-              <div className="absolute top-20 -left-4 bg-primary/10 rounded-lg h-10 w-10 -z-10"></div>
-              <div className="absolute bottom-8 -left-6 bg-primary/10 rounded-lg h-8 w-8 -z-10"></div>
             </div>
           </div>
         </div>

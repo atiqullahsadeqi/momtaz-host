@@ -26,7 +26,7 @@ export default function ServicesSection() {
             clickEffect={true}
             spotlightRadius={300}
             particleCount={12}
-            glowColor="201, 100, 66"
+            glowColor="23, 23, 23"
           />
         </div>
       </div>

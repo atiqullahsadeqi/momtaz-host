@@ -45,7 +45,7 @@ export default function CompanyLogos() {
     return () => observer.disconnect();
   }, []);
 
-  const fadeOutColor = isDark ? "#262624" : "#faf9f5";
+  const fadeOutColor = isDark ? "#0a0a0a" : "#ffffff";
   return (
     <section className="pt-10 pb-25">
       <div className="container mx-auto">

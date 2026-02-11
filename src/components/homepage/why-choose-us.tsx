@@ -100,7 +100,7 @@ export default function WhyChooseUs() {
               height={400}
               className="rounded-lg"
             />
-            <div className="grid grid-cols-2 gap-4 bg-primary/10 rounded-lg p-4 h-100">
+            <div className="grid grid-cols-2 gap-4 bg-[url(https://images.unsplash.com/photo-1764138370127-2418337b41ae?q=80&w=1760&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)] bg-cover bg-center rounded-lg p-4 h-100">
               {stats.map((stat, index) => (
                 <div
                   key={index}
@@ -127,7 +127,7 @@ export default function WhyChooseUs() {
                       <span>+</span>
                     )}
                   </div>
-                  <div className="text-muted-foreground">{stat.label}</div>
+                  <div className="text-primary">{stat.label}</div>
                 </div>
               ))}
             </div>
