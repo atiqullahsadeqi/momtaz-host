@@ -202,7 +202,7 @@ export default function GoogleWorkspacePage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="py-20 bg-primary">
+      <section className="py-20 bg-[url(https://images.unsplash.com/photo-1558932129-58b0867c4985?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)] bg-cover bg-center">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <Badge className="px-4 py-2 rounded-full bg-primary-foreground text-primary">
@@ -238,15 +238,6 @@ export default function GoogleWorkspacePage() {
               >
                 View Pricing
               </Button>
-            </div>
-
-            {/* Hero Image Placeholder */}
-            <div className="bg-primary-foreground/10 rounded-lg p-8 backdrop-blur-sm">
-              <div className="text-primary-foreground/60 text-sm">
-                Google Workspace Interface Preview
-                <br />
-                (Illustration will be added here)
-              </div>
             </div>
           </div>
         </div>
@@ -359,30 +350,30 @@ export default function GoogleWorkspacePage() {
 
           {/* Special Partner Offer */}
           <div className="mt-12 max-w-5xl mx-auto">
-            <Card className="bg-primary text-primary-foreground border-primary">
+            <Card className="bg-[url(https://images.unsplash.com/photo-1640963269654-3fe248c5fba6?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)] bg-center bg-cover text-primary-foreground ">
               <CardContent className="p-8">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                   <div className="text-center md:text-left">
-                    <Badge className="mb-4 bg-primary-foreground text-primary px-4 py-2 rounded-full">
+                    <Badge className="mb-4 bg-primary text-primary-foreground px-4 py-2 rounded-full">
                       Special Google Partner Offer
                     </Badge>
-                    <h3 className="text-2xl font-bold mb-2">
+                    <h3 className="text-2xl font-bold mb-2 text-primary">
                       Enterprise & Custom Solutions
                     </h3>
-                    <p className="text-primary-foreground text-sm mb-4">
+                    <p className="text-primary text-sm mb-4">
                       Need more than 300 users? Looking for custom integrations
                       or advanced security features? Our Google Partner
                       specialists can create a tailored solution for your
                       organization.
                     </p>
-                    <ul className="text-sm text-primary-foreground/90 space-y-1 text-left">
+                    <ul className="text-sm text-primary space-y-1 text-left">
                       <li>• Volume discounts available</li>
                       <li>• Custom deployment and training</li>
                       <li>• Advanced security and compliance</li>
                     </ul>
                     <Button
                       size="lg"
-                      variant="secondary"
+                      variant="default"
                       className="cursor-pointer mt-4"
                     >
                       Contact Sales

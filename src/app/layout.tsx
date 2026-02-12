@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Exo } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
 import SmoothScrollProvider from "@/components/smooth-scroll-provider";
 
 const exo = Exo({
@@ -28,10 +26,8 @@ export default function RootLayout({
         className={` ${exo.variable} antialiased min-h-screen flex flex-col`}
       >
         <SmoothScrollProvider>
-          <Header  />
-          <main className="flex-1">{children}</main>
           <Toaster />
-          <Footer />
+          {children}
         </SmoothScrollProvider>
       </body>
     </html>

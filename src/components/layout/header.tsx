@@ -11,12 +11,13 @@ import {
 } from "@/components/ui/navigation-menu";
 import { ThemeToggle } from "@/components/theme-toggle";
 import Image from "next/image";
+import { LogIn } from "lucide-react";
 
 export function Header() {
  
 
   return (
-    <header  className=" top-0 z-50 sticky bg-white ">
+    <header  className=" top-0 z-50 sticky bg-primary-foreground ">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between  ">
         {/* Logo */}
         <Link href="/" className="text-2xl font-bold text-primary">
@@ -32,7 +33,7 @@ export function Header() {
         <NavigationMenu className="hidden md:flex">
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Hosting</NavigationMenuTrigger>
+              <NavigationMenuTrigger className="bg-primary-foreground">Hosting</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <div className="grid gap-3 p-6 w-[400px]">
                   <NavigationMenuLink asChild>
@@ -78,7 +79,7 @@ export function Header() {
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Services</NavigationMenuTrigger>
+              <NavigationMenuTrigger className="bg-primary-foreground">Development</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <div className="grid gap-3 p-6 w-[400px]">
                   <NavigationMenuLink asChild>
@@ -155,11 +156,9 @@ export function Header() {
         {/* Auth Buttons & Theme Toggle */}
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <Button variant="ghost" asChild>
-            <Link href="/login">Login</Link>
-          </Button>
-          <Button asChild>
-            <Link href="/signup">Get Started</Link>
+          <Button variant="default" >
+            <Link href="/login">Client Area</Link>
+            <LogIn />
           </Button>
         </div>
       </div>
