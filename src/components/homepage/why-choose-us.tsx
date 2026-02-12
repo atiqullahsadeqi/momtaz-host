@@ -77,7 +77,7 @@ export default function WhyChooseUs() {
           </p>
         </div>
 
-        <div className="w-5xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
+        <div className="w-full md:w-5xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
           {/* Features List */}
           <div className="space-y-6 ">
             {features.map((feature, index) => (
