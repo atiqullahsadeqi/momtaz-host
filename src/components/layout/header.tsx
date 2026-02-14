@@ -27,7 +27,7 @@ export function Header() {
 
   return (
     <header className="top-0 z-50 sticky bg-primary-foreground">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+      <div className="container mx-auto px-4 py-0 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="text-2xl font-bold text-primary">
           <Image
@@ -169,24 +169,26 @@ export function Header() {
             <Link href="/login">Client Area</Link>
             <LogIn />
           </Button>
-          
+
           {/* Mobile Menu */}
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
-                <Menu className="h-6 w-6" />
+                <Menu className="h-12 w-12" />
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="px-4">
               <SheetHeader>
-                <SheetTitle><Link href="/" className="text-2xl font-bold text-primary">
-          <Image
-            src="/images/logo.png"
-            alt="Momtaz Host Logo"
-            width={60}
-            height={60}
-          />
-        </Link></SheetTitle>
+                <SheetTitle>
+                  <Link href="/" className="text-2xl font-bold text-primary">
+                    <Image
+                      src="/images/logo.png"
+                      alt="Momtaz Host Logo"
+                      width={60}
+                      height={60}
+                    />
+                  </Link>
+                </SheetTitle>
               </SheetHeader>
               <nav className="flex flex-col gap-4 mt-4">
                 <Collapsible>
@@ -216,7 +218,7 @@ export function Header() {
                 <Link href="/google-workspace" onClick={() => setOpen(false)} className="py-2 font-medium">Google Workspace</Link>
                 <Link href="/seo-services" onClick={() => setOpen(false)} className="py-2 font-medium">SEO Services</Link>
                 <Link href="/branding" onClick={() => setOpen(false)} className="py-2 font-medium">Branding</Link>
-                
+
                 <Button variant="default" className="mt-4" asChild>
                   <Link href="/login" onClick={() => setOpen(false)}>
                     <LogIn className="mr-2 h-4 w-4" />

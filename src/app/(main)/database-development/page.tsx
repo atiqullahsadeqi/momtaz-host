@@ -6,6 +6,10 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import React, { useState, useLayoutEffect, useRef, useEffect } from "react";
 import Image from "next/image";
 import RotatingText from '@/components/RotatingText'
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+
+gsap.registerPlugin(ScrollTrigger);
 
 const slides = [
   {
@@ -65,6 +69,52 @@ const highlights = [
   {
     title: "Ownership",
     description: " You own the code and the data. No vendor lock-in with proprietary SaaS platforms.",
+  },
+];
+
+const keyFeatures = [
+  {
+    title: "Role-Based Access Control (RBAC)",
+    description: "Granular permission settings — the Intern sees only what they need; the CFO sees everything.",
+  },
+  {
+    title: "Audit Logging",
+    description: "Every action (create, update, delete) is logged so you always know who changed what and when.",
+  },
+  {
+    title: "Automated Backups",
+    description: "Daily encrypted snapshots of your database stored securely off-site.",
+  },
+  {
+    title: "API Integration",
+    description: "Connect your custom database to third-party tools (Stripe, Slack, Google Workspace, etc.).",
+  },
+];
+
+const steps = [
+  {
+    title: "Discovery & Mapping",
+    description: "We sit down with you to draw out your entity relationships on a whiteboard.",
+  },
+  {
+    title: "Schema Design",
+    description: "We design the database architecture (ERD) to ensure data integrity and normalization.",
+  },
+  {
+    title: "API Development (Laravel)",
+    description: "We build the endpoints and business logic.",
+  },
+  {
+    title: "UI Implementation (Next.js)",
+    description: "We connect the frontend to the data.",
+  },
+  {
+    title: "UAT (User Acceptance Testing)",
+    description: "You test the system with real data.",
+  },
+  {
+    title: "Deployment & Training",
+    description: "We launch on secure cloud servers and train your staff.",
   },
 ];
 
@@ -169,6 +219,50 @@ export default function DatabaseDevelopmentPage() {
       tl.kill();
     };
   }, [activeHighlight]);
+
+  const sectionRef = useRef(null);
+  const triggerRef = useRef(null);
+useLayoutEffect(() => {
+  const ctx = gsap.context(() => {
+    // We create the timeline first
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: triggerRef.current,
+        start: "top 50%", // Triggers when the top of the section hits 70% of viewport
+        end: "bottom 20%", // Ends when bottom of section hits 20%
+        toggleActions: "play reverse play reverse", // The magic line for back-and-forth
+      },
+    });
+
+    // 1. Line animation
+    tl.to(".step-line-active", {
+      height: "100%",
+      duration: 0.6, // Fast, snappy duration
+      ease: "power1.inOut",
+    });
+
+    // 2. Circles and Content Stagger
+    steps.forEach((_, i) => {
+      const position = (i / steps.length) * 0.6;
+
+      tl.to(`.circle-${i}`, {
+        backgroundColor: "var(--primary)", // Use your primary hex
+        borderColor: "var(--primary)",
+        scale: 1.2,
+        duration: 0.1,
+      }, position)
+      .to(`.content-${i}`, {
+        opacity: 1,
+        y: 0,
+        duration: 0.3,
+        ease: "power2.out",
+      }, position);
+    });
+
+  }, sectionRef);
+
+  return () => ctx.revert();
+}, []);
 
 
   return (
@@ -334,6 +428,22 @@ export default function DatabaseDevelopmentPage() {
 
         </div>
       </section>
+        <div className="w-full bg-primary py-16 my-16">
+        <div className="fet container mx-auto min-h-[400px] flex items-center justify-center px-4">
+          <div className="max-w-5xl w-full">
+            <h1 className="text-4xl lg:text-6xl text-primary-foreground  leading-tight font-bold">Key Features</h1>
+
+            <ul className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+              {keyFeatures.map((kf, i) => (
+                <li key={i} className="bg-white/5 p-4 rounded-md">
+                  <h3 className="font-semibold text-lg text-primary-foreground">{kf.title}</h3>
+                  <p className="text-sm mt-2 text-primary-foreground/80">{kf.description}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
 
       <div className="w-full md:w-5xl mx-auto md:px-0 px-4">
         <div className="w-full ">
@@ -342,8 +452,8 @@ export default function DatabaseDevelopmentPage() {
           </h1>
           <p className="text-sm text-primary mb-8 mt-4 ">We utilize a Modular Monolith or Microservices approach. This means we can build your system We combine the industry's most secure PHP framework with the world's fastest React framework to deliver an application that is solid as a rock and fast as light.</p>
         </div>
-        <div className="w-full flex gap-5">
-          <div className="w-1/2 px-5">
+        <div className="w-full flex flex-col md:flex-row gap-5">
+          <div className="w-full md:w-1/2 px-5">
             <h2 className="text-2xl font-bold text-primary">The Backend: Laravel</h2>
             <p className="font-bold mb-3 mt-1">We use Laravel to build the heavy-lifting logic and API layers.</p>
             <ul className="list-disc text-sm flex flex-col gap-3">
@@ -362,7 +472,7 @@ export default function DatabaseDevelopmentPage() {
 
             </ul>
           </div>
-          <div className="w-1/2 px-5">
+          <div className="w-full md:w-1/2 px-5">
           <h2 className="text-2xl font-bold text-primary">The Frontend: Next.js</h2>
             <p className="font-bold mb-3 mt-1">We use Next.js for the user interface (Dashboard).</p>
             <ul className="list-disc text-sm flex flex-col gap-3">
@@ -382,7 +492,7 @@ export default function DatabaseDevelopmentPage() {
             </ul>
           </div>
         </div>
-        <div className="w-full min-h-[400px] bg-[url(https://images.unsplash.com/photo-1761798979849-ebb267341d50?q=80&w=1915&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)] bg-cover bg-center rounded-md mt-5 flex items-center justify-center p-8 gap-20">
+        <div className="w-full min-h-[400px] bg-[url(https://images.unsplash.com/photo-1761798979849-ebb267341d50?q=80&w=1915&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)] bg-cover bg-center rounded-md mt-5 flex items-center justify-center p-8 gap-10 md:gap-20">
         <Image
           src="/images/tailwind.png"
           alt="Backend and Frontend Illustration"
@@ -414,6 +524,44 @@ export default function DatabaseDevelopmentPage() {
 
         </div>
       </div>
+    <div ref={sectionRef} className="py-16">
+      <div ref={triggerRef} className="py-0 md:py-16 flex flex-col items-center justify-center overflow-hidden">
+        <div className="w-full md:max-w-5xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-20 items-center">
+          
+          {/* LEFT: Static Header */}
+          <div className="max-w-md">
+            <h2 className="text-4xl lg:text-6xl text-primary  leading-tight font-bold">
+              Our Database <br /> Architecture <br /> Lifecycle
+            </h2>
+          </div>
+
+          {/* RIGHT: The Stepper */}
+          <div className="relative h-[500px] flex items-center">
+            {/* Background Track */}
+            <div className="absolute left-6 h-full w-[2px] bg-slate-800 rounded-full" />
+            {/* Animated Active Line */}
+            <div className="step-line-active absolute top-0 left-6 h-0 w-[2px] bg-primary rounded-full shadow-[0_0_15px_rgba(var(--primary-rgb),0.8)] z-10" />
+
+            {/* Steps Container */}
+            <div className="flex flex-col justify-between h-full w-full py-4">
+              {steps.map((step, index) => (
+                <div key={index} className="flex items-center gap-12 relative">
+                  {/* Indicator */}
+                  <div className={`circle-${index} w-3 h-3 rounded-full  border-2 border-primary z-20 shrink-0 transition-all duration-300 ml-[18.5px]`} />
+                  
+                  {/* Text Content */}
+                  <div className={`content-${index} opacity-0`}>
+                    <h4 className="text-primary font-bold text-xl mb-1">{step.title}</h4>
+                    <p className="text-muted-foreground text-sm max-w-sm">{step.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
     </>
   );
 }
