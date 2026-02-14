@@ -42,7 +42,7 @@ export function Header() {
         <NavigationMenu className="hidden md:flex">
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-primary-foreground">Hosting</NavigationMenuTrigger>
+              <NavigationMenuTrigger className="bg-primary-foreground/0">Hosting</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <div className="grid gap-3 p-6 w-[400px]">
                   <NavigationMenuLink asChild>
@@ -88,7 +88,7 @@ export function Header() {
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-primary-foreground">Development</NavigationMenuTrigger>
+              <NavigationMenuTrigger className="bg-primary-foreground/0">Development</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <div className="grid gap-3 p-6 w-[400px]">
                   <NavigationMenuLink asChild>
