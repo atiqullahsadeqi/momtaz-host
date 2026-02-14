@@ -536,7 +536,7 @@ useLayoutEffect(() => {
           </div>
 
           {/* RIGHT: The Stepper */}
-          <div className="relative h-[500px] flex items-center">
+          <div className="relative min-h-[500px] flex items-center">
             {/* Background Track */}
             <div className="absolute left-6 h-full w-[2px] bg-slate-800 rounded-full" />
             {/* Animated Active Line */}
