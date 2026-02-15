@@ -65,6 +65,9 @@ export default function HeroSection() {
                 variant="outline"
                 size="lg"
                 className="cursor-pointer px-8 py-3"
+                onClick={() => {
+                  document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+                }}
               >
                 View Pricing
               </Button>

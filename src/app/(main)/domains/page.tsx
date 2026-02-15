@@ -19,8 +19,9 @@ import {
 import { Globe, Shield, Gift, Headphones, Loader2 } from "lucide-react";
 import Link from "next/link";
 import LogoLoop from "@/components/LogoLoop";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import DomainAvailabilityModal from "@/components/domain-availability-modal";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface DomainPrice {
   tld: string;
@@ -37,6 +38,8 @@ interface DomainAvailability {
 // fadeOutColor is computed client-side inside the component to avoid SSR document access
 
 export default function DomainsPage() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [domainPricing, setDomainPricing] = useState<DomainPrice[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<DomainAvailability[]>([]);
@@ -46,6 +49,10 @@ export default function DomainsPage() {
   const [showResultsModal, setShowResultsModal] = useState(false);
   const [searchedDomain, setSearchedDomain] = useState("");
   const [availableTlds, setAvailableTlds] = useState<string[]>([]);
+  const [hasAutoSearched, setHasAutoSearched] = useState(false);
+
+  // Get domain param - memoized to avoid re-renders
+  const domainParam = useMemo(() => searchParams?.get("domain") || "", [searchParams]);
 
   useEffect(() => {
     const updateTheme = () => {
@@ -117,28 +124,10 @@ export default function DomainsPage() {
   const handleSearch = async () => {
     if (!searchTerm.trim()) return;
 
-    setIsSearching(true);
-    setSearchedDomain(searchTerm);
-    setShowResultsModal(true);
+    // Clean URL after search
+    router.replace("/domains", undefined);
     
-    try {
-      const response = await fetch(
-        `/api/domains/check?domain=${encodeURIComponent(searchTerm)}`
-      );
-      const data = await response.json();
-      
-      if (data.success) {
-        setSearchResults(data.data.results);
-      } else {
-        console.error('Search failed:', data.error);
-        setSearchResults([]);
-      }
-    } catch (error) {
-      console.error("Error searching domains:", error);
-      setSearchResults([]);
-    } finally {
-      setIsSearching(false);
-    }
+    performSearch(searchTerm);
   };
 
   const getPriceForTld = (tld: string) => {
@@ -207,6 +196,45 @@ export default function DomainsPage() {
   const tldsList1 = tldsList.slice(0, chunkSize);
   const tldsList2 = tldsList.slice(chunkSize, chunkSize * 2);
   const tldsList3 = tldsList.slice(chunkSize * 2);
+
+  // Handle auto-search from URL parameter
+  useEffect(() => {
+    if (domainParam && !hasAutoSearched && !isLoading) {
+      setSearchTerm(domainParam);
+      setHasAutoSearched(true);
+      // Trigger search after a short delay to ensure other effects are ready
+      setTimeout(() => {
+        performSearch(domainParam);
+      }, 500);
+    }
+  }, [domainParam, hasAutoSearched, isLoading]);
+
+  const performSearch = async (domain: string) => {
+    if (!domain.trim()) return;
+
+    setIsSearching(true);
+    setSearchedDomain(domain);
+    setShowResultsModal(true);
+    
+    try {
+      const response = await fetch(
+        `/api/domains/check?domain=${encodeURIComponent(domain)}`
+      );
+      const data = await response.json();
+      
+      if (data.success) {
+        setSearchResults(data.data.results);
+      } else {
+        console.error('Search failed:', data.error);
+        setSearchResults([]);
+      }
+    } catch (error) {
+      console.error("Error searching domains:", error);
+      setSearchResults([]);
+    } finally {
+      setIsSearching(false);
+    }
+  };
 
   const faqs = [
     {

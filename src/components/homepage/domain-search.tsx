@@ -3,14 +3,22 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function DomainSearch() {
   const [domainName, setDomainName] = useState("");
+  const router = useRouter();
 
   const handleSearch = () => {
-    toast("Domain search initiated", {
-      description: "Checking domain availability...",
-    });
+    if (!domainName.trim()) {
+      toast("Please enter a domain name", {
+        description: "Enter a domain to search for availability",
+      });
+      return;
+    }
+    
+    // Navigate to domains page with the search term
+    router.push(`/domains?domain=${encodeURIComponent(domainName.trim())}`);
   };
 
   return (
@@ -31,6 +39,7 @@ export default function DomainSearch() {
                 placeholder="Enter your domain name"
                 value={domainName}
                 onChange={(e) => setDomainName(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                 className="flex-1 px-6 py-4 text-sm  border-0 transparent focus:outline-none focus:ring-0"
               />
               <Button
@@ -39,7 +48,7 @@ export default function DomainSearch() {
                 className="px-8 py-4 text-sm"
                 onClick={handleSearch}
               >
-                Get Started
+                Search
               </Button>
             </div>
           </div>

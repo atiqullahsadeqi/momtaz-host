@@ -104,7 +104,7 @@ export default function BlogsSection({
           {posts.map((post) => (
             <Card
               key={post.id}
-              className="grid grid-rows-[auto_auto_1fr_auto] overflow-hidden pt-0"
+              className="grid grid-rows-[auto_auto_1fr_auto] overflow-hidden pt-0 shadow-none"
             >
               <div className="aspect-16/9 w-full">
                 <a
