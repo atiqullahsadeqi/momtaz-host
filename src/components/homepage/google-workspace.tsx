@@ -7,9 +7,9 @@ export default function GoogleWorkspace() {
   return (
     <section className="py-20  overflow-hidden">
       <div className="container mx-auto px-4">
-        <div className=" flex items-center gap-16">
-          <div className="space-y-8">
-            <h2 className="text-3xl lg:text-4xl font-bold ">
+        <div className=" flex flex-col md:flex-row items-center gap-4 md:gap-16">
+          <div className="md:space-y-8">
+            <h2 className="text-2xl md:text-3xl mb-3 md:mb-0 lg:text-4xl font-bold ">
             Professional Email & Collaboration <br /> Powered by Google.
           </h2>
           <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
@@ -28,8 +28,8 @@ export default function GoogleWorkspace() {
           </div>
 
           {/* Google Workspace Visual */}
-          <div className="relative flex items-center justify-center mt-12">
-            <div className="relative aspect-ratio-2/1 overflow-hidden">
+          <div className="relative flex items-center justify-center ">
+            <div className="relative overflow-hidden">
               <Image
                 src="https://images.unsplash.com/photo-1603539240352-8f2cce3257c4?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="Gmail Interface"

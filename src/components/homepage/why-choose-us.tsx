@@ -93,7 +93,7 @@ export default function WhyChooseUs() {
 
           {/* Image */}
           <div className="relative  ">
-            <div className="grid grid-cols-4 gap-4 bg-muted/10 bg-cover bg-center rounded-lg p-4 h-50 mt-10">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-muted/10 bg-cover bg-center rounded-lg p-4 h-50 mt-10">
               {stats.map((stat, index) => (
                 <div
                   key={index}
