@@ -1,5 +1,5 @@
 import React from "react";
-
+import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
@@ -81,24 +81,22 @@ export default function BlogsSection({
 
 
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container mx-auto flex flex-col items-center gap-16 lg:px-16">
+    <section className={cn("py-10", className)}>
+      <div className="container mx-auto flex flex-col items-center gap-16 px-4 lg:px-16">
         <div className="text-center">
-          <Badge variant="secondary" className="mb-6">
+          <Badge variant="default" className="mb-6">
             {tagline}
           </Badge>
           <h2 className="mb-3 text-3xl font-semibold text-pretty md:mb-4 md:text-4xl lg:mb-6 lg:max-w-3xl lg:text-5xl">
             {heading}
           </h2>
-          <p className="mb-8 text-muted-foreground md:text-base lg:max-w-2xl lg:text-lg">
+          <p className="mb-8 text-muted-foreground text-sm lg:max-w-2xl ">
             {description}
           </p>
-          <Button variant="link" className="w-full sm:w-auto" asChild>
-            <a href={buttonUrl} target="_blank">
-              {buttonText}
-              <ArrowRight className="ml-2 size-4" />
-            </a>
-          </Button>
+          <Link href={buttonUrl} className="inline-flex items-center hover:underline">
+            {buttonText}
+            <ArrowRight className="ml-2 size-4" />
+          </Link>
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
           {posts.map((post) => (
@@ -107,9 +105,8 @@ export default function BlogsSection({
               className="grid grid-rows-[auto_auto_1fr_auto] overflow-hidden pt-0 shadow-none"
             >
               <div className="aspect-16/9 w-full">
-                <a
+                <Link
                   href={post.url}
-                  target="_blank"
                   className="transition-opacity duration-200 fade-in hover:opacity-70"
                 >
                   <img
@@ -117,27 +114,26 @@ export default function BlogsSection({
                     alt={post.title}
                     className="h-full w-full object-cover object-center"
                   />
-                </a>
+                </Link>
               </div>
               <CardHeader>
-                <h3 className="text-lg font-semibold hover:underline md:text-xl">
-                  <a href={post.url} target="_blank">
+                <h3 className="text-md font-semibold hover:underline md:text-md">
+                  <Link href={post.url}>
                     {post.title}
-                  </a>
+                  </Link>
                 </h3>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">{post.summary}</p>
+                <p className="text-muted-foreground text-sm">{post.summary}</p>
               </CardContent>
               <CardFooter>
-                <a
+                <Link
                   href={post.url}
-                  target="_blank"
-                  className="flex items-center text-foreground hover:underline"
+                  className="flex items-center text-sm text-foreground hover:underline"
                 >
                   Read more
                   <ArrowRight className="ml-2 size-4" />
-                </a>
+                </Link>
               </CardFooter>
             </Card>
           ))}

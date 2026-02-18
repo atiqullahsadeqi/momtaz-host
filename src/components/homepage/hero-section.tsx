@@ -15,14 +15,14 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="py-20 lg:py-15">
+    <section className="py-10 lg:py-15">
       <div className="container mx-auto px-4">
-        <div className="text-center space-y-8">
+        <div className="text-center space-y-1">
           {/* Main Heading */}
           {/* Badge */}
-          <Badge className="   px-4 py-2 rounded-full">
+          {/* <Badge variant="default" className="rounded-full">
             PROFESSIONAL HOSTING SOLUTIONS
-          </Badge>
+          </Badge> */}
           <div>
             <SplitText
               text="Build. Host. Grow."
@@ -45,17 +45,17 @@ export default function HeroSection() {
             initialOpacity={0}
           >
             {/* Description */}
-            <p className=" text-muted-foreground max-w-3xl mx-auto">
+            <p className=" text-sm text-muted-foreground max-w-full md:max-w-3xl mx-auto">
               Keep your website running smoothly with reliable hosting
-              solutions. Manage <br /> domains, hosting, and applications in one
+              solutions. Manage domains, hosting, and applications in one
               place, fast & affordably.
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 mt-5 justify-center">
+            <div className="flex  gap-4 mt-5 justify-center">
               <Button
                 variant="default"
-                size="lg"
+                size="sm"
                 className="cursor-pointer px-8 py-3"
                 onClick={handlePrimaryClick}
               >
@@ -63,7 +63,7 @@ export default function HeroSection() {
               </Button>
               <Button
                 variant="outline"
-                size="lg"
+                size="sm"
                 className="cursor-pointer px-8 py-3"
                 onClick={() => {
                   document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });

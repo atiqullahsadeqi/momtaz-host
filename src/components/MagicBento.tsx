@@ -596,7 +596,7 @@ const MagicBento: React.FC<BentoProps> = ({
           }
           
           .card-responsive {
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(2, 1fr);
             width: 100%;
             margin: 0 auto;
             padding: 0.5rem;
@@ -692,8 +692,8 @@ const MagicBento: React.FC<BentoProps> = ({
           
           @media (max-width: 599px) {
             .card-responsive {
-              grid-template-columns: 1fr;
-              width: 90%;
+              grid-template-columns: repeat(2, 1fr);
+              width: 100%;
               margin: 0 auto;
               padding: 0.5rem;
             }
@@ -717,7 +717,7 @@ const MagicBento: React.FC<BentoProps> = ({
       )}
 
 <BentoCardGrid gridRef={gridRef}>
-  <div className="card-responsive grid gap-2">
+  <div className="card-responsive grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2">
     {cardData.map((card, index) => {
       // 1. Base Classes (Removed the hardcoded bg-primary/3 to allow the image to show)
       const baseClassName = `bg-cover bg-center card flex flex-col justify-between relative aspect-[4/3] min-h-[200px] w-full max-w-full p-5 rounded-[20px] border border-solid font-light overflow-hidden transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,0,0,0.15)] ${

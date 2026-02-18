@@ -45,16 +45,16 @@ export default function CompanyLogos() {
     return () => observer.disconnect();
   }, []);
 
-  const fadeOutColor = isDark ? "#0a0a0a" : "#ffffff";
+  const fadeOutColor = isDark ? "#1a1d23" : "#f9f9fa";
   return (
-    <section className="pt-10 pb-25">
+    <section className="pt-0 pb-10">
       <div className="container mx-auto">
         <LogoLoop
           logos={imageLogos}
           speed={50}
           direction="left"
-          logoHeight={55}
-          gap={50}
+          logoHeight={35}
+          gap={30}
           pauseOnHover
           scaleOnHover
           fadeOut

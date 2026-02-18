@@ -1,6 +1,8 @@
 import { cache } from './cache';
 
-const RESELLERCLUB_BASE_URL = 'https://httpapi.com/api';
+const RESELLERCLUB_BASE_URL = process.env.RESELLERCLUB_TEST_MODE === 'true' 
+  ? 'https://test.httpapi.com/api' 
+  : 'https://httpapi.com/api';
 const CACHE_KEY_PRICING = 'domain_pricing_all';
 const CACHE_TTL_MINUTES = 120; // 2 hours
 
@@ -59,53 +61,36 @@ class ResellerClubAPI {
 
   async checkDomainAvailability(domainName: string, tlds: string[]): Promise<DomainAvailability[]> {
     try {
-      // Use the correct domain check endpoint
-      const url = new URL('https://domaincheck.httpapi.com/api/domains/available.json');
+      const url = new URL('https://httpapi.com/api/domains/available.json');
       
-      // Add auth parameters
       url.searchParams.append('auth-userid', this.authUserId);
       url.searchParams.append('api-key', this.apiKey);
-      
-      // Add domain name (without TLD)
       url.searchParams.append('domain-name', domainName);
-      
-      // Add TLDs (excluding .af since it's not supported)
-      const supportedTlds = tlds.filter(tld => tld !== 'af');
-      supportedTlds.forEach(tld => {
-        url.searchParams.append('tlds', tld);
-      });
+      url.searchParams.append('tlds', tlds.join(','));
 
-      console.log('Domain availability check URL:', url.toString());
+      console.log('Checking availability:', url.toString());
       
       const response = await fetch(url.toString());
+      
+      if (!response.ok) {
+        throw new Error(`API returned ${response.status}`);
+      }
+      
       const result = await response.json();
+      console.log('API Response:', JSON.stringify(result, null, 2));
       
-      console.log('Domain availability response:', result);
-      
-      const availability = tlds.map(tld => {
-        if (tld === 'af') {
-          return {
-            domain: `${domainName}.${tld}`,
-            available: true // Always show .af as available
-          };
-        }
-        
+      return tlds.map(tld => {
         const domainKey = `${domainName}.${tld}`;
-        const status = result[domainKey]?.status;
+        const domainData = result[domainKey];
         
         return {
           domain: domainKey,
-          available: status === 'available'
+          available: domainData?.status === 'available'
         };
       });
-
-      return availability;
     } catch (error) {
       console.error('Error checking availability:', error);
-      return tlds.map(tld => ({
-        domain: `${domainName}.${tld}`,
-        available: true
-      }));
+      throw error;
     }
   }
 

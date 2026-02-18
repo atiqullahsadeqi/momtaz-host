@@ -26,7 +26,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="top-0 z-50 sticky bg-primary-foreground">
+    <header className="top-0 z-50 sticky bg-background">
       <div className="container mx-auto px-4 py-0 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="text-2xl font-bold text-primary">

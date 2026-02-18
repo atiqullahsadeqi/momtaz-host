@@ -19,7 +19,7 @@ import {
 import { Globe, Shield, Gift, Headphones, Loader2 } from "lucide-react";
 import Link from "next/link";
 import LogoLoop from "@/components/LogoLoop";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, Suspense } from "react";
 import DomainAvailabilityModal from "@/components/domain-availability-modal";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -37,7 +37,7 @@ interface DomainAvailability {
 
 // fadeOutColor is computed client-side inside the component to avoid SSR document access
 
-export default function DomainsPage() {
+function DomainsPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [domainPricing, setDomainPricing] = useState<DomainPrice[]>([]);
@@ -76,7 +76,7 @@ export default function DomainsPage() {
     return () => observer.disconnect();
   }, []);
 
-  const fadeOutColor = isDark ? "#111111" : "#f8f8f8";
+  const fadeOutColor = isDark ? "#1a1d23" : "#f9f9fa";
 
   const popularTlds = [
     "com",
@@ -122,12 +122,11 @@ export default function DomainsPage() {
   console.log(domainPricing);
 
   const handleSearch = async () => {
-    if (!searchTerm.trim()) return;
+    const trimmed = searchTerm.trim();
+    if (!trimmed) return;
 
-    // Clean URL after search
     router.replace("/domains", undefined);
-    
-    performSearch(searchTerm);
+    performSearch(trimmed);
   };
 
   const getPriceForTld = (tld: string) => {
@@ -210,15 +209,16 @@ export default function DomainsPage() {
   }, [domainParam, hasAutoSearched, isLoading]);
 
   const performSearch = async (domain: string) => {
-    if (!domain.trim()) return;
+    const trimmed = domain.trim();
+    if (!trimmed) return;
 
     setIsSearching(true);
-    setSearchedDomain(domain);
+    setSearchedDomain(trimmed);
     setShowResultsModal(true);
     
     try {
       const response = await fetch(
-        `/api/domains/check?domain=${encodeURIComponent(domain)}`
+        `/api/domains/check?domain=${encodeURIComponent(trimmed)}`
       );
       const data = await response.json();
       
@@ -407,7 +407,7 @@ export default function DomainsPage() {
       </section>
 
       {/* TLD List */}
-      <section className="py-20 bg-primary/3">
+      <section className="py-20 bg-muted/3">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -506,5 +506,13 @@ export default function DomainsPage() {
         isLoading={isSearching}
       />
     </div>
+  );
+}
+
+export default function DomainsPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><Loader2 className="h-8 w-8 animate-spin" /></div>}>
+      <DomainsPageContent />
+    </Suspense>
   );
 }

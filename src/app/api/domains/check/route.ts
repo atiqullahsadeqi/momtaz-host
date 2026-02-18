@@ -41,8 +41,6 @@ export async function GET(request: NextRequest) {
     }
 
     const { domainName, tld } = extractDomainAndTld(input);
-    
-    // Check availability only for the user's input TLD
     const availability = await resellerClubAPI.checkDomainAvailability(domainName, [tld]);
     
     return NextResponse.json({ 

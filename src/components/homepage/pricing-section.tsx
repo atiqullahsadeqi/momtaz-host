@@ -166,11 +166,11 @@ export default function PricingSection() {
   };
 
   return (
-    <section id="pricing" className="py-20">
+    <section id="pricing" className="py-10">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl lg:text-4xl font-bold mb-4">
             Choose Your Perfect Hosting Plan.
           </h2>
           <p className="text-sm text-muted-foreground max-w-2xl mx-auto mb-8">
@@ -182,7 +182,7 @@ export default function PricingSection() {
           <div className="flex items-center justify-center space-x-2 mb-8 border border-primary rounded-full px-4 py-2 w-fit mx-auto">
             <button
               onClick={() => setActiveTab('shared')}
-              className={`cursor-pointer px-6 py-2 rounded-full text-sm font-medium transition-all ${
+              className={`cursor-pointer px-4 py-1 md:px-6 md:py-2 rounded-full text-sm font-medium transition-all ${
                 activeTab === 'shared'
                   ? "bg-primary text-white"
                   : "bg-transparent text-muted-foreground hover:text-primary"
@@ -192,7 +192,7 @@ export default function PricingSection() {
             </button>
             <button
               onClick={() => setActiveTab('vps')}
-              className={`cursor-pointer px-6 py-2 rounded-full text-sm font-medium transition-all ${
+              className={`cursor-pointer px-4 py-1 md:px-6 md:py-2  rounded-full text-sm font-medium transition-all ${
                 activeTab === 'vps'
                   ? "bg-primary text-white"
                   : "bg-transparent text-muted-foreground hover:text-primary"
@@ -202,7 +202,7 @@ export default function PricingSection() {
             </button>
             <button
               onClick={() => setActiveTab('dedicated')}
-              className={`cursor-pointer px-6 py-2 rounded-full text-sm font-medium transition-all ${
+              className={`cursor-pointer px-4 py-1 md:px-6 md:py-2  rounded-full text-sm font-medium transition-all ${
                 activeTab === 'dedicated'
                   ? "bg-primary text-white"
                   : "bg-transparent text-muted-foreground hover:text-primary"
@@ -214,7 +214,7 @@ export default function PricingSection() {
         </div>
 
         {/* Pricing Cards */}
-        <div className="max-w-full md:max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="max-w-full md:max-w-5xl mx-auto px-8 md:px-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {getCurrentPlans().map((plan, index) => (
             <Card
               key={index}
@@ -267,15 +267,7 @@ export default function PricingSection() {
             </Card>
           ))}
         </div>
-          <div className=" flex flex-col items-center justify-center text-center max-w-full md:max-w-5xl mx-auto  min-h-[20em] bg-cover bg-center bg-[url(https://images.unsplash.com/photo-1761798979861-f79bbaccf6af?q=80&w=1915&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)] rounded-md mt-12">
 
-          <h1 className="text-4xl lg:text-6xl text-primary  leading-tight font-bold">Need Something Custom?</h1>
-          <p className="text-sm text-primary mb-8 mt-4 max-w-2xl mx-auto">Don't see what you need? We specialize in bespoke server configurations. We will analyze your requirements and build the perfect matching server environment for you.</p>
-          <Button variant="default" className="px-8 py-3 cursor-pointer">
-            Contact us
-          </Button>
-        
-          </div>
       </div>
     </section>
   );

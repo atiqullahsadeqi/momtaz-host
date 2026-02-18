@@ -5,6 +5,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -27,48 +28,12 @@ import {
   Calendar,
   MapPin,
   X,
+  ArrowRight,
 } from "lucide-react";
 import SplitText from "@/components/SplitText";
 
 export default function GoogleWorkspacePage() {
-  const features = [
-    {
-      icon: <Mail className=" text-primary" />,
-      title: "Professional Email",
-      description:
-        "Custom email addresses with your domain name. Powerful spam protection and 99.9% uptime guarantee.",
-    },
-    {
-      icon: <Cloud className=" text-primary" />,
-      title: "Cloud Storage",
-      description:
-        "Secure cloud storage with real-time collaboration. Access your files anywhere, anytime.",
-    },
-    {
-      icon: <MonitorPlay className=" text-primary" />,
-      title: "Video Conferencing",
-      description:
-        "HD video meetings with up to 500 participants. Screen sharing and recording included.",
-    },
-    {
-      icon: <Calendar className=" text-primary" />,
-      title: "Smart Calendar",
-      description:
-        "Intelligent scheduling with automatic meeting rooms and smart suggestions.",
-    },
-    {
-      icon: <Users className=" text-primary" />,
-      title: "Team Collaboration",
-      description:
-        "Real-time document editing with Docs, Sheets, and Slides. Work together seamlessly.",
-    },
-    {
-      icon: <Shield className=" text-primary" />,
-      title: "Enterprise Security",
-      description:
-        "Advanced security features with 2-step verification and data loss prevention.",
-    },
-  ];
+  
 
   const plans = [
     {
@@ -119,7 +84,7 @@ export default function GoogleWorkspacePage() {
     {
       feature: "Professional Email",
       workspace: true,
-      webmail: false,
+      webmail: true,
       description: "Custom domain email addresses",
     },
     {
@@ -151,19 +116,7 @@ export default function GoogleWorkspacePage() {
       workspace: true,
       webmail: false,
       description: "Enterprise-grade security features",
-    },
-    {
-      feature: "24/7 Support",
-      workspace: true,
-      webmail: false,
-      description: "Round-the-clock customer support",
-    },
-    {
-      feature: "Offline Access",
-      workspace: true,
-      webmail: false,
-      description: "Work without internet connection",
-    },
+    }
   ];
 
   const faqs = [
@@ -202,29 +155,15 @@ export default function GoogleWorkspacePage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="py-20 bg-[url(https://images.unsplash.com/photo-1558932129-58b0867c4985?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)] bg-cover bg-center">
+      <section className="py-20 bg-muted bg-cover bg-center">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <Badge className="px-4 py-2 rounded-full bg-primary-foreground text-primary">
+          <div className="max-w-4xl mx-auto text-center flex flex-col gap-4 items-center">
+            <Badge variant="default" className="px-4 py-2 rounded-full">
               Official Google Partner
             </Badge>
-            <div className="my-4">
-              <SplitText
-                text="Professional Email & Collaboration"
-                className="text-4xl lg:text-6xl text-primary-foreground  leading-tight font-bold"
-                delay={30}
-                duration={1.8}
-                ease="elastic.out(1, 0.3)"
-                splitType="chars"
-                from={{ opacity: 0, y: 40 }}
-                to={{ opacity: 1, y: 0 }}
-                threshold={0.1}
-                rootMargin="-100px"
-                textAlign="center"
-              />
-            </div>
+            <h1 className="text-4xl lg:text-5xl leading-tight font-bold">Professional Email & Collaboration</h1>
 
-            <p className="text-sm text-primary-foreground mb-8  max-w-2xl mx-auto">
+            <p className="text-sm  max-w-2xl mx-auto">
               Power your business with Google Workspace. Get custom email, cloud
               storage, video meetings, and collaboration tools all in one secure
               platform.
@@ -233,56 +172,93 @@ export default function GoogleWorkspacePage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
               <Button
                 size="lg"
-                variant="secondary"
+                variant="link"
                 className="cursor-pointer  "
               >
                 View Pricing
+                 <ArrowRight className="ml-2 size-4" />
               </Button>
+            </div>
+          </div>
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="bg-foreground dark:bg-[#333333] p-10 col-span-2 min-h-80 rounded-2xl flex flex-col justify-between items-start">
+                <div className="h-12 w-12  mb-4 p-2 rounded-sm bg-primary flex items-center justify-center">
+                  <Mail className=" text-popover" />
+                </div>
+                <div>
+                  <h2 className="text-2xl mb-2  text-white leading-tight">Everything your business needs</h2>
+                  <p className="text-white/80 text-sm">Powerful tools that work together seamlessly to help your team collaborate, communicate, and get more done.</p>
+                </div>
+              </div>
+              <div className="relative w-full min-h-80 rounded-2xl overflow-hidden bg-primary/50">
+                {/* The Background Image Layer */}
+                <div
+                  className="absolute inset-0 bg-[url('https://images.pexels.com/photos/4099325/pexels-photo-4099325.jpeg')] bg-cover bg-center"
+                  style={{
+                    // Mask: Solid at the top (100%), Transparent at the bottom (0%)
+                    maskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)',
+                    WebkitMaskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)'
+                  }}
+                />
+
+                {/* The Blur Overlay Layer */}
+                <div className="absolute inset-0 backdrop-blur-md"
+                  style={{
+                    // Inverse Mask: Transparent at the top (keep subject sharp), Solid at bottom (blur background)
+                    maskImage: 'linear-gradient(to bottom, transparent 20%, white 100%)',
+                    WebkitMaskImage: 'linear-gradient(to bottom, transparent 20%, white 100%)'
+                  }}
+                />
+
+                {/* Content Layer (Moved to top for readability) */}
+                <div className="relative z-10 p-8 flex flex-col justify-end h-full">
+                  <h2 className="text-1xl mb-2 font-bold text-white leading-tight">Team Collaboration</h2>
+                  <p className="text-white/80 text-xs">Real-time document editing with Docs, Sheets, and Slides. Work together seamlessly.</p>
+                </div>
+              </div>
+              <div className="relative bg-primary p-4 rounded-2xl min-h-80 overflow-hidden group">
+                {/* Content Layer */}
+                <div className="relative z-20 p-6 flex flex-col justify-start h-full">
+                  <h2 className="text-xl mb-2 font-bold text-white leading-tight">Enterprise Security</h2>
+                  <p className="text-white/80 text-xs max-w-[180px]">
+                    Advanced security features with 2-step verification and data loss prevention.
+                  </p>
+                </div>
+
+                {/* Floating Badges Container */}
+                <div className="absolute inset-0 z-10 pointer-events-none">
+                  {/* 2FA Badge */}
+                  <div className="absolute bottom-8 left-13 px-4 py-2 bg-blue-500 text-white text-xs font-bold rounded-full shadow-xl -rotate-12 border border-white/20">
+                    2FA Secured
+                  </div>
+
+                  {/* SAML Badge */}
+                  <div className="absolute bottom-13 right-10 px-4 py-2 bg-white text-primary text-xs font-bold rounded-full shadow-xl rotate-18 border border-slate-200">
+                    SAML SSO
+                  </div>
+
+                  {/* DLP Badge */}
+                  <div className="absolute bottom-2 right-12 px-5 py-2 bg-slate-800 text-white text-xs font-bold rounded-full shadow-xl -rotate-6 border border-white/10">
+                    DLP Active
+                  </div>
+
+                  {/* Encryption Badge */}
+                  <div className="absolute bottom-21 left-1/2 -translate-x-1/2 px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-full shadow-2xl -rotate-[45deg] border border-white/20 opacity-90">
+                    AES-256
+                  </div>
+                </div>
+
+                {/* Subtle Background Glow for Premium Feel */}
+                <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 blur-[50px] rounded-full" />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Everything your business needs
-            </h2>
-            <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
-              Powerful tools that work together seamlessly to help your team
-              collaborate, communicate, and get more done.
-            </p>
-          </div>
-
-          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <Card
-                key={index}
-                className="text-center shadow-none border-primary/20 hover:border-primary/40 transition-colors"
-              >
-                <CardHeader>
-                  <div className="h-12 w-12 mx-auto mb-4 p-2 rounded-sm bg-primary/10 flex items-center justify-center">
-                    {feature.icon}
-                  </div>
-                  <CardTitle className="text-lg font-bold">
-                    {feature.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-sm">
-                    {feature.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Pricing Section */}
-      <section className="py-20 bg-primary/5">
+      <section className="py-20 ">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -298,11 +274,10 @@ export default function GoogleWorkspacePage() {
             {plans.map((plan, index) => (
               <Card
                 key={index}
-                className={`relative ${
-                  plan.popular
-                    ? "border-primary shadow-lg scale-105"
-                    : "border-primary/20"
-                }`}
+                className={` flex flex-col justify-between relative ${plan.popular
+                  ? "border-primary shadow-lg scale-105"
+                  : "border-primary/20"
+                  }`}
               >
                 {plan.popular && (
                   <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground">
@@ -317,7 +292,7 @@ export default function GoogleWorkspacePage() {
                     <span className="text-3xl font-bold text-primary">
                       {plan.price}
                     </span>
-                    <span className="text-muted-foreground ml-1">
+                    <span className="text-muted-foreground ml-1 text-xs">
                       {plan.period}
                     </span>
                   </div>
@@ -337,49 +312,76 @@ export default function GoogleWorkspacePage() {
                       </li>
                     ))}
                   </ul>
-                  <Button
+                </CardContent>
+                <CardFooter>
+                    <Button
                     className="w-full mt-6"
                     variant={plan.popular ? "default" : "outline"}
                   >
                     Get Started
                   </Button>
-                </CardContent>
+                </CardFooter>
               </Card>
             ))}
           </div>
 
           {/* Special Partner Offer */}
           <div className="mt-12 max-w-5xl mx-auto">
-            <Card className="bg-[url(https://images.unsplash.com/photo-1640963269654-3fe248c5fba6?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)] bg-center bg-cover text-primary-foreground ">
-              <CardContent className="p-8">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                  <div className="text-center md:text-left">
-                    <Badge className="mb-4 bg-primary text-primary-foreground px-4 py-2 rounded-full">
+            <Card className="relative overflow-hidden shadow-none py-0 border-none bg-slate-50 min-h-[450px] flex justify-end">
+              {/* Layer 1: The Background Image (Sharp at bottom, Fades at top) */}
+              <div
+                className="absolute inset-0 bg-[url('https://images.pexels.com/photos/7320612/pexels-photo-7320612.jpeg')] bg-bottom bg-cover"
+                style={{
+                  // Mask: Solid at the bottom (100%), Transparent at the top (0%)
+                  maskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)',
+                  WebkitMaskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)'
+                }}
+              />
+
+              {/* Layer 2: The Blur Overlay (Sharp at bottom, Blurs at top) */}
+              <div
+                className="absolute inset-0 backdrop-blur-md"
+                style={{
+                  // Inverse Mask: Transparent at the bottom (keep sharp), Solid at top (blur out)
+                  maskImage: 'linear-gradient(to bottom, transparent 20%, black 100%)',
+                  WebkitMaskImage: 'linear-gradient(to bottom, transparent 20%, black 100%)'
+                }}
+              />
+
+              {/* Content Layer */}
+              <CardContent className="relative z-10 p-8 w-full h-full">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-6 w-full">
+                  <div className="text-center md:text-left ">
+                  
+                     <Badge className="mb-4 bg-primary text-primary-foreground px-4 py-2 rounded-full border-none ">
                       Special Google Partner Offer
                     </Badge>
-                    <h3 className="text-2xl font-bold mb-2 text-primary">
-                      Enterprise & Custom Solutions
+
+                    <h3 className="text-3xl font-bold mb-4 dark:text-black leading-tight">
+                      Enterprise & <br className="hidden md:block" /> Custom Solutions
                     </h3>
-                    <p className="text-primary text-sm mb-4">
-                      Need more than 300 users? Looking for custom integrations
+                  
+
+                   
+                     <p className=" text-sm mb-6 leading-relaxed dark:text-black/80">
+                      <strong>Need more than 300 users?</strong> Looking for custom integrations
                       or advanced security features? Our Google Partner
                       specialists can create a tailored solution for your
                       organization.
                     </p>
-                    <ul className="text-sm text-primary space-y-1 text-left">
-                      <li>• Volume discounts available</li>
-                      <li>• Custom deployment and training</li>
-                      <li>• Advanced security and compliance</li>
-                    </ul>
+
                     <Button
                       size="lg"
                       variant="default"
-                      className="cursor-pointer mt-4"
+                      className="cursor-pointer px-8 shadow-lg hover:shadow-primary/20 transition-all font-semibold"
                     >
                       Contact Sales
                     </Button>
+                   
                   </div>
-                  <div className="w-100"></div>
+
+                  {/* Right side spacer to maintain visual balance */}
+                  <div className="hidden md:block w-1/3"></div>
                 </div>
               </CardContent>
             </Card>
@@ -451,7 +453,7 @@ export default function GoogleWorkspacePage() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-20 bg-primary/5">
+      <section className="py-20 bg-muted/3">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -547,7 +549,7 @@ export default function GoogleWorkspacePage() {
       {/* CTA Section */}
       <section className="pb-16">
         <div className="container mx-auto px-4 text-center">
-          <div className="bg-primary/10 py-20 rounded-lg">
+          <div className="bg-muted/10 py-20 rounded-lg">
             <h3 className="text-3xl md:text-4xl font-bold  mb-4">
               Ready to get started?
             </h3>

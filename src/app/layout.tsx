@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="">
       <body
-        className={` ${exo.variable} antialiased min-h-screen flex flex-col`}
+        className={` ${exo.variable} antialiased min-h-screen flex flex-col `}
       >
         <SmoothScrollProvider>
           <Toaster />

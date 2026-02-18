@@ -64,70 +64,57 @@ export default function WhyChooseUs() {
   ];
 
   return (
-    <section className="py-20">
+    <section className="py-20 bg-muted/3">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+          <h2 className="text-3xl lg:text-4xl font-bold mb-4 ">
             Why Momtaz Host?
           </h2>
-          <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm  max-w-2xl mx-auto">
             We&apos;re committed to providing the best hosting experience with <br />
             unmatched reliability, security, and support.
           </p>
         </div>
 
-        <div className="w-full md:w-5xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
+        <div className="w-full md:w-7xl mx-auto  gap-12 items-start">
           {/* Features List */}
-          <div className="space-y-6 ">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-10">
             {features.map((feature, index) => (
               <div key={index} className="flex flex-col gap-4">
                 <div className="h-12 w-12 bg-primary/10 rounded-md flex items-center justify-center">
                   <feature.icon className="h-6 w-6 text-primary" />
                 </div>
-                <h3 className="font-semibold">{feature.title}</h3>
-                <p>{feature.description}</p>
+                <h3 className="font-semibold ">{feature.title}</h3>
+                <p className="text-sm ">{feature.description}</p>
               </div>
             ))}
           </div>
 
           {/* Image */}
-          <div className="relative  flex flex-col gap-8">
-            <Image
-              src="/images/Why-Momtaz-host.png"
-              alt="Why Choose Momtaz Host"
-              width={500}
-              height={400}
-              className="rounded-lg"
-            />
-            <div className="grid grid-cols-2 gap-4 bg-[url(https://images.unsplash.com/photo-1764138370127-2418337b41ae?q=80&w=1760&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)] bg-cover bg-center rounded-lg p-4 h-100">
+          <div className="relative  ">
+            <div className="grid grid-cols-4 gap-4 bg-muted/10 bg-cover bg-center rounded-lg p-4 h-50 mt-10">
               {stats.map((stat, index) => (
                 <div
                   key={index}
-                  className="flex flex-col gap-2 items-center justify-center"
+                  className="flex flex-col items-center justify-center"
                 >
-                  <div className="text-3xl lg:text-4xl font-bold  mb-2">
-                    <CountUp
-                      from={0}
-                      to={stat.number}
-                      separator=","
-                      direction="up"
-                      duration={1}
-                      className="count-up-text"
-                    />
+                  <div className="text-3xl lg:text-4xl flex font-bold  mb-2">
+                    <h2 className="">{stat.number}</h2>
+                  
                     {stat.label === "Uptime" ? (
-                      <span>%</span>
+                      <span className="">%</span>
                     ) : stat.label === "Happy Customers" ? (
-                      <span>+</span>
+                      <span className="">+</span>
                     ) : stat.label === "Expert Support" ? (
-                      <span>/7</span>
+                      <span className="">/7</span>
                     ) : stat.label === "Years Experience" ? (
-                      <span>+</span>
+                      <span className="">+</span>
                     ) : (
-                      <span>+</span>
+                      <span className="">+</span>
                     )}
                   </div>
-                  <div className="text-primary">{stat.label}</div>
+                  <div className="font-bold ">{stat.label}</div>
                 </div>
               ))}
             </div>
