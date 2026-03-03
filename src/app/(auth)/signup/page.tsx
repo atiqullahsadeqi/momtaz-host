@@ -1,14 +1,18 @@
+"use client"
+import { SignupForm } from "@/components/signup-form"
+import { GalleryVerticalEnd } from "lucide-react"
+
 export default function SignupPage() {
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="max-w-md mx-auto">
-        <h1 className="text-4xl font-bold mb-6 text-center">Get Started</h1>
-        <p className="text-gray-600 text-center mb-8">
-         added this text from nvim Create your Momtaz Host account
-        </p>
-        <div className="p-8 bg-gray-50 rounded-lg">
-          <p className="text-gray-500 text-center">Signup form coming soon...</p>
-        </div>
+    <div className="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+      <div className="flex w-full max-w-sm flex-col gap-6">
+        <a href="#" className="flex items-center gap-2 self-center font-medium">
+          <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
+            <GalleryVerticalEnd className="size-4" />
+          </div>
+          Momtaz Host
+        </a>
+        <SignupForm />
       </div>
     </div>
   )

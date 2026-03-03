@@ -1,17 +1,46 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { CircleCheckBig, Server, Monitor, FileText } from "lucide-react";
+import { CircleCheckBig, Loader2 } from "lucide-react";
 
 type TabType = 'shared' | 'vps' | 'dedicated';
 
+interface Plan {
+  name: string;
+  displayName: string;
+  price: number;
+  features: string[];
+  isPopular: boolean;
+}
+
 export default function PricingSection() {
   const [activeTab, setActiveTab] = useState<TabType>('shared');
+  const [sharedPlans, setSharedPlans] = useState<Plan[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const sharedPlans = [
+  useEffect(() => {
+    const fetchPlans = async () => {
+      try {
+        const response = await fetch('/api/hosting/packages');
+        const data = await response.json();
+        if (data.success) {
+          setSharedPlans(data.data.slice(0, 3));
+        }
+      } catch (error) {
+        console.error('Error fetching plans:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPlans();
+  }, []);
+
+  const fallbackSharedPlans = [
     {
       name: "Starter Plan",
+      displayName: "Starter Plan",
       price: 2.29,
       features: [
         "15GB SSD Storage",
@@ -27,6 +56,7 @@ export default function PricingSection() {
     },
     {
       name: "Business Plan",
+      displayName: "Business Plan",
       price: 6.89,
       features: [
         "100GB SSD Storage",
@@ -42,6 +72,7 @@ export default function PricingSection() {
     },
     {
       name: "Ultimate Plan",
+      displayName: "Ultimate Plan",
       price: 8.59,
       features: [
         "Unlimited SSD Storage",
@@ -54,13 +85,14 @@ export default function PricingSection() {
         "Daily Backups",
         "24/7 Support",
       ],
-      isPopular: false,
+      isPopular: true,
     }
   ];
 
   const vpsPlans = [
     {
       name: "VPS Basic",
+      displayName: "VPS Basic",
       price: 19.99,
       features: [
         "2 CPU Cores",
@@ -76,6 +108,7 @@ export default function PricingSection() {
     },
     {
       name: "VPS Pro",
+      displayName: "VPS Pro",
       price: 39.99,
       features: [
         "4 CPU Cores",
@@ -91,6 +124,7 @@ export default function PricingSection() {
     },
     {
       name: "VPS Enterprise",
+      displayName: "VPS Enterprise",
       price: 79.99,
       features: [
         "8 CPU Cores",
@@ -109,6 +143,7 @@ export default function PricingSection() {
   const dedicatedPlans = [
     {
       name: "Dedicated Starter",
+      displayName: "Dedicated Starter",
       price: 149.99,
       features: [
         "Intel Xeon E3-1230",
@@ -124,6 +159,7 @@ export default function PricingSection() {
     },
     {
       name: "Dedicated Pro",
+      displayName: "Dedicated Pro",
       price: 249.99,
       features: [
         "Intel Xeon E5-2670",
@@ -139,6 +175,7 @@ export default function PricingSection() {
     },
     {
       name: "Dedicated Enterprise",
+      displayName: "Dedicated Enterprise",
       price: 399.99,
       features: [
         "Dual Intel Xeon E5-2690",
@@ -157,7 +194,7 @@ export default function PricingSection() {
   const getCurrentPlans = () => {
     switch (activeTab) {
       case 'shared':
-        return sharedPlans;
+        return isLoading || sharedPlans.length === 0 ? fallbackSharedPlans : sharedPlans;
       case 'vps':
         return vpsPlans;
       case 'dedicated':
@@ -235,7 +272,7 @@ export default function PricingSection() {
                 <div className="text-center flex flex-col gap-6 justify-between h-full">
                   <div>
                     <h3 className="text-lg font-bold text-foreground mb-2">
-                      {plan.name}
+                      {plan.displayName || plan.name}
                     </h3>
                     <div className="mb-4">
                       <span className="text-3xl font-bold text-foreground">
@@ -244,17 +281,23 @@ export default function PricingSection() {
                       <span className="text-muted-foreground">/month</span>
                     </div>
                   </div>
-                  <ul className="space-y-3 text-left">
-                    {plan.features.map((feature, featureIndex) => (
-                      <li
-                        key={featureIndex}
-                        className="flex items-center text-sm gap-2"
-                      >
-                        <CircleCheckBig size={18} />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
+                  {isLoading && activeTab === 'shared' ? (
+                    <div className="flex items-center justify-center py-8">
+                      <Loader2 className="h-6 w-6 animate-spin text-primary" />
+                    </div>
+                  ) : (
+                    <ul className="space-y-3 text-left">
+                      {plan.features.map((feature, featureIndex) => (
+                        <li
+                          key={featureIndex}
+                          className="flex items-center text-sm gap-2"
+                        >
+                          <CircleCheckBig size={18} />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                   <Button
                     className="cursor-pointer w-full"
                     variant={plan.isPopular ? "default" : "outline"}

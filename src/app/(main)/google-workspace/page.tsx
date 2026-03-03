@@ -155,7 +155,7 @@ export default function GoogleWorkspacePage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="py-20 bg-muted bg-cover bg-center">
+      <section className="py-20 bg-muted">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center flex flex-col gap-4 items-center">
             <Badge variant="default" className="px-4 py-2 rounded-full">
@@ -182,7 +182,7 @@ export default function GoogleWorkspacePage() {
           </div>
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="bg-foreground dark:bg-[#333333] p-10 col-span-2 min-h-80 rounded-2xl flex flex-col justify-between items-start">
+              <div className="bg-foreground dark:bg-[#333333] p-10 md:col-span-2 min-h-80 rounded-2xl flex flex-col justify-between items-start">
                 <div className="h-12 w-12  mb-4 p-2 rounded-sm bg-primary flex items-center justify-center">
                   <Mail className=" text-popover" />
                 </div>
@@ -227,7 +227,7 @@ export default function GoogleWorkspacePage() {
                 </div>
 
                 {/* Floating Badges Container */}
-                <div className="absolute inset-0 z-10 pointer-events-none">
+                <div className="absolute inset-0 z-10 pointer-events-none w-[280px]">
                   {/* 2FA Badge */}
                   <div className="absolute bottom-8 left-13 px-4 py-2 bg-blue-500 text-white text-xs font-bold rounded-full shadow-xl -rotate-12 border border-white/20">
                     2FA Secured
@@ -351,19 +351,19 @@ export default function GoogleWorkspacePage() {
               {/* Content Layer */}
               <CardContent className="relative z-10 p-8 w-full h-full">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6 w-full">
-                  <div className="text-center md:text-left ">
+                  <div className="text-left ">
                   
                      <Badge className="mb-4 bg-primary text-primary-foreground px-4 py-2 rounded-full border-none ">
                       Special Google Partner Offer
                     </Badge>
 
-                    <h3 className="text-3xl font-bold mb-4 dark:text-black leading-tight">
+                    <h3 className="text-xl md:text-3xl font-bold mb-4 dark:text-black leading-tight">
                       Enterprise & <br className="hidden md:block" /> Custom Solutions
                     </h3>
                   
 
                    
-                     <p className=" text-sm mb-6 leading-relaxed dark:text-black/80">
+                     <p className=" text-xs md:text-sm mb-6 leading-relaxed dark:text-black/80">
                       <strong>Need more than 300 users?</strong> Looking for custom integrations
                       or advanced security features? Our Google Partner
                       specialists can create a tailored solution for your
@@ -373,7 +373,7 @@ export default function GoogleWorkspacePage() {
                     <Button
                       size="lg"
                       variant="default"
-                      className="cursor-pointer px-8 shadow-lg hover:shadow-primary/20 transition-all font-semibold"
+                      className="cursor-pointer shadow-lg hover:shadow-primary/20 transition-all font-semibold"
                     >
                       Contact Sales
                     </Button>
@@ -390,13 +390,13 @@ export default function GoogleWorkspacePage() {
       </section>
 
       {/* Comparison Section */}
-      <section className="py-20 bg-background">
+      <section className="py-5 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-2xl md:text-4xl font-bold mb-4">
               Why choose Google Workspace?
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-muted-foreground max-w-2xl mx-auto text-xs md:text-sm">
               See how Google Workspace compares to other email and productivity
               solutions.
             </p>
@@ -407,11 +407,11 @@ export default function GoogleWorkspacePage() {
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="border-b">
-                    <th className="text-left p-4 font-semibold">Features</th>
-                    <th className="text-center p-4 font-semibold text-primary">
+                    <th className="text-left text-sm p-4 font-semibold">Features</th>
+                    <th className="text-center text-sm p-4 font-semibold text-primary">
                       Google Workspace
                     </th>
-                    <th className="text-center p-4 font-semibold">
+                    <th className="text-center text-sm p-4 font-semibold">
                       Traditional Webmail
                     </th>
                   </tr>
@@ -421,10 +421,10 @@ export default function GoogleWorkspacePage() {
                     <tr key={index} className="border-b hover:bg-muted/50">
                       <td className="p-4">
                         <div>
-                          <div className="font-medium">
+                          <div className="font-medium text-sm">
                             {comparison.feature}
                           </div>
-                          <div className="text-sm text-muted-foreground">
+                          <div className="text-xs md:text-sm text-muted-foreground">
                             {comparison.description}
                           </div>
                         </div>
@@ -453,10 +453,10 @@ export default function GoogleWorkspacePage() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-20 bg-muted/3">
+      <section className="py-5 md:py-20 bg-muted/3">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-4xl font-bold ">
               Why choose Momtaz Host for Google Workspace?
             </h2>
           </div>
@@ -517,10 +517,10 @@ export default function GoogleWorkspacePage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-background">
+      <section className="py-5 md:py-20 bg-background">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-4xl font-bold mb-4">
               Frequently Asked Questions
             </h2>
           </div>
@@ -550,18 +550,18 @@ export default function GoogleWorkspacePage() {
       <section className="pb-16">
         <div className="container mx-auto px-4 text-center">
           <div className="bg-muted/10 py-20 rounded-lg">
-            <h3 className="text-3xl md:text-4xl font-bold  mb-4">
+            <h3 className="text-2xl md:text-4xl font-bold  mb-4">
               Ready to get started?
             </h3>
             <p className="text-muted-foreground text-sm mb-8 max-w-2xl mx-auto">
               Join thousands of businesses that trust Google Workspace for their
               email and collaboration needs.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="px-8 py-3">
+            <div className="flex flex-row  gap-4 justify-center">
+              <Button size="lg" >
                 Get Started Now
               </Button>
-              <Button variant="outline" size="lg" className="px-8 py-3">
+              <Button variant="outline" size="lg" >
                 Contact Sales
               </Button>
             </div>

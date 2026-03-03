@@ -17,7 +17,7 @@ export default function WebDevelopmentPage() {
   return (
     <>
       <div className="w-full relative md:p-16">
-        <div className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden bg-white  rounded-md">
+        <div className="relative flex min-h-[35vh] py-20 flex-col items-center justify-center overflow-hidden bg-white  rounded-md">
 
           <div style={{ width: '100%', height: '100%', position: 'absolute' }}>
             <GridDistortion
@@ -26,7 +26,7 @@ export default function WebDevelopmentPage() {
               mouse={0.1}
               strength={0.15}
               relaxation={0.9}
-              className="custom-class"
+              className="custom-class dark:brightness-[0.5] dark:grayscale"
             />
           </div>
 
@@ -34,7 +34,7 @@ export default function WebDevelopmentPage() {
           <main className="relative z-10 mx-auto px-4">
 
             <FigmaFrame>
-              <h1 className="text-4xl lg:text-6xl text-primary-foreground  leading-tight font-bold">
+              <h1 className="text-4xl lg:text-6xl text-primary-foreground  leading-tight font-bold text-shadow-lg">
                 Crafting Digital <br />
                 Experiences That Convert.
               </h1>
@@ -47,11 +47,9 @@ export default function WebDevelopmentPage() {
 
               <div className="flex items-center justify-center gap-4">
                 <Button variant="default">
-                  Get Started
+                  Contact Us
                 </Button>
-                <Button variant="outline">
-                  View Pricing
-                </Button>
+               
               </div>
             </FigmaFrame>
 
@@ -90,7 +88,7 @@ export default function WebDevelopmentPage() {
         <div className="max-w-full md:max-w-5xl  mx-auto py-16 px-6">
           <div className="flex flex-col items-center justify-center gap-5 md:gap-10">
             <div className="flex items-center justify-center gap-6">
-              <h1 className="text-[clamp(3rem,8vw,8rem)] text-primary leading-tight font-bold">Flawless on</h1>
+              <h1 className="text-[clamp(3rem,8vw,8rem)]  leading-tight font-bold">Flawless on</h1>
               <div className='relative md:h-[10em] md:w-[10em] h-[3em] w-[3em] overflow-hidden rounded-full shrink-0'>
                 <Image
                   src='https://images.unsplash.com/photo-1586953208448-b95a79798f07?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
@@ -118,10 +116,10 @@ export default function WebDevelopmentPage() {
                   className='aspect-[3/1] rounded-full'
                 /></div>
 
-              <h1 className="text-[clamp(3rem,8vw,8rem)] text-primary   leading-tight font-bold">Every</h1>
+              <h1 className="text-[clamp(3rem,8vw,8rem)]    leading-tight font-bold">Every</h1>
             </div>
             <div className="flex items-center justify-center gap-5 md:gap-16">
-              <h1 className="text-[clamp(3rem,8vw,8rem)] text-primary   leading-tight font-bold">Device</h1>
+              <h1 className="text-[clamp(3rem,8vw,8rem)]    leading-tight font-bold">Device</h1>
               <div className='relative md:w-[30em] md:h-[10em]  h-[4em] w-[12em] overflow-hidden rounded-full shrink-0'>
                 <Image
                   src='https://images.unsplash.com/photo-1739459365404-d531b64d2c22?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
@@ -138,7 +136,7 @@ export default function WebDevelopmentPage() {
 
             </div>
             <div className="flex items-start justify-start gap-16 w-full ">
-              <p className='text-left text-primary/80 max-w-md md:-mt-12 md:ml-4 text-xs md:text-sm'>
+              <p className='text-left  max-w-md md:-mt-12 md:ml-4 text-xs md:text-sm'>
                 Your users are everywhere—on phones, tablets, laptops, and desktops. We adopt a Mobile-First approach to development.
                 We ensure your website looks stunning, whether viewed on a 6-inch phone or a 27-inch monitor.
               </p>
@@ -146,13 +144,13 @@ export default function WebDevelopmentPage() {
           </div>
         </div>
       </div>
-      <div className="w-full relative md:p-16">
+      <div className="w-full relative md:p-16 bg-muted/20">
         <div className="max-w-full md:max-w-5xl  mx-auto pb-16">
           <div className=" flex md:flex-row flex-col items-center justify-center gap-16 w-full ">
             <div className="flex flex-col w-full md:w-1/2 items-start justify-start gap-10 px-6 md:px-0">
-              <h1 className="text-4xl lg:text-5xl text-primary   leading-tight font-bold ">Built for Speed & <br />
+              <h1 className="text-4xl lg:text-5xl   leading-tight font-bold ">Built for Speed & <br />
                 Efficiency</h1>
-              <p className='text-left text-primary max-w-2xl  text-sm font-bold'>
+              <p className='text-left max-w-2xl  text-sm font-bold'>
                 A slow website costs you customers. We obsess over performance metrics to ensure your site ranks high and loads instantly.
               </p>
               <ul className=' flex flex-col gap-4 text-sm'>
@@ -180,6 +178,27 @@ export default function WebDevelopmentPage() {
           </div>
         </div>
       </div>
+            <section className="py-16">
+        <div className="container mx-auto px-4 text-center">
+          <div className="bg-muted/10 py-20 rounded-lg">
+            <h3 className="text-2xl md:text-4xl font-bold  mb-4">
+              Ready to get started?
+            </h3>
+            <p className="text-muted-foreground text-sm mb-8 max-w-2xl mx-auto">
+              Join thousands of businesses that trust Google Workspace for their
+              email and collaboration needs.
+            </p>
+            <div className="flex flex-row  gap-4 justify-center">
+              <Button size="lg" >
+                Get Started Now
+              </Button>
+              <Button variant="outline" size="lg" >
+                Contact Sales
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

@@ -108,47 +108,26 @@ class ResellerClubAPI {
     
     try {
       const result = await this.makeRequest('/products/customer-price.json', {});
-      console.log('✅ API call successful, processing TLD data...');
+      console.log('✅ API call successful, processing ALL TLD data...');
       
-      // Process common TLDs
-      const commonTlds = ['com', 'net', 'org', 'online', 'store', 'shop', 'xyz', 'info', 'biz'];
-      
-      for (const tld of commonTlds) {
-        const tldKey = `dot${tld}`;
-        const tldData = result[tldKey];
-        
-        if (tldData && tldData.addnewdomain && tldData.addnewdomain['1']) {
-          const price = parseFloat(tldData.addnewdomain['1']);
+      // Process ALL TLDs from the API response
+      for (const [key, value] of Object.entries(result)) {
+        // Extract TLD name from keys like "dotcom", "dotnet", etc.
+        if (key.startsWith('dot') && typeof value === 'object') {
+          const tld = key.replace('dot', '');
+          const tldData = value as any;
           
-          prices.push({
-            tld,
-            price,
-            currency: 'USD'
-          });
-          
-          console.log(`✅ Cached pricing for .${tld}: $${price}`);
-        } else {
-          // Fallback pricing for missing TLDs
-          const fallbackPrices: Record<string, number> = {
-            'com': 12.99,
-            'net': 14.99,
-            'org': 13.99,
-            'online': 9.99,
-            'store': 7.99,
-            'shop': 6.99,
-            'xyz': 5.99,
-            'info': 11.99,
-            'biz': 13.99
-          };
-          
-          const fallbackPrice = fallbackPrices[tld] || 12.99;
-          prices.push({
-            tld,
-            price: fallbackPrice,
-            currency: 'USD'
-          });
-          
-          console.log(`⚠️ Using fallback pricing for .${tld}: $${fallbackPrice}`);
+          if (tldData.addnewdomain && tldData.addnewdomain['1']) {
+            const price = parseFloat(tldData.addnewdomain['1']);
+            
+            prices.push({
+              tld,
+              price,
+              currency: 'USD'
+            });
+            
+            console.log(`✅ Added pricing for .${tld}: $${price}`);
+          }
         }
       }
       
@@ -159,9 +138,9 @@ class ResellerClubAPI {
       return prices;
       
     } catch (error) {
-      console.error('❌ API Error, using fallback pricing:', error);
+      console.error('❌ API Error:', error);
       
-      // Return fallback pricing if API fails
+      // Return minimal fallback pricing if API fails
       const fallbackTlds = ['com', 'net', 'org', 'online', 'store', 'shop', 'xyz', 'info', 'biz'];
       const fallbackPrices: Record<string, number> = {
         'com': 12.99,
@@ -183,8 +162,7 @@ class ResellerClubAPI {
         });
       }
       
-      // Cache fallback data for shorter time
-      cache.set(CACHE_KEY_PRICING, prices, 30); // 30 minutes for fallback
+      cache.set(CACHE_KEY_PRICING, prices, 30);
       
       return prices;
     }

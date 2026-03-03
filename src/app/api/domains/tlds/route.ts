@@ -1,13 +1,9 @@
 import { NextResponse } from 'next/server';
-import { resellerClubAPI } from '@/lib/resellerclub';
+import { domainNameAPI } from '@/lib/domainnameapi';
 
 export async function GET() {
   try {
-    // Get all domain pricing to extract TLD names
-    const pricing = await resellerClubAPI.getDomainPricing([]);
-    
-    // Extract TLD names from the pricing data
-    const tlds = pricing.map(item => item.tld);
+    const tlds = await domainNameAPI.getAllTLDs();
     
     return NextResponse.json({ 
       success: true, 
@@ -16,7 +12,6 @@ export async function GET() {
   } catch (error) {
     console.error('Error fetching TLDs:', error);
     
-    // Fallback TLDs if API fails
     const fallbackTlds = [
       'com', 'net', 'org', 'info', 'biz', 'online', 'store', 'shop', 'xyz', 
       'tech', 'site', 'space', 'website', 'app', 'blog', 'cloud', 'dev',

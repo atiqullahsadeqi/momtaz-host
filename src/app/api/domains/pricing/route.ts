@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { resellerClubAPI } from '@/lib/resellerclub';
+import { domainNameAPI } from '@/lib/domainnameapi';
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const tlds = searchParams.get('tlds')?.split(',') || ['com', 'net', 'org', 'af'];
 
-    const pricing = await resellerClubAPI.getDomainPricing(tlds);
+    const pricing = await domainNameAPI.getDomainPricing(tlds);
     
     return NextResponse.json({ success: true, data: pricing });
   } catch (error) {

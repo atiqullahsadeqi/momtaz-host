@@ -1,0 +1,25 @@
+# Momtaz Host - AI Agent Coding Rules
+
+## UI and Styling Guidelines
+
+1. **Strict Usage of Shadcn UI:** 
+   - ALWAYS use Shadcn UI components for building user interfaces, including but not limited to the Admin Dashboard and Admin Login pages. 
+   - DO NOT create custom standalone components for standard UI elements if a suitable Shadcn UI component exists. Use `npx shadcn@latest add <component>` to add missing components if necessary.
+
+2. **Tailwind CSS & Global Theme:**
+   - STRICTLY use Tailwind CSS for all styling (positioning, spacing, layout, typography, etc.).
+   - **CRITICAL COLOR RULE:** DO NOT use hardcoded Tailwind color classes (e.g., avoid `bg-blue-500`, `text-red-500`, `bg-emerald-500`, `text-slate-800`, `text-gray-900`, etc.).
+   - The project's color theme is deeply integrated and fully defined in `src/app/globals.css` using CSS variables. 
+   - ALWAYS use the semantic Tailwind styling classes mapped to the global CSS variables. Examples include:
+     - `bg-background`, `text-foreground`
+     - `bg-primary`, `text-primary-foreground`
+     - `bg-secondary`, `text-secondary-foreground`
+     - `bg-muted`, `text-muted-foreground`
+     - `bg-accent`, `text-accent-foreground`
+     - `bg-destructive`, `text-destructive-foreground`
+     - `bg-card`, `text-card-foreground`
+     - `border-border`, `ring-ring`
+
+3. **Design Consistency:**
+   - Any newly generated pages (such as Admin Dashboards or Admin Login layouts) MUST strictly adhere to the existing design language and variables defined in `src/app/globals.css`.
+   - Do not invent new UI patterns that deviate from the standard Shadcn UI structure combined with the semantic global color variables.

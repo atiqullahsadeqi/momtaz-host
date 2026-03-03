@@ -1,29 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { resellerClubAPI } from '@/lib/resellerclub';
+import { domainNameAPI } from '@/lib/domainnameapi';
 
 function extractDomainAndTld(input: string): { domainName: string; tld: string } {
-  // Remove protocol if present
-  let domain = input.replace(/^https?:\/\//, '');
-  
-  // Remove www if present
-  domain = domain.replace(/^www\./, '');
-  
-  // Remove trailing slash
-  domain = domain.replace(/\/$/, '');
-  
-  // Split by last dot to get TLD
+  let domain = input.replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/$/, '');
   const parts = domain.split('.');
   
   if (parts.length < 2) {
-    // No TLD provided, default to .com
-    return {
-      domainName: domain,
-      tld: 'com'
-    };
+    return { domainName: domain, tld: 'com' };
   }
   
-  const tld = parts.pop()!; // Last part is TLD
-  const domainName = parts.join('.'); // Rest is domain name
+  const tld = parts.pop()!;
+  const domainName = parts.join('.');
   
   return { domainName, tld };
 }
@@ -41,7 +28,7 @@ export async function GET(request: NextRequest) {
     }
 
     const { domainName, tld } = extractDomainAndTld(input);
-    const availability = await resellerClubAPI.checkDomainAvailability(domainName, [tld]);
+    const availability = await domainNameAPI.checkDomainAvailability(domainName, [tld]);
     
     return NextResponse.json({ 
       success: true, 

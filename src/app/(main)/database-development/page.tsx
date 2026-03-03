@@ -270,11 +270,11 @@ useLayoutEffect(() => {
       <div className="container mx-auto h-full md:h-[70vh] relative px-4 " ref={heroRef}>
         <div className="w-full relative flex flex-col md:flex-row gap-8 py-8 md:py-16 h-full">
           <div className="w-full md:w-1/2 flex flex-col justify-between gap-8 md:py-16">
-            <h1 className="hero-text-item text-4xl lg:text-6xl text-primary  leading-tight font-bold">
+            <h1 className="hero-text-item text-4xl lg:text-6xl   leading-tight font-bold">
               Software <br /> That Adapts to <br /> Your Business.
             </h1>
             <div>
-              <p className="text-sm text-primary mb-8 mt-4 max-w-2xl ">We don't believe in "one-size-fits-all." We architect high-performance, custom database solutions and ERP systems designed strictly around your operational workflows. From complex inventory tracking to automated financial reporting, we build the engine that drives your business.</p>
+              <p className="text-sm  mb-8 mt-4 max-w-2xl ">We don't believe in "one-size-fits-all." We architect high-performance, custom database solutions and ERP systems designed strictly around your operational workflows. From complex inventory tracking to automated financial reporting, we build the engine that drives your business.</p>
               <div>
                 <Button className="">Learn More</Button>
                 <Button variant="link" className="">Learn More</Button>
@@ -284,7 +284,7 @@ useLayoutEffect(() => {
           <div className="main-visual-card flex items-center py-4 px-4 w-full md:w-1/2 h-full  relative rounded-md bg-[url(https://images.unsplash.com/photo-1658998765621-2cf0f12e059f?q=80&w=627&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)] bg-center bg-cover">
             <div className="max-w-full md:max-w-2xl mx-auto rounded-md bg-white/70">
               <div className="workstream-grid-item flex flex-col md:flex-row md:justify-between items-start md:items-center p-4">
-                <h3><strong>Workstreams</strong></h3>
+                <h3 className="dark:text-muted"><strong>Workstreams</strong></h3>
                 <div className="flex gap-3 md:mt-0 mt-4">
                   {workstreams.map((item, i) => (
                     <div key={i} className="flex items-center gap-1">
@@ -317,12 +317,12 @@ useLayoutEffect(() => {
       </div>
       <div className="container mx-auto py-16 px-4 md:px-0">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-4 items-start md:items-center justify-center mb-6 ">
-          <div className="flex gap-4 items-center"> <h1 className="text-4xl lg:text-6xl text-primary  leading-tight font-bold">
+          <div className="flex gap-4 items-center"> <h1 className="text-4xl lg:text-6xl   leading-tight font-bold">
             No
           </h1>
             <RotatingText
               texts={['templates.', 'Bloatware.']}
-              mainClassName="px-2 sm:px-2 md:px-3 bg-primary text-4xl lg:text-6xl text-primary-foreground  leading-tight font-bold overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
+              mainClassName="px-2 sm:px-2 md:px-3 bg-primary text-4xl lg:text-6xl text-white  leading-tight font-bold overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
               staggerFrom={"last"}
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
@@ -332,26 +332,26 @@ useLayoutEffect(() => {
               transition={{ type: "spring", damping: 30, stiffness: 400 }}
               rotationInterval={2000}
             /></div>
-          <h1 className="text-4xl lg:text-6xl text-primary  leading-tight font-bold">
+          <h1 className="text-4xl lg:text-6xl   leading-tight font-bold">
             Just Code.
           </h1>
         </div>
         <div className="max-w-full md:max-w-5xl mx-auto ">
-          <p className="text-sm text-primary mb-8 mt-4 max-w-2xl text-center mx-auto ">Most agencies sell you a pre-packaged CRM or ERP and try to force your unique processes into their rigid boxes. We do the opposite.</p>
+          <p className="text-sm  mb-8 mt-4 max-w-2xl text-center mx-auto ">Most agencies sell you a pre-packaged CRM or ERP and try to force your unique processes into their rigid boxes. We do the opposite.</p>
         </div>
         <div className="max-w-full min-h-[400px] bg-[url(https://images.unsplash.com/photo-1636990649778-fd699d27c875?q=80&w=1828&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)] bg-center bg-cover rounded-md md:max-w-5xl mx-auto flex items-end justify-end p-8">
           <div className="w-full md:w-1/2 bg-primary-foreground/70 md:rounded-xl rounded-md p-4">
             <div ref={highlightTextRef} className="min-h-[60px]">
-              <p className="text-sm text-primary">
+              <p className="text-sm dark:text-muted ">
                 <strong>{highlights[activeHighlight].title}:</strong>
                 {highlights[activeHighlight].description}
               </p>
             </div>
 
-            <div className="h-[2px] w-full bg-primary/10 mt-4 overflow-hidden">
+            <div className="h-[2px] w-full bg-muted/10 mt-4 overflow-hidden">
               <div
                 ref={highlightProgressRef}
-                className="h-full bg-primary origin-left w-full"
+                className="h-full bg-muted origin-left w-full"
               />
             </div>
           </div>
@@ -359,10 +359,10 @@ useLayoutEffect(() => {
       </div>
       <section ref={containerRef} className="max-w-5xl mx-auto  py-20 md:px-0 px-4">
         <div className="w-full md:w-5xl">
-          <h1 className="text-4xl lg:text-6xl text-primary  leading-tight font-bold">
+          <h1 className="text-4xl lg:text-6xl leading-tight font-bold">
             Scalable by Design. <br /> Grow Module by Module.
           </h1>
-          <p className="text-sm text-primary mb-8 mt-4 ">We utilize a Modular Monolith or Microservices approach. This means we can build your system piece by piece. You can start with a single core module and plug in others as your business expands, ensuring seamless data flow between departments.</p>
+          <p className="text-sm  mb-8 mt-4 ">We utilize a Modular Monolith or Microservices approach. This means we can build your system piece by piece. You can start with a single core module and plug in others as your business expands, ensuring seamless data flow between departments.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
@@ -376,18 +376,18 @@ useLayoutEffect(() => {
             />
             <div className="absolute bottom-6 left-6 slide-content">
               <div className="bg-primary-foreground backdrop-blur-md px-6 py-3 rounded-md">
-                <h2 className=" ">{slides[index].title}</h2>
+                <h2 className=" dark:text-muted ">{slides[index].title}</h2>
               </div>
             </div>
           </div>
 
           {/* RIGHT SIDE: Features + Controls */}
           <div className="flex flex-col justify-between h-full">
-            <ul className="space-y-6">
+            <ul className="space-y-8 mt-10">
               {slides[index].features.map((feature, i) => (
-                <li key={i} className="slide-content flex items-start gap-3">
-                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
-                  <p className=" text-primary  ">
+                <li key={i} className="slide-content flex items-start gap-3 ">
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-muted shrink-0" />
+                  <p className=" text-sm ">
                     {feature}
                   </p>
                 </li>
@@ -428,16 +428,16 @@ useLayoutEffect(() => {
 
         </div>
       </section>
-        <div className="w-full bg-primary py-16 my-16">
+        <div className="w-full bg-muted/20 py-16 my-16">
         <div className="fet container mx-auto min-h-[400px] flex items-center justify-center px-4">
           <div className="max-w-5xl w-full">
-            <h1 className="text-4xl lg:text-6xl text-primary-foreground  leading-tight font-bold">Key Features</h1>
+            <h1 className="text-2xl lg:text-4xl  leading-tight font-bold">Key Features</h1>
 
             <ul className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
               {keyFeatures.map((kf, i) => (
-                <li key={i} className="bg-white/5 p-4 rounded-md">
-                  <h3 className="font-semibold text-lg text-primary-foreground">{kf.title}</h3>
-                  <p className="text-sm mt-2 text-primary-foreground/80">{kf.description}</p>
+                <li key={i} className="bg-muted/25 p-8 rounded-md">
+                  <h3 className="font-semibold text-md ">{kf.title}</h3>
+                  <p className="text-xs md:text-sm mt-2 ">{kf.description}</p>
                 </li>
               ))}
             </ul>
@@ -447,14 +447,14 @@ useLayoutEffect(() => {
 
       <div className="w-full md:w-5xl mx-auto md:px-0 px-4">
         <div className="w-full ">
-          <h1 className="text-4xl lg:text-6xl text-primary  leading-tight font-bold">
+          <h1 className="text-2xl lg:text-4xl leading-tight font-bold">
             Robust Backend, Lightning Frontend.
           </h1>
-          <p className="text-sm text-primary mb-8 mt-4 ">We utilize a Modular Monolith or Microservices approach. This means we can build your system We combine the industry's most secure PHP framework with the world's fastest React framework to deliver an application that is solid as a rock and fast as light.</p>
+          <p className="text-sm md:text-sm mb-8 mt-4 ">We utilize a Modular Monolith or Microservices approach. This means we can build your system We combine the industry's most secure PHP framework with the world's fastest React framework to deliver an application that is solid as a rock and fast as light.</p>
         </div>
         <div className="w-full flex flex-col md:flex-row gap-5">
           <div className="w-full md:w-1/2 px-5">
-            <h2 className="text-2xl font-bold text-primary">The Backend: Laravel</h2>
+       
             <p className="font-bold mb-3 mt-1">We use Laravel to build the heavy-lifting logic and API layers.</p>
             <ul className="list-disc text-sm flex flex-col gap-3">
               <li>
@@ -473,7 +473,7 @@ useLayoutEffect(() => {
             </ul>
           </div>
           <div className="w-full md:w-1/2 px-5">
-          <h2 className="text-2xl font-bold text-primary">The Frontend: Next.js</h2>
+          
             <p className="font-bold mb-3 mt-1">We use Next.js for the user interface (Dashboard).</p>
             <ul className="list-disc text-sm flex flex-col gap-3">
               <li>
@@ -530,7 +530,7 @@ useLayoutEffect(() => {
           
           {/* LEFT: Static Header */}
           <div className="max-w-md">
-            <h2 className="text-4xl lg:text-6xl text-primary  leading-tight font-bold">
+            <h2 className="text-3xl lg:text-6xl leading-tight font-bold">
               Our Database <br /> Architecture <br /> Lifecycle
             </h2>
           </div>
@@ -550,9 +550,9 @@ useLayoutEffect(() => {
                   <div className={`circle-${index} w-3 h-3 rounded-full  border-2 border-primary z-20 shrink-0 transition-all duration-300 ml-[18.5px]`} />
                   
                   {/* Text Content */}
-                  <div className={`content-${index} opacity-0`}>
-                    <h4 className="text-primary font-bold text-xl mb-1">{step.title}</h4>
-                    <p className="text-muted-foreground text-sm max-w-sm">{step.description}</p>
+                  <div className={`content-${index} opacity-0 mb-10`}>
+                    <h4 className="font-bold text-xl mb-1">{step.title}</h4>
+                    <p className=" text-sm max-w-sm">{step.description}</p>
                   </div>
                 </div>
               ))}
