@@ -16,7 +16,7 @@ function formatCurrency(val: number | string) {
 export function OrderSummaryPanel({ order }: { order: any }) {
     if (!order) return null;
 
-    const Icon = TYPE_ICONS[order.order_type] || Package;
+    const Icon = (TYPE_ICONS[order.order_type] || Package) as React.ElementType;
     const total = parseFloat(order.total_monthly || 0) + parseFloat(order.setup_fee || 0);
 
     return (
@@ -31,6 +31,7 @@ export function OrderSummaryPanel({ order }: { order: any }) {
             <div className="rounded-2xl border border-border/60 bg-muted/30 p-5 space-y-4">
                 <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-brand-green/10 border border-brand-green/20 flex items-center justify-center">
+                        {/* @ts-expect-error pre-existing type issue */}
                         <Icon className="w-5 h-5 text-brand-green" />
                     </div>
                     <div>

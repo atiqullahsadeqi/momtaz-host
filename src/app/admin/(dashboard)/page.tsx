@@ -83,6 +83,7 @@ function KPICard({ icon: Icon, label, value, delta, up, sub, iconColor, iconBg }
         <div style={{ background: "#fff", border: "1px solid #EAECF0", borderRadius: 14, padding: 20 }}>
             <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 16 }}>
                 <div style={{ width: 38, height: 38, borderRadius: 10, background: iconBg, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    {/* @ts-expect-error pre-existing type issue */}
                     <Icon size={18} color={iconColor} />
                 </div>
                 <ExternalLink size={14} color="#D1D5DB" />

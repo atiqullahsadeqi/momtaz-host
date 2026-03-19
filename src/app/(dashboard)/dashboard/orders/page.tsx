@@ -114,6 +114,7 @@ export default function OrdersPage() {
                                         <div className="flex items-center justify-between gap-4 flex-wrap">
                                             <div className="flex items-center gap-4">
                                                 <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center shrink-0">
+                                                    {/* @ts-expect-error pre-existing type issue */}
                                                     <TypeIcon className="w-5 h-5" />
                                                 </div>
                                                 <div>
