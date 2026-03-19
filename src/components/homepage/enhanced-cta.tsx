@@ -26,8 +26,8 @@ export default function EnhancedCta() {
   return (
     <>
       {/* Ready to Get Started Section */}
-      <section className="py-20 ">
-        <div className="container mx-auto px-4 bg-muted/10 rounded-md py-16">
+      <section className="py-20 bg-background">
+        <div className="w-full px-4 lg:px-12 bg-card/50 rounded-2xl py-16 border border-border/40 max-w-[95%] mx-auto">
           <div className="text-center">
             <h2 className="text-2xl lg:text-4xl font-bold  mb-4">
               Ready to Get Started?
@@ -40,7 +40,7 @@ export default function EnhancedCta() {
             </p>
 
             <div className="flex   gap-4 justify-center items-center mb-12">
-              <Button size="lg" >
+              <Button size="lg" className="bg-brand-green">
                 Get Started Now
               </Button>
               <Button variant="outline" size="lg" >
@@ -60,8 +60,8 @@ export default function EnhancedCta() {
                     key={index}
                     className={`text-center ${isLast ? "col-span-2 md:col-span-1" : ""}`}
                   >
-                    <div className="w-12 h-12 bg-primary/10 rounded flex items-center justify-center mx-auto mb-4">
-                      <IconComponent className="w-6 h-6 text-primary" />
+                    <div className="w-12 h-12 bg-brand-green-soft rounded flex items-center justify-center mx-auto mb-4">
+                      <IconComponent className="w-6 h-6 text-brand-green" />
                     </div>
                     <h3 className="text-lg font-semibold mb-2">{indicator.title}</h3>
                     <p className="text-muted-foreground text-sm">{indicator.description}</p>

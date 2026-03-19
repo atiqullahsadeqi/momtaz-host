@@ -102,7 +102,7 @@ function SelectCard({
       className={`relative cursor-pointer w-full text-left rounded-xl border p-3 transition-all duration-200
         ${selected
           ? "border-primary bg-muted/20"
-          : "border-primary/20 bg-white/3 hover:border-primary hover:bg-white/5"
+          : "border-border hover:border-primary hover:bg-muted/40"
         }`}
     >
       {selected && (
@@ -128,8 +128,8 @@ function Section({
   return (
     <div className="config-section">
       <div className="flex items-center gap-2 mb-4">
-        <div className="w-7 h-7 rounded-lg bg-muted/20 flex items-center justify-center">
-          <Icon className="w-3.5 h-3.5 " />
+        <div className="w-7 h-7 rounded-lg bg-brand-green/10 border border-brand-green/20 flex items-center justify-center">
+          <Icon className="w-3.5 h-3.5 text-brand-green" />
         </div>
         <h2 className="text-sm font-semibold  uppercase tracking-wider">
           {title}
@@ -162,6 +162,7 @@ export default function ConfigurePage({
   const [serverName, setServerName] = useState("");
   const [filterOS, setFilterOS] = useState<string>("all");
   const [isOrdering, setIsOrdering] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState<"stripe" | "paypal" | "offline">("stripe");
   const [orderStatus, setOrderStatus] = useState<{ success: boolean; message: string } | null>(null);
 
   const pageRef = useRef<HTMLDivElement>(null);
@@ -258,7 +259,7 @@ export default function ConfigurePage({
       const result = await response.json();
       if (result.success) {
         if (result.checkoutUrl) {
-          window.location.href = result.checkoutUrl;
+          window.location.href = `${result.checkoutUrl}?method=${paymentMethod}`;
         } else {
           window.location.href = `/dashboard/orders/${result.order.id}`;
         }
@@ -288,7 +289,7 @@ export default function ConfigurePage({
 
   if (loading)
     return (
-      <div className="min-h-screen bg-[#090c10] flex items-center justify-center gap-3 text-white/40">
+      <div className="min-h-screen bg-background flex items-center justify-center gap-3 text-muted-foreground">
         <Loader2 className="w-5 h-5 animate-spin" />
         <span className="text-sm">Loading configuration…</span>
       </div>
@@ -296,8 +297,8 @@ export default function ConfigurePage({
 
   if (error || !plan)
     return (
-      <div className="min-h-screen bg-[#090c10] flex items-center justify-center">
-        <div className="flex items-center gap-3 bg-red-500/10 border border-red-500/20 rounded-xl p-4 text-red-400 text-sm">
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="flex items-center gap-3 bg-destructive/10 border border-destructive/20 rounded-xl p-4 text-destructive text-sm">
           <AlertCircle className="w-4 h-4" />
           {error ?? "Plan not found"}
         </div>
@@ -315,7 +316,7 @@ export default function ConfigurePage({
         {/* Back */}
         <Link
           href="/hosting/vps"
-          className="config-section inline-flex items-center gap-2 text-sm  hover:text-white transition-colors mb-8"
+          className="config-section inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Plans
@@ -358,8 +359,8 @@ export default function ConfigurePage({
                     onClick={() => setFilterOS(f)}
                     className={`px-2.5 py-1 rounded-md text-xs capitalize transition-all
                       ${filterOS === f
-                        ? "bg-secondary text-primary-foreground font-semibold"
-                        : "bg-muted/20 hover:text-white"
+                        ? "bg-primary text-white font-semibold"
+                        : "bg-muted text-muted-foreground hover:text-foreground"
                       }`}
                   >
                     <div className="flex items-center gap-1">
@@ -487,9 +488,9 @@ export default function ConfigurePage({
 
           {/* ── Right: Order Summary ── */}
           <div className="config-section lg:sticky lg:top-24">
-            <div className="rounded-2xl border border-white/10 bg-card overflow-hidden">
-              <div className="  px-5 py-4">
-                <h3 className="text-md font-semibold  uppercase tracking-wider">
+            <div className="rounded-2xl border border-border bg-card overflow-hidden">
+              <div className="px-5 py-4 border-b border-border/60">
+                <h3 className="text-md font-semibold uppercase tracking-wider">
                   Order Summary
                 </h3>
               </div>
@@ -499,18 +500,7 @@ export default function ConfigurePage({
                 <div>
                   <p className="text-xs  mb-2">Selected Plan</p>
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="font-bold  font-mono">
-                      {plan.name}
-                    </span>
-                    <span
-                      className={`text-[10px] px-1.5 py-0.5 rounded font-semibold uppercase
-                      ${plan.cpuType === "dedicated"
-                          ? "bg-amber-400/10 text-amber-400"
-                          : "bg-sky-400/10 text-sky-400"
-                        }`}
-                    >
-                      {plan.cpuType}
-                    </span>
+                    <span className="font-bold font-mono">{plan.name}</span>
                   </div>
                   <div className="grid grid-cols-2 gap-y-2 text-xs">
                     {[
@@ -527,7 +517,7 @@ export default function ConfigurePage({
                   </div>
                 </div>
 
-                <div className="h-px bg-muted/20" />
+                <div className="h-px bg-border/60" />
 
                 {/* Config summary */}
                 <div className="flex flex-col gap-2 text-xs">
@@ -572,7 +562,7 @@ export default function ConfigurePage({
                   />
                 </div>
 
-                <div className="h-px bg-muted/20" />
+                <div className="h-px bg-border/60" />
 
                 {/* Price */}
                 <div>
@@ -593,9 +583,24 @@ export default function ConfigurePage({
                 {orderStatus && !orderStatus.success && (
                   <p className="text-xs text-red-400 text-center">{orderStatus.message}</p>
                 )}
+                {/* Payment method */}
+                <div className="border border-border/60 rounded-xl overflow-hidden">
+                  {(["stripe", "paypal", "offline"] as const).map((m, i) => {
+                    const labels = { stripe: "Credit / Debit Card", paypal: "PayPal", offline: "Offline / Bank Transfer" };
+                    const icons = { stripe: "💳", paypal: "🅿️", offline: "🏦" };
+                    return (
+                      <button key={m} type="button" onClick={() => setPaymentMethod(m)}
+                        className={`w-full flex items-center gap-3 px-4 py-3 text-sm transition-colors ${i > 0 ? "border-t border-border/60" : ""} ${paymentMethod === m ? "bg-primary text-white" : "bg-background text-foreground hover:bg-muted/40"}`}>
+                        <span>{icons[m]}</span>
+                        <span className="font-medium">{labels[m]}</span>
+                        {paymentMethod === m && <span className="ml-auto text-xs opacity-70">Selected</span>}
+                      </button>
+                    );
+                  })}
+                </div>
+
                 <Button
-                  className="w-full bg-secondary cursor-pointer font-bold
-                             rounded-xl py-5 transition-all duration-200 text-sm"
+                  className="w-full rounded-full bg-brand-green hover:bg-brand-green/80 text-white cursor-pointer font-bold py-5 transition-all duration-200 text-sm"
                   disabled={!selectedImage || !selectedDC || isOrdering}
                   onClick={handleOrder}
                 >
@@ -607,9 +612,6 @@ export default function ConfigurePage({
                   ) : "Place Order"}
                 </Button>
 
-                <p className="text-[10px] text-center">
-                  Hetzner infra · Managed by Momtaz Host
-                </p>
               </div>
             </div>
           </div>

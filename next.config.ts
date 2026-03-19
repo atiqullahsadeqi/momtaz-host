@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
+// @ts-expect-error - No type definitions available for anchor-pki
+import autoCert from "anchor-pki/auto-cert/integrations/next";
+
+const withAutoCert = autoCert({ enabledEnv: "development" });
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: ["momtaz-host.lcl.host", "momtaz-host.localhost"],
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com', pathname: '/**' },
@@ -31,4 +36,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withAutoCert(nextConfig);

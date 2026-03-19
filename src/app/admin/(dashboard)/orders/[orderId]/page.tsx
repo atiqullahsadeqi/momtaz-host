@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -14,7 +14,7 @@ import { Textarea } from "@/components/ui/textarea";
 interface Order {
     id: string;
     order_type: "dedicated" | "vps" | "shared";
-    status: "pending" | "approved" | "rejected" | "cancelled";
+    status: "pending" | "approved" | "rejected" | "cancelled" | "pending_payment" | "processing" | "active";
     plan_id: string;
     plan_name: string;
     configuration: Record<string, unknown>;
@@ -29,8 +29,11 @@ interface Order {
     user_email: string;
 }
 
-const STATUS_CONFIG = {
+const STATUS_CONFIG: Record<string, { label: string; icon: React.ElementType; color: string; bg: string; border: string }> = {
     pending: { label: "Pending Review", icon: Clock, color: "text-yellow-400", bg: "bg-yellow-400/10", border: "border-yellow-400/20" },
+    pending_payment: { label: "Pending Payment", icon: Clock, color: "text-orange-400", bg: "bg-orange-400/10", border: "border-orange-400/20" },
+    processing: { label: "Processing", icon: Clock, color: "text-blue-400", bg: "bg-blue-400/10", border: "border-blue-400/20" },
+    active: { label: "Active", icon: CheckCircle2, color: "text-green-400", bg: "bg-green-400/10", border: "border-green-400/20" },
     approved: { label: "Approved", icon: CheckCircle2, color: "text-green-400", bg: "bg-green-400/10", border: "border-green-400/20" },
     rejected: { label: "Rejected", icon: XCircle, color: "text-red-400", bg: "bg-red-400/10", border: "border-red-400/20" },
     cancelled: { label: "Cancelled", icon: Ban, color: "text-gray-400", bg: "bg-gray-400/10", border: "border-gray-400/20" },
@@ -95,6 +98,24 @@ export default function AdminOrderDetailPage({ params }: { params: Promise<{ ord
         }
     };
 
+    const activateOrder = async () => {
+        setIsUpdating(true);
+        setUpdateError(null);
+        try {
+            const res = await fetch(`/api/admin/orders/${orderId}/activate`, { method: "POST" });
+            const data = await res.json();
+            if (data.success) {
+                setOrder(data.order);
+            } else {
+                throw new Error(data.error ?? "Activation failed");
+            }
+        } catch (err: unknown) {
+            setUpdateError(err instanceof Error ? err.message : "Activation failed");
+        } finally {
+            setIsUpdating(false);
+        }
+    };
+
     if (isLoading) {
         return (
             <div className="flex items-center justify-center py-24 gap-3 text-muted-foreground p-6">
@@ -115,8 +136,8 @@ export default function AdminOrderDetailPage({ params }: { params: Promise<{ ord
         );
     }
 
-    const statusCfg = STATUS_CONFIG[order.status];
-    const StatusIcon = statusCfg.icon;
+    const statusCfg = STATUS_CONFIG[order.status] ?? STATUS_CONFIG["pending"];
+    const StatusIcon = statusCfg.icon as React.ElementType;
     const cfg = order.configuration;
 
     return (
@@ -127,9 +148,10 @@ export default function AdminOrderDetailPage({ params }: { params: Promise<{ ord
             </Link>
 
             {/* Status Banner */}
-            <Card className={`border ${statusCfg.border} ${statusCfg.bg}`}>
+            <Card className={`border ${statusCfg.border as string} ${statusCfg.bg as string}`}>
                 <CardContent className="p-4 flex items-center gap-3">
-                    <StatusIcon className={`w-5 h-5 ${statusCfg.color} shrink-0`} />
+                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                    {React.createElement(statusCfg.icon as any, { className: `w-5 h-5 ${statusCfg.color} shrink-0` })}
                     <div className="flex-1">
                         <p className="font-semibold">Status: {statusCfg.label}</p>
                         <p className="text-xs text-muted-foreground">Order #{order.id.slice(0, 8).toUpperCase()}</p>
@@ -212,6 +234,16 @@ export default function AdminOrderDetailPage({ params }: { params: Promise<{ ord
                         </div>
                     )}
                     <div className="flex gap-3 flex-wrap">
+                        {order.status === "pending_payment" && (
+                            <Button
+                                className="bg-brand-green hover:bg-brand-green/80 text-white rounded-full"
+                                onClick={activateOrder}
+                                disabled={isUpdating}
+                            >
+                                {isUpdating ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <CheckCircle2 className="w-4 h-4 mr-2" />}
+                                Activate Order & Provision
+                            </Button>
+                        )}
                         <Button
                             className="bg-green-600 hover:bg-green-700 text-white"
                             onClick={() => updateStatus("approved")}

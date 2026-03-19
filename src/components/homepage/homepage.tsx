@@ -3,7 +3,7 @@ import React from "react";
 import {
   HeroSection,
   CompanyLogos,
-  DomainSearch,
+  DomainSearchSection,
   ServicesSection,
   PricingSection,
   WhyChooseUs,
@@ -27,24 +27,26 @@ export default function Homepage() {
   }));
 
   return (
-    <div className="min-h-screen">
-      <HeroSection />
-      <CompanyLogos />
-      <DomainSearch />
-      <ServicesSection />
-      <PricingSection />
-      <WhyChooseUs />
-      <GoogleWorkspace />
-      <BlogsSection 
-        tagline="Latest Updates" 
-        heading="Blog Posts" 
-        description="Discover the latest trends, tips, and best practices in modern web development. From UI components to design systems, stay updated with our expert insights." 
-        buttonText="View all articles" 
-        buttonUrl="/blogs" 
-        className="" 
-        posts={posts}  
-      />
-      <EnhancedCta />
+    <div className="min-h-screen bg-background relative selection:bg-brand-blue/20 ">
+      <div className="max-w-[1100px] mx-auto border-x border-border/60 min-h-[calc(100vh-4rem)] flex flex-col">
+        <HeroSection />
+        <CompanyLogos />
+        <DomainSearchSection />
+        <ServicesSection />
+        <PricingSection />
+        <WhyChooseUs />
+        <GoogleWorkspace />
+        <BlogsSection
+          tagline="Latest Updates"
+          heading="Blog Posts"
+          description="Discover the latest trends, tips, and best practices in modern web development. From UI components to design systems, stay updated with our expert insights."
+          buttonText="View all articles"
+          buttonUrl="/blogs"
+          className=""
+          posts={posts}
+        />
+        {/* <EnhancedCta /> */}
+      </div>
     </div>
   );
 }

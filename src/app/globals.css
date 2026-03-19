@@ -4,51 +4,100 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(0.99 0.005 250);
-  --foreground: oklch(0.15 0.02 250);
-  --card: oklch(0.985 0.003 250);
-  --card-foreground: oklch(0.15 0.02 250);
-  --popover: oklch(0.99 0.005 250);
-  --popover-foreground: oklch(0.15 0.02 250);
+  /* ─── Brand Color Hierarchy ──────────────────────────────────────
+     60% → #4267b2  Brand Blue   — primary, buttons, links, nav
+     30% → #5c3e96  Brand Purple — secondary, gradients, headings
+     10% → #00c897  Brand Green  — icons, badges, success, highlights
+     +      Neutrals             — backgrounds, text, borders
+   ─────────────────────────────────────────────────────────────── */
+
+  /* Background & surface — pure white */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.13 0.02 255);
+  /* near-black, blue-tinted    */
+
+  --card: oklch(0.99 0.003 255);
+  --card-foreground: oklch(0.13 0.02 255);
+
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.13 0.02 255);
+
+  /* Primary — Brand Blue #4267b2 (60%) */
   --primary: #4267b2;
   --primary-foreground: #ffffff;
-  --secondary: oklch(0.96 0.008 250);
-  --secondary-foreground: oklch(0.25 0.05 250);
-  --muted: oklch(0.97 0.005 250);
-  --muted-foreground: oklch(0.45 0.02 250);
-  --accent: oklch(0.95 0.01 250);
-  --accent-foreground: oklch(0.2 0.05 250);
-  --destructive: oklch(0.6 0.18 25);
+
+  /* Secondary — light purple tint surface (30%) */
+  --secondary: oklch(0.96 0.014 285);
+  --secondary-foreground: #5c3e96;
+
+  /* Muted — neutral cool gray, slight blue undertone */
+  --muted: oklch(0.965 0.005 255);
+  --muted-foreground: oklch(0.46 0.015 255);
+
+  /* Accent — Brand Green #00c897 (10%) — icons, badges, highlights */
+  --accent: oklch(0.95 0.04 168);
+  /* soft mint hover surface    */
+  --accent-foreground: #007a5e;
+  /* deep green text on surface */
+
+  /* Destructive */
+  --destructive: oklch(0.58 0.2 25);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.92 0 0);
-  --input: oklch(0.92 0 0);
-  --ring: oklch(0.7 0 0);
+
+  /* Borders & inputs — light neutral, faint blue */
+  --border: oklch(0.91 0.005 255);
+  --input: oklch(0.91 0.005 255);
+  --ring: #4267b2;
+
+  /* ─── Charts ─────────────────────────────────────────────────── */
   --chart-1: #4267b2;
-  --chart-2: oklch(0.65 0.15 250);
-  --chart-3: oklch(0.75 0.1 250);
-  --chart-4: oklch(0.85 0.05 250);
-  --chart-5: oklch(0.55 0.18 250);
-  --radius: 0.375rem;
-  --sidebar: oklch(0.99 0.005 250);
-  --sidebar-foreground: oklch(0.15 0.02 250);
+  --chart-2: #5c3e96;
+  --chart-3: #00c897;
+  --chart-4: oklch(0.65 0.13 255);
+  --chart-5: oklch(0.60 0.16 285);
+
+  /* ─── Radius ─────────────────────────────────────────────────── */
+  --radius: 0.5rem;
+
+  /* ─── Sidebar ────────────────────────────────────────────────── */
+  --sidebar: oklch(0.985 0.006 255);
+  --sidebar-foreground: oklch(0.13 0.02 255);
   --sidebar-primary: #4267b2;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: oklch(0.97 0.01 250);
-  --sidebar-accent-foreground: oklch(0.15 0.02 250);
-  --sidebar-border: oklch(0.95 0 0);
-  --sidebar-ring: oklch(0.8 0 0);
+  --sidebar-accent: oklch(0.96 0.012 255);
+  --sidebar-accent-foreground: oklch(0.28 0.05 255);
+  --sidebar-border: oklch(0.92 0.005 255);
+  --sidebar-ring: #4267b2;
+
+  /* ─── Brand tokens (direct use in components) ────────────────── */
+  --brand-blue: #4267b2;
+  --brand-blue-foreground: #ffffff;
+  --brand-blue-soft: #eef2fa;
+
+  --brand-purple: #5c3e96;
+  --brand-purple-foreground: #ffffff;
+  --brand-purple-soft: #f0ecfb;
+
+  --brand-green: #00c897;
+  --brand-green-foreground: #ffffff;
+  --brand-green-soft: #e6faf5;
+
+  /* ─── Typography ─────────────────────────────────────────────── */
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-serif: ui-serif, Georgia, serif;
   --font-mono: ui-monospace, monospace;
-  --shadow-color: oklch(0 0 0);
-  --shadow-opacity: 0.02;
-  --shadow-blur: 1px;
+
+  /* ─── Shadows ────────────────────────────────────────────────── */
+  --shadow-color: oklch(0.30 0.05 255);
+  --shadow-opacity: 0.06;
+  --shadow-blur: 8px;
   --shadow-spread: 0px;
   --shadow-offset-x: 0;
-  --shadow-offset-y: 1px;
+  --shadow-offset-y: 2px;
+
   --letter-spacing: -0.01em;
 
-    /* Dashboard Colors */
+  /* ─── Dashboard Colors (do not modify) ───────────────────────── */
   --blue: #3B82F6;
   --blue-soft: #EFF6FF;
   --green: #10B981;
@@ -63,47 +112,83 @@
   --teal-soft: #F0FDFA;
 }
 
+/* ─────────────────────────────────────────────────────────────────
+   DARK MODE
+   Deep blue-navy base from brand blue, purple depth, green pops.
+   ───────────────────────────────────────────────────────────────── */
 .dark {
-  --background: oklch(0.12 0.01 250);
-  --foreground: oklch(0.98 0.005 250);
-  --card: oklch(0.14 0.015 250);
-  --card-foreground: oklch(0.98 0.005 250);
-  --popover: oklch(0.12 0.01 250);
-  --popover-foreground: oklch(0.98 0.005 250);
-  --primary: #4267b2;
+  --background: oklch(0.11 0.025 255);
+  --foreground: oklch(0.97 0.005 255);
+
+  --card: oklch(0.14 0.025 255);
+  --card-foreground: oklch(0.97 0.005 255);
+
+  --popover: oklch(0.11 0.025 255);
+  --popover-foreground: oklch(0.97 0.005 255);
+
+  /* Primary — lightened brand blue for dark bg contrast */
+  --primary: #3457A0;
   --primary-foreground: #ffffff;
-  --secondary: oklch(0.18 0.02 250);
-  --secondary-foreground: oklch(0.95 0.01 250);
-  --muted: oklch(0.16 0.015 250);
-  --muted-foreground: oklch(0.65 0.02 250);
-  --accent: oklch(0.2 0.03 250);
-  --accent-foreground: oklch(0.98 0.005 250);
-  --destructive: oklch(0.5 0.2 25);
+
+  /* Secondary — dark purple shell */
+  --secondary: oklch(0.18 0.035 285);
+  --secondary-foreground: oklch(0.88 0.015 285);
+
+  /* Muted */
+  --muted: oklch(0.17 0.02 255);
+  --muted-foreground: oklch(0.60 0.015 255);
+
+  /* Accent — green pops on dark */
+  --accent: oklch(0.20 0.05 168);
+  --accent-foreground: #00c897;
+
+  /* Destructive */
+  --destructive: oklch(0.52 0.22 25);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.22 0 0);
-  --input: oklch(0.22 0 0);
-  --ring: oklch(0.4 0 0);
-  --chart-1: #4267b2;
-  --chart-2: oklch(0.6 0.15 250);
-  --chart-3: oklch(0.5 0.18 250);
-  --chart-4: oklch(0.7 0.12 250);
-  --chart-5: oklch(0.4 0.2 250);
-  --sidebar: oklch(0.1 0.01 250);
-  --sidebar-foreground: oklch(0.95 0.01 250);
-  --sidebar-primary: #4267b2;
+
+  --border: oklch(0.21 0.02 255);
+  --input: oklch(0.21 0.02 255);
+  --ring: #6b8fd4;
+
+  /* ─── Charts ─────────────────────────────────────────────────── */
+  --chart-1: #6b8fd4;
+  --chart-2: #8b6cc4;
+  --chart-3: #00c897;
+  --chart-4: oklch(0.55 0.14 255);
+  --chart-5: oklch(0.50 0.18 285);
+
+  /* ─── Sidebar ────────────────────────────────────────────────── */
+  --sidebar: oklch(0.09 0.022 255);
+  --sidebar-foreground: oklch(0.95 0.008 255);
+  --sidebar-primary: #6b8fd4;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: oklch(0.16 0.02 250);
-  --sidebar-accent-foreground: oklch(0.98 0.005 250);
-  --sidebar-border: oklch(0.18 0 0);
-  --sidebar-ring: oklch(0.4 0 0);
+  --sidebar-accent: oklch(0.16 0.03 255);
+  --sidebar-accent-foreground: oklch(0.95 0.008 255);
+  --sidebar-border: oklch(0.18 0.02 255);
+  --sidebar-ring: #6b8fd4;
+
+  /* ─── Brand tokens (dark adjusted) ──────────────────────────── */
+  --brand-blue: #6b8fd4;
+  --brand-blue-foreground: #ffffff;
+  --brand-blue-soft: #1a2540;
+
+  --brand-purple: #8b6cc4;
+  --brand-purple-foreground: #ffffff;
+  --brand-purple-soft: #1e1535;
+
+  --brand-green: #00c897;
+  --brand-green-foreground: #002a1f;
+  --brand-green-soft: #062e22;
+
+  /* ─── Shadows ────────────────────────────────────────────────── */
   --shadow-color: oklch(0 0 0);
-  --shadow-opacity: 0.15;
-  --shadow-blur: 3px;
+  --shadow-opacity: 0.30;
+  --shadow-blur: 12px;
   --shadow-spread: 0px;
   --shadow-offset-x: 0;
-  --shadow-offset-y: 1px;
+  --shadow-offset-y: 2px;
 
-    /* Dashboard Colors */
+  /* ─── Dashboard Colors (do not modify) ───────────────────────── */
   --blue: #3B82F6;
   --blue-soft: #EFF6FF;
   --green: #10B981;
@@ -162,6 +247,27 @@ body {
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
 
+  /* ─── Brand tokens → Tailwind classes ────────────────────────────
+     bg-brand-blue        text-brand-blue        border-brand-blue
+     bg-brand-blue-soft   text-brand-blue-soft
+     bg-brand-purple      text-brand-purple      border-brand-purple
+     bg-brand-purple-soft text-brand-purple-soft
+     bg-brand-green       text-brand-green       border-brand-green
+     bg-brand-green-soft  text-brand-green-soft
+   ─────────────────────────────────────────────────────────────── */
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-blue-foreground: var(--brand-blue-foreground);
+  --color-brand-blue-soft: var(--brand-blue-soft);
+
+  --color-brand-purple: var(--brand-purple);
+  --color-brand-purple-foreground: var(--brand-purple-foreground);
+  --color-brand-purple-soft: var(--brand-purple-soft);
+
+  --color-brand-green: var(--brand-green);
+  --color-brand-green-foreground: var(--brand-green-foreground);
+  --color-brand-green-soft: var(--brand-green-soft);
+
+  /* ─── Dashboard colors ────────────────────────────────────────── */
   --color-blue: var(--blue);
   --color-blue-soft: var(--blue-soft);
   --color-green: var(--green);
@@ -189,10 +295,12 @@ body {
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
 }
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -204,6 +312,7 @@ body {
     opacity: 0;
     transform: translateX(-50px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -215,6 +324,7 @@ body {
     opacity: 0;
     transform: translateX(50px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -226,6 +336,7 @@ body {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -243,15 +354,20 @@ body {
 .animate-fade-in-up {
   animation: fadeInUp 0.8s ease-out both;
 }
+
 .dash {
   display: inline-block;
-  width: 50px; /* Initial width of the dash */
-  height: 6px; /* Initial thickness */
-  background-color: #000; /* Or your brand color */
+  width: 50px;
+  /* Initial width of the dash */
+  height: 6px;
+  /* Initial thickness */
+  background-color: #000;
+  /* Or your brand color */
   vertical-align: middle;
   margin: 0 10px;
   position: relative;
-  z-index: 50; /* Must be higher than text to cover it */
+  z-index: 50;
+  /* Must be higher than text to cover it */
 }
 
 /* Prose styles for blog content */
@@ -271,7 +387,8 @@ body {
   @apply mb-4 leading-relaxed text-sm;
 }
 
-.prose ul, .prose ol {
+.prose ul,
+.prose ol {
   @apply mb-4 ml-6;
 }
 

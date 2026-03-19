@@ -30,7 +30,7 @@ class DomainNameAPIClient {
         return response.map((item: any) => ({
           domain: item.DomainName,
           available: item.Status === 'available',
-          price: item.Price,
+          price: parseFloat(item.Price) || 0,
         }));
       }
       
@@ -58,6 +58,28 @@ class DomainNameAPIClient {
     } catch (error) {
       console.error('Error fetching domain pricing:', error);
       throw error;
+    }
+  }
+
+  async registerDomain(domainName: string, period: number, contact: {
+    firstName: string; lastName: string; email: string; phone: string;
+    address: string; city: string; state: string; zip: string; country: string;
+  }): Promise<{ success: boolean; data?: any; error?: string }> {
+    const contactInfo = {
+      FirstName: contact.firstName, LastName: contact.lastName,
+      EMail: contact.email, Phone: contact.phone,
+      AddressLine1: contact.address, City: contact.city,
+      State: contact.state, ZipCode: contact.zip, Country: contact.country,
+    };
+    const contacts = {
+      Administrative: contactInfo, Billing: contactInfo,
+      Technical: contactInfo, Registrant: contactInfo,
+    };
+    try {
+      const result = await this.client.RegisterWithContactInfo(domainName, period, contacts);
+      return { success: true, data: result };
+    } catch (error: any) {
+      return { success: false, error: error.message };
     }
   }
 

@@ -84,6 +84,24 @@ const OS_ICONS: Record<string, string> = {
   opensuse: "/images/openSUSE-icon.png",
 };
 
+
+const LOCATION_NAMES: Record<string, { name: string; flag: string }> = {
+  hel1: { name: "Helsinki, Finland", flag: "🇫🇮" },
+  hel2: { name: "Helsinki, Finland", flag: "🇫🇮" },
+  fsn1: { name: "Falkenstein, Germany", flag: "🇩🇪" },
+  fsn2: { name: "Falkenstein, Germany", flag: "🇩🇪" },
+  nbg1: { name: "Nuremberg, Germany", flag: "🇩🇪" },
+  nbg2: { name: "Nuremberg, Germany", flag: "🇩🇪" },
+  ash:  { name: "Ashburn, USA", flag: "🇺🇸" },
+  hil:  { name: "Hillsboro, USA", flag: "🇺🇸" },
+  sin:  { name: "Singapore", flag: "🇸🇬" },
+};
+
+function locationLabel(code: string) {
+  const key = code.toLowerCase();
+  return LOCATION_NAMES[key] ?? { name: code, flag: "🌍" };
+}
+
 function osIcon(osName: string): string {
   const lower = osName.toLowerCase();
   if (lower.includes("ubuntu")) return OS_ICONS.ubuntu;
@@ -114,7 +132,7 @@ function SelectCard({
       className={`relative cursor-pointer w-full text-left rounded-xl border p-3 transition-all duration-200
         ${selected
           ? "border-primary bg-muted/20"
-          : "border-primary/20 bg-white/3 hover:border-primary hover:bg-white/5"
+          : "border-border hover:border-primary hover:bg-muted/40"
         }`}
     >
       {selected && (
@@ -143,7 +161,7 @@ function Section({
     <div className="config-section">
       <div className="mb-4">
         <div className="flex items-center gap-2 mb-1">
-          <div className="w-7 h-7 rounded-lg bg-muted/20 flex items-center justify-center">
+          <div className="w-7 h-7 rounded-lg bg-brand-green/10 border border-brand-green/20 flex items-center justify-center">
             <Icon className="w-3.5 h-3.5" />
           </div>
           <h2 className="text-sm font-semibold uppercase tracking-wider">
@@ -172,7 +190,7 @@ function AddonCounter({
   onDecrement: () => void;
 }) {
   return (
-    <div className="flex items-center justify-between p-3 rounded-xl border border-primary/20 bg-white/3">
+    <div className={`flex items-center justify-between p-3 rounded-xl border transition-colors ${quantity > 0 ? "border-primary bg-muted/20" : "border-border bg-muted/20"}`}>
       <div className="flex-1">
         <p className="text-sm font-medium">{addon.name}</p>
         <p className="text-xs text-muted-foreground mt-0.5">
@@ -184,7 +202,7 @@ function AddonCounter({
           type="button"
           onClick={onDecrement}
           disabled={quantity === 0}
-          className="w-8 h-8 rounded-lg bg-muted/20 hover:bg-muted/30 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center transition-colors"
+          className="w-8 h-8 rounded-lg bg-muted hover:bg-muted/80 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center transition-colors"
         >
           <Minus className="w-3.5 h-3.5" />
         </button>
@@ -195,7 +213,7 @@ function AddonCounter({
           type="button"
           onClick={onIncrement}
           disabled={addon.max !== undefined && quantity >= addon.max}
-          className="w-8 h-8 rounded-lg bg-muted/20 hover:bg-muted/30 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center transition-colors"
+          className="w-8 h-8 rounded-lg bg-muted hover:bg-muted/80 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center transition-colors"
         >
           <Plus className="w-3.5 h-3.5" />
         </button>
@@ -231,6 +249,7 @@ export default function DedicatedConfigurePage({
   const [maxDriveSlotsApi, setMaxDriveSlotsApi] = useState<number>(4);
 
   const [isOrdering, setIsOrdering] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState<"stripe" | "paypal" | "offline">("stripe");
   const [orderStatus, setOrderStatus] = useState<{ success: boolean; message: string } | null>(null);
 
   const pageRef = useRef<HTMLDivElement>(null);
@@ -416,7 +435,7 @@ export default function DedicatedConfigurePage({
       const result = await response.json();
       if (result.success) {
         if (result.checkoutUrl) {
-          window.location.href = result.checkoutUrl;
+          window.location.href = `${result.checkoutUrl}?method=${paymentMethod}`;
         } else {
           window.location.href = `/dashboard/orders/${result.order.id}`;
         }
@@ -435,7 +454,7 @@ export default function DedicatedConfigurePage({
 
   if (loading)
     return (
-      <div className="min-h-screen bg-[#090c10] flex items-center justify-center gap-3 text-white/40">
+      <div className="min-h-screen bg-background flex items-center justify-center gap-3 text-muted-foreground">
         <Loader2 className="w-5 h-5 animate-spin" />
         <span className="text-sm">Loading configuration…</span>
       </div>
@@ -443,8 +462,8 @@ export default function DedicatedConfigurePage({
 
   if (error || !plan)
     return (
-      <div className="min-h-screen bg-[#090c10] flex items-center justify-center">
-        <div className="flex items-center gap-3 bg-red-500/10 border border-red-500/20 rounded-xl p-4 text-red-400 text-sm">
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="flex items-center gap-3 bg-destructive/10 border border-destructive/20 rounded-xl p-4 text-destructive text-sm">
           <AlertCircle className="w-4 h-4" />
           {error ?? "Plan not found"}
         </div>
@@ -457,7 +476,7 @@ export default function DedicatedConfigurePage({
         {/* Back */}
         <Link
           href="/hosting/dedicated"
-          className="config-section inline-flex items-center gap-2 text-sm hover:text-white transition-colors mb-8"
+          className="config-section inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Dedicated Servers
@@ -503,15 +522,15 @@ export default function DedicatedConfigurePage({
                     onClick={() => setFilterOS(cat)}
                     className={`px-2.5 py-1 rounded-md text-xs capitalize transition-all
                       ${filterOS === cat
-                        ? "bg-secondary text-primary-foreground font-semibold"
-                        : "bg-muted/20 hover:text-white"
+                        ? "bg-primary text-white font-semibold"
+                        : "bg-muted text-muted-foreground hover:text-foreground"
                       }`}
                   >
                     {cat}
                   </button>
                 ))}
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {filteredOS.map((os) => (
                   <SelectCard
                     key={os}
@@ -542,20 +561,21 @@ export default function DedicatedConfigurePage({
               description="Select datacenter location"
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {plan.locations.map((loc) => (
-                  <SelectCard
-                    key={loc}
-                    selected={selectedLocation === loc}
-                    onClick={() => setSelectedLocation(loc)}
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="text-base">🌍</span>
-                      <div>
-                        <p className="text-sm font-medium">{loc}</p>
+                {plan.locations.map((loc) => {
+                  const { name, flag } = locationLabel(loc);
+                  return (
+                    <SelectCard
+                      key={loc}
+                      selected={selectedLocation === loc}
+                      onClick={() => setSelectedLocation(loc)}
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="text-base">{flag}</span>
+                        <p className="text-sm font-medium">{name}</p>
                       </div>
-                    </div>
-                  </SelectCard>
-                ))}
+                    </SelectCard>
+                  );
+                })}
               </div>
             </Section>
 
@@ -597,11 +617,11 @@ export default function DedicatedConfigurePage({
               title="IP Address"
               description="Base IP is IPv6 (free included). Add IPv4 if needed."
             >
-              <div className="flex items-start gap-3 p-4 rounded-xl border border-blue-500/20 bg-blue-500/5 mb-3">
-                <Info className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
-                <div className="text-xs text-blue-300">
-                  <p className="font-medium mb-1">IPv6 Included by Default</p>
-                  <p className="text-blue-300/80">
+              <div className="flex items-start gap-3 p-4 rounded-xl border border-border/60 bg-muted/40 mb-3">
+                <Info className="w-4 h-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+                <div className="text-xs text-muted-foreground">
+                  <p className="font-medium mb-1 text-foreground">IPv6 Included by Default</p>
+                  <p>
                     Your server comes with a free IPv6 address. IPv4 is optional and can be added for {fmt(ipv4Addon?.monthlyPrice || 0)}/month.
                   </p>
                 </div>
@@ -619,11 +639,7 @@ export default function DedicatedConfigurePage({
                         {fmt(ipv4Addon.monthlyPrice)}/mo
                       </p>
                     </div>
-                    {ipv4Selected && (
-                      <Badge variant="secondary" className="text-xs">
-                        Selected
-                      </Badge>
-                    )}
+
                   </div>
                 </SelectCard>
               ) : (
@@ -756,8 +772,8 @@ export default function DedicatedConfigurePage({
 
           {/* ── Right: Order Summary ── */}
           <div className="config-section lg:sticky lg:top-24">
-            <div className="rounded-2xl border border-white/10 bg-card overflow-hidden">
-              <div className="px-5 py-4 border-b border-white/10">
+            <div className="rounded-2xl border border-border bg-card overflow-hidden">
+              <div className="px-5 py-4 border-b border-border/60">
                 <h3 className="text-md font-semibold uppercase tracking-wider">
                   Order Summary
                 </h3>
@@ -787,7 +803,7 @@ export default function DedicatedConfigurePage({
                   </div>
                 </div>
 
-                <div className="h-px bg-muted/20" />
+                <div className="h-px bg-border/60" />
 
                 {/* Config summary */}
                 <div className="flex flex-col gap-2 text-xs">
@@ -797,7 +813,7 @@ export default function DedicatedConfigurePage({
                   />
                   <SummaryRow
                     label="Location"
-                    value={selectedLocation || "Not selected"}
+                    value={selectedLocation ? locationLabel(selectedLocation).name : "Not selected"}
                   />
                   <SummaryRow
                     label="Server Name"
@@ -808,7 +824,7 @@ export default function DedicatedConfigurePage({
                 {/* Addons summary */}
                 {(ramAddonCost > 0 || ipv4Selected || totalDrives > 0) && (
                   <>
-                    <div className="h-px bg-muted/20" />
+                    <div className="h-px bg-border/60" />
                     <div>
                       <p className="text-xs text-muted-foreground mb-2">
                         Add-ons
@@ -839,7 +855,7 @@ export default function DedicatedConfigurePage({
                   </>
                 )}
 
-                <div className="h-px bg-muted/20" />
+                <div className="h-px bg-border/60" />
 
                 {/* Price */}
                 <div>
@@ -864,9 +880,24 @@ export default function DedicatedConfigurePage({
                   </p>
                 </div>
 
+                {/* Payment method */}
+                <div className="border border-border/60 rounded-xl overflow-hidden">
+                  {(["stripe", "paypal", "offline"] as const).map((m, i) => {
+                    const labels = { stripe: "Credit / Debit Card", paypal: "PayPal", offline: "Offline / Bank Transfer" };
+                    const icons = { stripe: "💳", paypal: "🅿️", offline: "🏦" };
+                    return (
+                      <button key={m} type="button" onClick={() => setPaymentMethod(m)}
+                        className={`w-full flex items-center gap-3 px-4 py-3 text-sm transition-colors ${i > 0 ? "border-t border-border/60" : ""} ${paymentMethod === m ? "bg-primary text-white" : "bg-background text-foreground hover:bg-muted/40"}`}>
+                        <span>{icons[m]}</span>
+                        <span className="font-medium">{labels[m]}</span>
+                        {paymentMethod === m && <span className="ml-auto text-xs opacity-70">Selected</span>}
+                      </button>
+                    );
+                  })}
+                </div>
+
                 <Button
-                  className="w-full bg-secondary cursor-pointer font-bold
-                             rounded-xl py-5 transition-all duration-200 text-sm"
+                  className="w-full rounded-full bg-brand-green hover:bg-brand-green/80 text-white cursor-pointer font-bold py-5 transition-all duration-200 text-sm"
                   disabled={isOrdering || !selectedOS || !selectedLocation}
                   onClick={handleOrder}
                 >
@@ -892,9 +923,6 @@ export default function DedicatedConfigurePage({
                   </div>
                 )}
 
-                <p className="text-[10px] text-center text-muted-foreground">
-                  Hetzner infra · Managed by Momtaz Host
-                </p>
               </div>
             </div>
           </div>

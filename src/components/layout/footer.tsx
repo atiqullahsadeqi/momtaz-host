@@ -1,155 +1,85 @@
 import Link from "next/link";
 
+const hosting = [
+  { label: "VPS Hosting", href: "/hosting/vps" },
+  { label: "Shared Hosting", href: "/hosting/shared" },
+  { label: "Dedicated Servers", href: "/hosting/dedicated" },
+  { label: "Windows Server", href: "/hosting/windows-server" },
+];
+
+const services = [
+  { label: "Domain Registration", href: "/domains" },
+  { label: "Google Workspace", href: "/google-workspace" },
+  { label: "Web Development", href: "/web-development" },
+  { label: "Mobile Development", href: "/mobile-development" },
+  { label: "Database Development", href: "/database-development" },
+  { label: "SEO Services", href: "/seo-services" },
+  { label: "Branding", href: "/branding" },
+];
+
+const company = [
+  { label: "About Us", href: "/about" },
+  { label: "Contact", href: "/contact" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Client Area", href: "/dashboard" },
+];
+
 export function Footer() {
   return (
-    <footer className=" text-card-foreground bg-muted/10 ">
-      <div className="container mx-auto px-4 pt-12 pb-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Company Info */}
-          <div>
-            <h3 className="text-xl font-bold mb-4 text-foreground">
-              Momtaz Host
-            </h3>
-            <p className="text-muted-foreground mb-4 text-sm">
-              Professional hosting and web services provider offering reliable
-              solutions for businesses of all sizes.
+    <footer className="bg-muted/10 border-t border-border/60 text-card-foreground">
+      <div className="max-w-[1100px] mx-auto px-6 pt-14 pb-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+
+          {/* Brand */}
+          <div className="flex flex-col gap-4">
+            <span className="text-lg font-bold text-foreground">Momtaz Host</span>
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              Reliable hosting, professional web services, and digital solutions — all under one roof.
             </p>
-            <div className="text-muted-foreground text-sm">
-              <p>Email: info@momtazhost.com</p>
-              <p>Phone: +93 XXX XXX XXX</p>
+            <div className="flex flex-col gap-1 text-sm text-muted-foreground">
+              <a href="mailto:info@momtazhost.com" className="hover:text-foreground transition-colors">info@momtazhost.com</a>
+              <a href="https://t.me/momtazhost" className="hover:text-foreground transition-colors">Telegram: @momtazhost</a>
             </div>
           </div>
 
-          {/* Hosting Services */}
-          <div className="grid grid-cols-2 md:grid-cols-3 w-full">
-            <div>
-              <h4 className="font-semibold mb-4 text-foreground">Hosting</h4>
-              <ul className="space-y-2 text-muted-foreground text-sm">
-                <li>
-                  <Link
-                    href="/hosting/vps"
-                    className="hover:text-foreground transition-colors"
-                  >
-                    VPS Hosting
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/hosting/shared"
-                    className="hover:text-foreground transition-colors"
-                  >
-                    Shared Hosting
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/hosting/cloud"
-                    className="hover:text-foreground transition-colors"
-                  >
-                    Cloud Hosting
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/hosting/windows"
-                    className="hover:text-foreground transition-colors"
-                  >
-                    Windows Hosting
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Services */}
-            <div>
-              <h4 className="font-semibold mb-4 text-foreground">Services</h4>
-              <ul className="space-y-2 text-muted-foreground text-sm">
-                <li>
-                  <Link
-                    href="/domains"
-                    className="hover:text-foreground transition-colors"
-                  >
-                    Domain Registration
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/web-development"
-                    className="hover:text-foreground transition-colors"
-                  >
-                    Web Development
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/database-development"
-                    className="hover:text-foreground transition-colors"
-                  >
-                    Database Development
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/mobile-development"
-                    className="hover:text-foreground transition-colors"
-                  >
-                    Mobile Development
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/google-workspace"
-                    className="hover:text-foreground transition-colors"
-                  >
-                    Google Workspace
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Support */}
-            <div>
-              <h4 className="font-semibold mb-4 text-foreground">Support</h4>
-              <ul className="space-y-2 text-muted-foreground text-sm">
-                <li>
-                  <Link
-                    href="/about"
-                    className="hover:text-foreground transition-colors"
-                  >
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/contact"
-                    className="hover:text-foreground transition-colors"
-                  >
-                    Contact
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/faq"
-                    className="hover:text-foreground transition-colors"
-                  >
-                    FAQ
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/dashboard"
-                    className="hover:text-foreground transition-colors"
-                  >
-                    Client Area
-                  </Link>
-                </li>
-              </ul>
-            </div>
+          {/* Hosting */}
+          <div>
+            <h4 className="font-semibold text-sm text-foreground mb-4">Hosting</h4>
+            <ul className="space-y-2.5">
+              {hosting.map(({ label, href }) => (
+                <li key={href}><Link href={href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">{label}</Link></li>
+              ))}
+            </ul>
           </div>
+
+          {/* Services */}
+          <div>
+            <h4 className="font-semibold text-sm text-foreground mb-4">Services</h4>
+            <ul className="space-y-2.5">
+              {services.map(({ label, href }) => (
+                <li key={href}><Link href={href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">{label}</Link></li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Company */}
+          <div>
+            <h4 className="font-semibold text-sm text-foreground mb-4">Company</h4>
+            <ul className="space-y-2.5">
+              {company.map(({ label, href }) => (
+                <li key={href}><Link href={href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">{label}</Link></li>
+              ))}
+            </ul>
+          </div>
+
         </div>
 
-        <div className="border-t border-border mt-8 pt-3 text-center text-muted-foreground text-sm">
-          <p>&copy; 2024 Momtaz Host. All rights reserved.</p>
+        <div className="border-t border-border/60 pt-5 flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-muted-foreground">
+          <p>&copy; {new Date().getFullYear()} Momtaz Host. All rights reserved.</p>
+          <div className="flex gap-4">
+            <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-foreground transition-colors">Terms of Service</Link>
+          </div>
         </div>
       </div>
     </footer>

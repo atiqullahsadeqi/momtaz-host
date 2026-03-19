@@ -45,12 +45,32 @@ export async function processOrderProvisioning(orderId: string | number) {
             return;
         }
 
-        // --- PRODUCTION LOGIC WOULD GO HERE ---
-        // For example, calling Hetzner API based on order_type:
-        // if (order.order_type === 'vps') { ... await createHetznerServer(...) }
-        // if (order.order_type === 'dedicated') { ... await createHetznerRobotServer(...) }
+        // Domain registration
+        if (order.order_type === 'domain') {
+            const { domainNameAPI } = await import('@/lib/domainnameapi');
+            const config = order.configuration as any;
+            const result = await domainNameAPI.registerDomain(
+                order.domain,
+                config.period ?? 1,
+                config.contact
+            );
+            if (result.success) {
+                await client.query(
+                    `UPDATE orders SET status = 'active', updated_at = NOW() WHERE id = $1`,
+                    [orderId]
+                );
+                console.log(`[Provisioning] Domain ${order.domain} registered successfully`);
+            } else {
+                await client.query(
+                    `UPDATE orders SET status = 'failed', admin_notes = $1, updated_at = NOW() WHERE id = $2`,
+                    [result.error, orderId]
+                );
+                console.error(`[Provisioning] Domain registration failed: ${result.error}`);
+            }
+            return;
+        }
 
-        console.log(`[Provisioning] Non-test mode placeholder. Make sure Hetzner logic is implemented before turning off test mode!`);
+        console.log(`[Provisioning] Non-test mode placeholder for order type: ${order.order_type}`);
 
     } catch (err) {
         console.error(`[Provisioning] Failed for Order ${orderId}:`, err);

@@ -68,6 +68,7 @@ export const auth = betterAuth({
         "http://localhost:3000",
         "http://admin.localhost:3000",
         "https://momtaz.ws",
-        "https://admin.momtaz.ws"
+        "https://admin.momtaz.ws",
+        "https://momtaz-host.lcl.host:44318"
     ],
 });

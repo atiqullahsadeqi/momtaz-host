@@ -16,7 +16,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Globe, Shield, Gift, Headphones, Loader2, Search, Mail, MessageCircleWarning } from "lucide-react";
+import { Confetti, type ConfettiRef } from "@/components/ui/confetti";
+import { Globe, Shield, Gift, Headphones, Loader2, Search, Mail, MessageCircleWarning, CheckCircle } from "lucide-react";
 import Link from "next/link";
 import LogoLoop from "@/components/LogoLoop";
 import { useState, useEffect, useMemo, Suspense, useRef } from "react";
@@ -58,6 +59,7 @@ function DomainsPageContent() {
   const [hasAutoSearched, setHasAutoSearched] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const resultsRef = useRef<HTMLDivElement>(null);
+  const confettiRef = useRef<ConfettiRef>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
 
 
@@ -193,18 +195,18 @@ function DomainsPageContent() {
 
   const whyChooseUs = [
     {
-      icon: <Gift className="h-8 w-8 text-primary" />,
+      icon: Gift,
       title: "Free domain name",
       description: "Get a free domain when you purchase hosting with us",
     },
     {
-      icon: <Shield className="h-8 w-8 text-primary" />,
+      icon: Shield,
       title: ".af Partner",
       description:
         "We are a .af partner, we can register .af domains for you in just a few clicks",
     },
     {
-      icon: <Headphones className="h-8 w-8 text-primary" />,
+      icon: Headphones,
       title: "24/7 customer support",
       description: "Our expert team is always here to help you",
     },
@@ -252,7 +254,7 @@ function DomainsPageContent() {
 
     // Scroll to results section
     setTimeout(() => {
-      resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (resultsRef.current) { const top = resultsRef.current.getBoundingClientRect().top + window.scrollY - 80; window.scrollTo({ top, behavior: 'smooth' }); }
     }, 100);
 
     try {
@@ -282,7 +284,9 @@ function DomainsPageContent() {
           })
         );
 
-        setSearchResults([mainResult, ...altResults.filter(Boolean)]);
+        const results = [mainResult, ...altResults.filter(Boolean)];
+        setSearchResults(results);
+        if (mainResult?.available) setTimeout(() => confettiRef.current?.fire({}), 300);
       } else {
         console.error('Search failed:', data.error);
         setSearchResults([]);
@@ -324,303 +328,221 @@ function DomainsPageContent() {
   ];
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section - Domain Search */}
-      <section className="py-20 bg-muted">
-        <div className="container mx-auto px-4 text-center">
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-5xl  font-bold mb-6">
-              Search for a domain name
-            </h1>
-            <p className="text-sm  mb-8 opacity-90">
-              Find your perfect domain name and make it yours.
-            </p>
+    <div className="w-full flex flex-col items-center">
 
-            {/* Domain Search */}
-            <div className="max-w-2xl mx-auto mb-8">
-              <div className="flex items-center justify-center rounded-full bg-card overflow-hidden py-1 pr-4">
-                <Input
-                  type="text"
-                  placeholder="Enter your domain name"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  onKeyPress={(e) => e.key === "Enter" && handleSearch()}
-                  className="flex-1 px-6 py-3 text-sm border-0 transparent focus:outline-none focus:ring-0 text-muted-foreground placeholder:text-muted-foreground"
-                />
-                <Button
-                  variant="default"
-                  size="icon"
-                  className=" rounded-full -mr-2"
-                  onClick={handleSearch}
-                  disabled={isSearching}
-                >
-                  {isSearching ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  ) : (
-                    <Search />
-                  )}
-                </Button>
-              </div>
+      {/* ── HERO — full-width bg-muted ── */}
+      <section className="w-full bg-muted/60 pt-16 pb-12 px-6">
+        <div className="max-w-[1100px] mx-auto">
+          <div className="mb-8 flex flex-col items-start gap-4">
+            <div className="inline-block px-4 py-1.5 rounded-full bg-primary text-primary-foreground text-xs font-semibold">
+              Domain Registration
+            </div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
+              Find Your Perfect<br />
+              <span className="text-primary">Domain Name.</span>
+            </h1>
+            <p className="text-muted-foreground max-w-xl text-sm leading-relaxed">
+              Search, register, and manage your domain with Afghanistan&apos;s trusted registrar.
+            </p>
+          </div>
+
+          {/* Search bar */}
+          <div className="max-w-2xl mb-10">
+            <div className="flex items-center rounded-full bg-background border border-border/60 overflow-hidden py-1 pr-2 shadow-sm">
+              <Input
+                type="text"
+                placeholder="Enter your domain name"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyPress={(e) => e.key === "Enter" && handleSearch()}
+                className="flex-1 px-6 py-3 text-sm border-0 bg-transparent focus:outline-none focus:ring-0"
+              />
+              <Button variant="default" size="icon" className="rounded-full shrink-0" onClick={handleSearch} disabled={isSearching}>
+                {isSearching ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search />}
+              </Button>
             </div>
           </div>
-        </div>
-        <div className="max-w-6xl mx-auto">
+
+          {/* Bento cards */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="bg-foreground dark:bg-[#333333] p-10 md:col-span-2 min-h-80 rounded-2xl flex flex-col justify-between items-start">
-              <div className="h-12 w-12  mb-4 p-2 rounded-sm bg-primary flex items-center justify-center">
-                <Mail className=" text-popover" />
+            <div className="bg-foreground dark:bg-[#1a1a2e] p-10 md:col-span-2 min-h-72 rounded-2xl flex flex-col justify-between">
+              <div className="h-12 w-12 p-2 rounded-sm bg-primary flex items-center justify-center">
+                <Mail className="text-white" />
               </div>
               <div>
-                <h2 className="text-2xl mb-2  text-white leading-tight">Register <strong>.com</strong> domain and get up to <strong>50% discount</strong> for 1st year.</h2>
-                <p className="text-white/80 text-sm">Applicable when you register with a 3-year term. Standard rates at renewal after 1st year.</p>
+                <h2 className="text-2xl font-bold text-white leading-tight mb-2">
+                  Register <strong>.com</strong> and get up to <strong>50% off</strong> for the 1st year.
+                </h2>
+                <p className="text-white/60 text-sm">Applicable with a 3-year term. Standard rates at renewal.</p>
               </div>
             </div>
-            <div className="relative w-full min-h-80 rounded-2xl overflow-hidden bg-primary/50">
-              {/* The Background Image Layer */}
-              <div
-                className="absolute inset-0 bg-[url('https://images.pexels.com/photos/3183155/pexels-photo-3183155.jpeg')] bg-cover bg-center"
-                style={{
-                  // Mask: Solid at the top (100%), Transparent at the bottom (0%)
-                  maskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)',
-                  WebkitMaskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)'
-                }}
-              />
 
-              {/* The Blur Overlay Layer */}
+            <div className="relative w-full min-h-72 rounded-2xl overflow-hidden bg-brand-green/50">
+              <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/3183155/pexels-photo-3183155.jpeg')] bg-cover bg-center"
+                style={{ maskImage: "linear-gradient(to bottom, black 40%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 40%, transparent 100%)" }} />
               <div className="absolute inset-0 backdrop-blur-md"
-                style={{
-                  // Inverse Mask: Transparent at the top (keep subject sharp), Solid at bottom (blur background)
-                  maskImage: 'linear-gradient(to bottom, transparent 20%, white 100%)',
-                  WebkitMaskImage: 'linear-gradient(to bottom, transparent 20%, white 100%)'
-                }}
-              />
-
-              {/* Content Layer (Moved to top for readability) */}
+                style={{ maskImage: "linear-gradient(to bottom, transparent 20%, white 100%)", WebkitMaskImage: "linear-gradient(to bottom, transparent 20%, white 100%)" }} />
               <div className="relative z-10 p-8 flex flex-col justify-end h-full">
-                <h2 className="text-1xl mb-2 font-bold text-white leading-tight">1K+</h2>
-                <p className="text-white text-sm mb-3">Registered domains.</p>
-                <h2 className="text-1xl mb-2 font-bold text-white leading-tight">100+</h2>
-                <p className="text-white text-sm">Support tlds</p>
+                <p className="text-white font-bold">1K+ Registered domains</p>
+                <p className="text-white/60 text-xs mt-1">100+ supported TLDs</p>
               </div>
             </div>
-            <div className="relative bg-primary p-4 rounded-2xl min-h-80 overflow-hidden group">
-              {/* Content Layer */}
-              <div className="relative z-20 p-6 flex flex-col justify-start h-full">
-                <h2 className="text-xl mb-2 font-bold text-white leading-tight">.af Partner</h2>
-                <p className="text-white/80 text-xs max-w-[180px]">
-                  We are a .af partner, we can register .af domains for you in just a few clicks
-                </p>
+
+            <div className="relative bg-primary p-4 rounded-2xl min-h-72 overflow-hidden">
+              <div className="relative z-20 p-6">
+                <h2 className="text-xl font-bold text-white mb-2">.af Partner</h2>
+                <p className="text-white/70 text-xs max-w-[180px]">Register .af domains in just a few clicks as an AFGNIC-accredited registrar.</p>
               </div>
-
-              {/* Floating Badges Container */}
-              <div className="absolute inset-0 z-10 pointer-events-none w-[280px]">
-                {/* 2FA Badge */}
-                <div className="absolute bottom-8 left-13 px-4 py-2 bg-blue-500 text-white text-xs font-bold rounded-full shadow-xl -rotate-12 border border-white/20">
-                  .af - .com.af
-                </div>
-
-                {/* SAML Badge */}
-                <div className="absolute bottom-12 right-16 px-4 py-2 bg-white text-primary text-xs font-bold rounded-full shadow-xl rotate-18 border border-slate-200">
-                  .org.af
-                </div>
-
-                {/* DLP Badge */}
-                <div className="absolute bottom-2 right-20 px-5 py-2 bg-slate-800 text-white text-xs font-bold rounded-full shadow-xl -rotate-6 border border-white/10">
-                  .edu.af
-                </div>
-
-                {/* Encryption Badge */}
-                <div className="absolute bottom-20 left-1/2 -translate-x-1/2 px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-full shadow-2xl -rotate-[30deg] border border-white/20 opacity-90">
-                  .net.af
-                </div>
+              <div className="absolute inset-0 z-10 pointer-events-none">
+                {[
+                  { label: ".af", cls: "bottom-20 left-6 -rotate-12" },
+                  { label: ".com.af", cls: "bottom-14 right-4 rotate-6" },
+                  { label: ".org.af", cls: "bottom-6 left-10 rotate-3" },
+                  { label: ".edu.af", cls: "bottom-2 right-8 -rotate-6" },
+                ].map(({ label, cls }) => (
+                  <span key={label} className={`absolute ${cls} bg-white/10 text-white text-[10px] font-medium px-2.5 py-1 rounded-full border border-white/20`}>{label}</span>
+                ))}
               </div>
-
-              {/* Subtle Background Glow for Premium Feel */}
               <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 blur-[50px] rounded-full" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Domain search result */}
-      {showResults && (
-        <section ref={resultsRef} className="py-20 ">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 gap-6 max-w-6xl mx-auto">
+      {/* ── MAIN CONTAINER ── */}
+      <section className="w-full relative flex flex-col items-center">
+        <div className="w-full max-w-[1100px] mx-auto bg-background flex flex-col border-x border-border/60">
 
+          {/* ── Search Results (conditional) ── */}
+          {showResults && (
+            <div ref={resultsRef} className="border-b border-border/60 relative overflow-hidden">
               {isSearching ? (
-                <div className="flex items-center bg-muted/30 justify-center py-12">
-                  <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                </div>
+                <div className="flex items-center justify-center py-16"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>
               ) : searchResults.length > 0 && searchResults[0].available ? (
-                <div className="grid grid-cols-1  gap-4">
-                  <div className="bg-muted/30 p-6 rounded-lg flex justify-center flex-col items-center gap-2">
-                    <Badge variant="default" className="px-3 py-1 text-sm">
-                      Perfect Match
-                    </Badge>
-                    <h1 className="text-2xl md:text-4xl font-bold mt-2">{searchResults[0].domain.includes('.') ? searchResults[0].domain : `${searchResults[0].domain}.com`}</h1>
-                    <p className="mt-2"><strong>is available</strong> for  {searchResults[0].price && (
-                       <strong>
-                          ${searchResults[0].price.toFixed(2)}/year
-                       </strong>
-                      )} for the first year!</p>
-                      <Button className="mt-4" size="lg" onClick={() => router.push(`/checkout?domain=${searchResults[0].domain}`)}>
-                        Continue
-                      </Button>
-                  </div>
+                <div className="p-10 lg:p-12 flex flex-col items-center gap-4 text-center bg-background">
+                  <Confetti ref={confettiRef} className="absolute inset-0 w-full h-full pointer-events-none" />
+                  <h2 className="text-2xl md:text-3xl font-bold">{searchResults[0].domain.includes(".") ? searchResults[0].domain : `${searchResults[0].domain}.com`}</h2>
+                  <p className="text-muted-foreground text-sm">is available for {searchResults[0].price && <strong className="text-foreground">${searchResults[0].price.toFixed(2)}/year</strong>}</p>
+                  <Button size="lg" className="rounded-full bg-brand-green hover:bg-brand-green/80 text-white" onClick={() => router.push(`/domains/register/${encodeURIComponent(searchResults[0].domain)}?price=${searchResults[0].price ?? 0}`)}>Register Now</Button>
                 </div>
-              ) : (
-                <Alert className="mb-4 py-6 bg-muted/30 border-none max-w-2xl mx-auto">
-                  <AlertTitle className="text-lg flex gap-1 justify-center"><strong className="flex gap-1 justify-center"> <MessageCircleWarning /> {searchResults[0].domain.includes('.') ? searchResults[0].domain : `${searchResults[0].domain}.com`} is already taken.</strong>  Please search for alternatives!</AlertTitle>
-
-                </Alert>
-              )}
-
+              ) : searchResults.length > 0 ? (
+                <div className="p-10 lg:p-12 flex flex-col items-center gap-3 text-center bg-primary">
+                  <MessageCircleWarning className="h-8 w-8 text-white/60" />
+                  <h2 className="text-lg font-bold text-white">{searchResults[0].domain.includes(".") ? searchResults[0].domain : `${searchResults[0].domain}.com`} is already taken.</h2>
+                  <p className="text-sm text-white/60">Please search for an alternative domain name.</p>
+                </div>
+              ) : null}
             </div>
-          </div>
-        </section>
-      )}
+          )}
 
-      <section className="pb-20 bg-background">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Why buy domain names <br /> at Momtaz Host?
-          </h2>
-        </div>
-        <div className="container mx-auto px-4  rounded-lg grid grid-cols-3 gap-16">
-          <div className="relative w-full min-h-100 rounded-2xl overflow-hidden bg-primary/50 col-span-2 ">
-            {/* The Background Image Layer */}
-            <div
-              className="absolute inset-0 bg-[url('https://images.pexels.com/photos/17011082/pexels-photo-17011082.jpeg')] bg-cover bg-center"
-              style={{
-                // Mask: Solid at the top (100%), Transparent at the bottom (0%)
-                maskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)'
-              }}
-            />
-
-            {/* The Blur Overlay Layer */}
-            <div className="absolute inset-0 backdrop-blur-md"
-              style={{
-                // Inverse Mask: Transparent at the top (keep subject sharp), Solid at bottom (blur background)
-                maskImage: 'linear-gradient(to bottom, transparent 20%, white 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, transparent 20%, white 100%)'
-              }}
-            />
-
-            {/* Content Layer (Moved to top for readability) */}
-            <div className="relative z-10 p-8 flex flex-col justify-end h-full">
-              <h2 className="text-3xl mb-2 font-bold text-white leading-tight">Trusted domain registrar in Afghanistan</h2>
-              <p className="text-white/80 text-sm">Momtaz Host is an AFGNIC-accredited registrar and offers all .af extensions alongside 100+ global domains.</p>
-            </div>
-          </div>
-          <div className="bg-primary min-h-100 rounded-2xl">
-            <div className="relative z-10 p-8 flex flex-col justify-end h-full">
-              <h2 className="text-3xl mb-2 font-bold text-white leading-tight">Privacy</h2>
-              <p className="text-white/80 text-sm">Momtaz Host is an AFGNIC-accredited registrar and offers all .af extensions alongside 100+ global domains.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-      {/* Choose from Popular Domains */}
-      <section className="py-20 bg-muted text-white overflow-hidden">
-        <div className="container mx-auto px-6">
-          {/* Header with Navigation */}
-          <div className="flex justify-between items-end mb-10">
-            <div>
-              <h2 className="text-foreground text-4xl md:text-5xl font-bold mb-4 max-w-md leading-tight ">
-                Choose from the most popular domains
-              </h2>
-
-            </div>
-
-            <div className="flex gap-2">
-              <button
-                onClick={() => scroll('left')}
-                className="p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors"
-              >
-                <ChevronLeft size={24} />
-              </button>
-              <button
-                onClick={() => scroll('right')}
-                className="p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors"
-              >
-                <ChevronRight size={24} />
-              </button>
-            </div>
+          {/* Why Momtaz Host header */}
+          <div className="border-b border-border/60 p-10 lg:p-12 flex flex-col items-center text-center">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">Why buy domains at Momtaz Host?</h2>
+            <p className="text-muted-foreground text-sm max-w-xl leading-relaxed">
+              Afghanistan&apos;s trusted registrar — AFGNIC-accredited with 100+ global TLDs.
+            </p>
           </div>
 
-          {/* Draggable/Scrollable Container */}
-          <div
-            ref={sliderRef}
-            className="flex gap-6 overflow-x-hidden scrollbar-hide py-4"
-            style={{ scrollBehavior: 'auto' }}
-          >
-            {popularDomains.map((domain, index) => (
-              <Card
-                key={index}
-                className="min-w-[300px] text-black rounded-2xl p-8 flex flex-col justify-between shadow-none"
-              >
-                <CardHeader>
-                  <h3 className="text-foreground text-3xl font-bold mb-3">{domain.name}</h3>
-                  <p className="text-muted-foreground text-[15px] leading-relaxed mb-8">
-                    {domain.description}
-                  </p>
-                </CardHeader>
-
-                <CardContent>
-                  <div className="mb-4">
-
-                    <span className="text-2xl font-bold text-foreground">
-                      {domain.price}
-                    </span>
-                    <span className="text-muted-foreground text-sm">/year</span>
+          {/* Trusted registrar image + privacy card */}
+          <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-px bg-border/60 border-b border-border/60">
+            <div className="md:col-span-2 relative min-h-[380px] overflow-hidden">
+              <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/17011082/pexels-photo-17011082.jpeg')] bg-cover bg-center"
+                style={{ maskImage: "linear-gradient(to bottom, black 40%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 40%, transparent 100%)" }} />
+              <div className="absolute inset-0 backdrop-blur-md"
+                style={{ maskImage: "linear-gradient(to bottom, transparent 20%, white 100%)", WebkitMaskImage: "linear-gradient(to bottom, transparent 20%, white 100%)" }} />
+              <div className="relative z-10 p-8 lg:p-10 flex flex-col justify-end h-full">
+                <h2 className="text-2xl md:text-3xl font-bold text-white leading-tight mb-2">Trusted domain registrar in Afghanistan</h2>
+                <p className="text-white/70 text-sm max-w-md">Momtaz Host is an AFGNIC-accredited registrar and offers all .af extensions alongside 100+ global domains.</p>
+              </div>
+            </div>
+            <div className="bg-primary p-8 lg:p-10 flex flex-col justify-between min-h-[280px]">
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mb-4">
+                  <Shield className="h-5 w-5 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">Privacy Protection</h3>
+                <p className="text-white/60 text-sm leading-relaxed">Your personal information stays private. We shield your WHOIS data from spammers and marketers.</p>
+              </div>
+              <div className="flex flex-col gap-2 mt-6">
+                {["WHOIS privacy", "Spam protection", "Data security"].map(item => (
+                  <div key={item} className="flex items-center gap-2 text-sm text-white/80">
+                    <CheckCircle className="h-4 w-4 text-brand-green shrink-0" />
+                    {item}
                   </div>
+                ))}
+              </div>
+            </div>
+          </div>
 
-                  <button className="w-full py-3 px-4 bg-[#111] text-white font-bold rounded-lg hover:bg-black transition-colors">
-                    Check availability
-                  </button>
-                </CardContent>
-              </Card>
+          {/* Why choose us — 3 cells */}
+          <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-px bg-border/60 border-b border-border/60">
+            {whyChooseUs.map((item, i) => (
+              <div key={i} className="bg-background p-8 lg:p-10 flex flex-col gap-3">
+                <div className="w-10 h-10 rounded-xl bg-brand-green/10 border border-brand-green/20 flex items-center justify-center">
+                  <item.icon className="h-5 w-5 text-brand-green" />
+                </div>
+                <h3 className="font-bold text-foreground">{item.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
+              </div>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* TLD Pricing Table */}
-      <TLDPricingTable />
-
-      {/* FAQ Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Domain name search FAQs
-            </h2>
+          {/* Popular domains slider */}
+          <div className="border-b border-border/60 p-10 lg:p-12 flex items-center justify-between">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Popular domains</h2>
+              <p className="text-muted-foreground text-sm mt-1">Choose from the most popular TLDs</p>
+            </div>
+            <div className="flex gap-2">
+              <button onClick={() => scroll("left")} className="p-2 rounded-full border border-border/60 hover:bg-muted transition-colors"><ChevronLeft size={20} /></button>
+              <button onClick={() => scroll("right")} className="p-2 rounded-full border border-border/60 hover:bg-muted transition-colors"><ChevronRight size={20} /></button>
+            </div>
+          </div>
+          <div ref={sliderRef} className="flex gap-px overflow-x-hidden bg-border/60 border-b border-border/60" style={{ scrollBehavior: "auto" }}>
+            {popularDomains.map((domain, i) => (
+              <div key={i} className="min-w-[260px] bg-background p-8 flex flex-col gap-3">
+                <h3 className="text-3xl font-bold text-foreground">{domain.name}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed flex-1">{domain.description}</p>
+                <div className="mt-2">
+                  <span className="text-2xl font-bold text-foreground">{domain.price}</span>
+                  <span className="text-muted-foreground text-sm">/year</span>
+                </div>
+                <button className="w-full py-2.5 px-4 bg-brand-green hover:bg-brand-green/80 text-white text-sm font-semibold rounded-full transition-colors">Check availability</button>
+              </div>
+            ))}
           </div>
 
-          <div className="max-w-3xl mx-auto">
-            <Accordion type="single" collapsible className="w-full">
-              {faqs.map((faq, index) => (
-                <AccordionItem
-                  key={index}
-                  value={`item-${index}`}
-                  className="border-b"
-                >
-                  <AccordionTrigger className="text-left hover:no-underline">
-                    <span className="font-semibold">{faq.question}</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+          {/* TLD Pricing Table */}
+          <div className="border-b border-border/60 p-10 lg:p-12 flex flex-col items-center text-center">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">All Domain Extension Prices</h2>
+            <p className="text-muted-foreground text-sm max-w-xl">Compare prices for all available domain extensions</p>
           </div>
+          <TLDPricingTable />
+
+          {/* FAQ */}
+          <div className="border-b border-border/60 p-10 lg:p-12 flex flex-col items-center text-center">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">Domain name FAQs</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-px bg-border/60">
+            <div className="bg-background p-8 lg:p-10 flex flex-col gap-2">
+              <p className="text-xs font-bold uppercase tracking-widest text-brand-green">Got questions?</p>
+              <p className="text-sm text-muted-foreground leading-relaxed mt-2">Everything you need to know about domain registration, transfers, and management.</p>
+            </div>
+            <div className="md:col-span-2 bg-background p-8 lg:p-10">
+              <Accordion type="single" collapsible className="w-full">
+                {faqs.map((faq, i) => (
+                  <AccordionItem key={i} value={`item-${i}`} className="border-b border-border/60">
+                    <AccordionTrigger className="text-left hover:no-underline font-semibold">{faq.question}</AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground leading-relaxed">{faq.answer}</AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          </div>
+
         </div>
       </section>
+     
     </div>
   );
 }

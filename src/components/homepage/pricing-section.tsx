@@ -1,8 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { CircleCheckBig, Loader2 } from "lucide-react";
+import { Loader2, Check, ArrowRight } from "lucide-react";
 
 type TabType = 'shared' | 'vps' | 'dedicated';
 
@@ -85,7 +84,7 @@ export default function PricingSection() {
         "Daily Backups",
         "24/7 Support",
       ],
-      isPopular: true,
+      isPopular: false,
     }
   ];
 
@@ -104,7 +103,7 @@ export default function PricingSection() {
         "1 Dedicated IP",
         "24/7 Support",
       ],
-      isPopular: true,
+      isPopular: false,
     },
     {
       name: "VPS Pro",
@@ -120,7 +119,7 @@ export default function PricingSection() {
         "2 Dedicated IPs",
         "Priority Support",
       ],
-      isPopular: false,
+      isPopular: true,
     },
     {
       name: "VPS Enterprise",
@@ -202,112 +201,126 @@ export default function PricingSection() {
     }
   };
 
+  const getPlanDescription = (index: number) => {
+    if (index === 0) return "The perfect starting place for your web app or personal project.";
+    if (index === 1) return "Everything you need to build and scale your app.";
+    if (index === 2) return "Critical security, performance, observability, platform SLAs, and support.";
+    return "Scalable hosting solution.";
+  };
+
+  const currentPlans = getCurrentPlans();
+
   return (
-    <section id="pricing" className="py-10">
-      <div className="container mx-auto px-4">
+    <section id="pricing" className="w-full border-b border-border/60 bg-muted/5 relative overflow-hidden flex flex-col items-center">
+
+
+      <div className="w-full max-w-[1200px] mx-auto bg-background/80 backdrop-blur-sm relative z-10 flex flex-col  shadow-sm">
+
         {/* Section Header */}
-        <div className="text-center mb-10">
-          <h2 className="text-2xl lg:text-4xl font-bold mb-4">
-            Choose Your Perfect Hosting Plan.
+        <div className="border-b border-border/60 p-10 lg:p-12 flex flex-col items-center text-center bg-background">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-foreground">
+            Find a plan to power your apps.
           </h2>
-          <p className="text-sm text-muted-foreground max-w-2xl mx-auto mb-8">
-            From shared hosting to powerful VPS solutions, we have the perfect
-            plan for your needs.
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
+            Momtaz Host supports teams of all sizes, with pricing that scales.
           </p>
 
-          {/* Hosting Type Tabs */}
-          <div className="flex items-center justify-center space-x-2 mb-8 border border-primary rounded-full px-4 py-2 w-fit mx-auto">
+          {/* Hosting Type Segmented Control */}
+          <div className="flex items-center justify-center p-1 bg-muted border border-border/60 rounded-full w-fit mx-auto">
             <button
               onClick={() => setActiveTab('shared')}
-              className={`cursor-pointer px-4 py-1 md:px-6 md:py-2 rounded-full text-sm font-medium transition-all ${
-                activeTab === 'shared'
-                  ? "bg-primary text-white"
-                  : "bg-transparent text-muted-foreground hover:text-primary"
-              }`}
+              className={`cursor-pointer px-6 py-2.5 outline-none rounded-full text-sm font-semibold transition-all ${activeTab === 'shared'
+                ? "bg-background shadow-sm border border-border/80 text-foreground"
+                : "bg-transparent text-muted-foreground hover:text-foreground border border-transparent"
+                }`}
             >
               Linux Shared
             </button>
             <button
               onClick={() => setActiveTab('vps')}
-              className={`cursor-pointer px-4 py-1 md:px-6 md:py-2  rounded-full text-sm font-medium transition-all ${
-                activeTab === 'vps'
-                  ? "bg-primary text-white"
-                  : "bg-transparent text-muted-foreground hover:text-primary"
-              }`}
+              className={`cursor-pointer px-6 py-2.5 outline-none rounded-full text-sm font-semibold transition-all ${activeTab === 'vps'
+                ? "bg-background shadow-sm border border-border/80 text-foreground"
+                : "bg-transparent text-muted-foreground hover:text-foreground border border-transparent"
+                }`}
             >
               Linux VPS
             </button>
             <button
               onClick={() => setActiveTab('dedicated')}
-              className={`cursor-pointer px-4 py-1 md:px-6 md:py-2  rounded-full text-sm font-medium transition-all ${
-                activeTab === 'dedicated'
-                  ? "bg-primary text-white"
-                  : "bg-transparent text-muted-foreground hover:text-primary"
-              }`}
+              className={`cursor-pointer px-6 py-2.5 outline-none rounded-full text-sm font-semibold transition-all ${activeTab === 'dedicated'
+                ? "bg-background shadow-sm border border-border/80 text-foreground"
+                : "bg-transparent text-muted-foreground hover:text-foreground border border-transparent"
+                }`}
             >
               Dedicated
             </button>
           </div>
         </div>
 
-        {/* Pricing Cards */}
-        <div className="max-w-full md:max-w-5xl mx-auto px-8 md:px-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {getCurrentPlans().map((plan, index) => (
-            <Card
+        {/* Pricing Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-px bg-border/60">
+          {currentPlans.map((plan, index) => (
+            <div
               key={index}
-              className={`${
-                plan.isPopular
-                  ? "border-2 border-primary relative"
-                  : "border border-primary/20"
-              } transition-all duration-300 shadow-none`}
+              className={`bg-background p-8 lg:p-12 flex flex-col relative ${plan.isPopular ? 'md:z-10' : ''}`}
             >
               {plan.isPopular && (
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-medium">
-                    Most Popular
-                  </span>
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-brand-green text-background px-4 py-1 text-xs font-bold rounded-full tracking-wide shadow-md">
+                  Popular
                 </div>
               )}
-              <CardContent className="p-6 h-full">
-                <div className="text-center flex flex-col gap-6 justify-between h-full">
-                  <div>
-                    <h3 className="text-lg font-bold text-foreground mb-2">
-                      {plan.displayName || plan.name}
-                    </h3>
-                    <div className="mb-4">
-                      <span className="text-3xl font-bold text-foreground">
-                        ${plan.price.toFixed(2)}
-                      </span>
-                      <span className="text-muted-foreground">/month</span>
-                    </div>
-                  </div>
-                  {isLoading && activeTab === 'shared' ? (
-                    <div className="flex items-center justify-center py-8">
-                      <Loader2 className="h-6 w-6 animate-spin text-primary" />
-                    </div>
-                  ) : (
-                    <ul className="space-y-3 text-left">
-                      {plan.features.map((feature, featureIndex) => (
-                        <li
-                          key={featureIndex}
-                          className="flex items-center text-sm gap-2"
-                        >
-                          <CircleCheckBig size={18} />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  <Button
-                    className="cursor-pointer w-full"
-                    variant={plan.isPopular ? "default" : "outline"}
-                    size="default"
-                  >
-                    Get Started
-                  </Button>
+
+              <div className="mb-8">
+                <h3 className="text-2xl font-bold text-foreground tracking-tight mb-3">
+                  {plan.displayName || plan.name}
+                </h3>
+                <p className="text-muted-foreground text-sm min-h-[40px] leading-relaxed mb-4 pr-4">
+                  {getPlanDescription(index)}
+                </p>
+                <div className="flex items-baseline gap-1 mt-2">
+                  <span className="text-4xl font-bold text-foreground tracking-tight">
+                    ${plan.price.toFixed(2)}
+                  </span>
+                  <span className="text-muted-foreground font-medium">/mo</span>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+
+              {isLoading && activeTab === 'shared' ? (
+                <div className="flex-1 flex items-center justify-center py-12">
+                  <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+                </div>
+              ) : (
+                <div className="flex-1 flex flex-col">
+                  {/* Divider */}
+                  {/* Vercel uses a subtle text to head the features */}
+                  <div className="text-sm font-medium text-foreground mb-4">
+                    {index === 0 ? "Includes:" : index === 1 ? `All ${currentPlans[0].name.split(' ')[0]} features, plus:` : `All ${currentPlans[1].name.split(' ')[0]} features, plus:`}
+                  </div>
+                  <ul className="space-y-4 mb-8">
+                    {plan.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-start text-sm gap-3 text-muted-foreground">
+                        <Check className={`w-4 h-4 shrink-0 mt-0.5 ${plan.isPopular ? 'text-brand-blue' : 'text-foreground/40'}`} strokeWidth={2.5} />
+                        <span className="leading-snug">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Button */}
+              <div className="mt-auto pt-4">
+                <Button
+                  className={`w-full flex items-center justify-center px-6 py-6 rounded-full font-semibold transition-all cursor-pointer ${plan.isPopular
+                    ? "bg-brand-green text-white hover:bg-brand-green/90 border-transparent shadow-md shadow-brand-green/20"
+                    : "bg-transparent text-foreground border border-border hover:bg-muted/30"
+                    }`}
+                  variant={plan.isPopular || index === 2 ? "default" : "outline"}
+                >
+                  Order Now
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
           ))}
         </div>
 

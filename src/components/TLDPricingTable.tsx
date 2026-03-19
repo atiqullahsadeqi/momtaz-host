@@ -132,32 +132,22 @@ export default function TLDPricingTable() {
   const displayedTLDs = showAll ? filteredTLDs : filteredTLDs.slice(0, 7);
 
   return (
-    <section className="py-20 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            All Domain Extension Prices
-          </h2>
-          <p className="text-muted-foreground">
-            Compare prices for all available domain extensions
-          </p>
-        </div>
-
-        <div className="max-w-6xl mx-auto">
+    <div className="w-full">
+        <div className="border-b border-border/60 p-6 lg:p-8">
           {/* Search and Filter */}
-          <div className="flex flex-col md:flex-row gap-4 mb-8">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+          <div className="flex flex-col md:flex-row items-center rounded-lg border border-border/60 overflow-hidden divide-y md:divide-y-0 md:divide-x divide-border/60 mb-8">
+            <div className="relative flex-1 w-full">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
               <Input
                 type="text"
                 placeholder="Search domain extensions..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
+                className="pl-10 border-0 shadow-none rounded-none h-12 focus-visible:ring-0"
               />
             </div>
-            <Select value={selectedCategory} onValueChange={setSelectedCategory} >
-              <SelectTrigger className="w-full md:w-[200px] shadow-none h-11 cursor-pointer">
+            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <SelectTrigger className="w-full md:w-[200px] border-0 shadow-none rounded-none h-12 cursor-pointer focus:ring-0">
                 <SelectValue placeholder="Filter by category" />
               </SelectTrigger>
               <SelectContent>
@@ -210,17 +200,13 @@ export default function TLDPricingTable() {
             {/* Load More / Show Less Button */}
             {!isLoading && filteredTLDs.length > 7 && (
               <div className="border-t p-4 text-center">
-                <Button variant="default" 
-                  onClick={() => setShowAll(!showAll)}
-                  className=" cursor-pointer  font-medium"
-                >
+                <Button onClick={() => setShowAll(!showAll)} className="rounded-full bg-brand-green hover:bg-brand-green/80 text-white cursor-pointer font-medium">
                   {showAll ? 'Show Less' : `Load More (${filteredTLDs.length - 7} more)`}
                 </Button >
               </div>
             )}
           </div>
         </div>
-      </div>
-    </section>
+    </div>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { use, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
     CheckCircle2, Clock, XCircle, Ban, Server, Cpu, Globe,
@@ -14,7 +14,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface Order {
     id: string;
-    order_type: "dedicated" | "vps" | "shared";
+    order_type: "dedicated" | "vps" | "shared" | "domain";
     status: string;
     plan_id: string;
     plan_name: string;

@@ -32,13 +32,13 @@ export async function POST(req: NextRequest) {
     const { orderType, planId, planName, configuration, domain, domainType, totalMonthly, setupFee } = body;
 
     // Validation
-    if (!orderType || !["dedicated", "vps", "shared"].includes(orderType)) {
+    if (!orderType || !["dedicated", "vps", "shared", "domain"].includes(orderType)) {
         return NextResponse.json({ error: "Invalid orderType" }, { status: 400 });
     }
     if (!planId || !planName) {
         return NextResponse.json({ error: "planId and planName are required" }, { status: 400 });
     }
-    if (orderType === "shared" && !domain) {
+    if ((orderType === "shared" || orderType === "domain") && !domain) {
         return NextResponse.json({ error: "Domain is required for shared hosting orders" }, { status: 400 });
     }
 

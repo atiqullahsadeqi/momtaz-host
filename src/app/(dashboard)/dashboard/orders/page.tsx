@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -41,7 +42,8 @@ const TYPE_CONFIG = {
     dedicated: { label: "Dedicated Server", icon: Server },
     vps: { label: "VPS", icon: Cpu },
     shared: { label: "Shared Hosting", icon: Globe },
-};
+    domain: { label: "Domain", icon: Globe },
+} as Record<string, { label: string; icon: React.ElementType }>;
 
 function StatusBadge({ status }: { status: string }) {
     const cfg = STATUS_CONFIG[status] ?? { label: status, icon: Clock, color: "bg-muted/10 text-muted-foreground border-border" };

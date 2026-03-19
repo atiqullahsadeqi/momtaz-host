@@ -2,15 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -21,551 +12,335 @@ import {
   Star,
   Shield,
   Headphones,
-  Users,
-  Cloud,
   Mail,
-  MonitorPlay,
-  Calendar,
   MapPin,
   X,
   ArrowRight,
+  Users,
+  Cloud,
 } from "lucide-react";
-import SplitText from "@/components/SplitText";
+
+const plans = [
+  {
+    name: "Business Starter",
+    price: "$6",
+    period: "per user/month",
+    description: "Perfect for small teams getting started",
+    features: [
+      "Custom and secure business email",
+      "100 participant video meetings",
+      "30 GB cloud storage per user",
+      "Security and management controls",
+      "Standard Support",
+    ],
+    popular: false,
+  },
+  {
+    name: "Business Standard",
+    price: "$12",
+    period: "per user/month",
+    description: "Enhanced features for growing businesses",
+    features: [
+      "Custom and secure business email",
+      "150 participant video meetings + recording",
+      "2 TB cloud storage per user",
+      "Security and management controls",
+      "Standard Support (paid upgrade to Enhanced Support)",
+    ],
+    popular: true,
+  },
+  {
+    name: "Business Plus",
+    price: "$18",
+    period: "per user/month",
+    description: "Advanced features for larger teams",
+    features: [
+      "Custom and secure business email + eDiscovery, retention",
+      "500 participant video meetings + recording, attendance tracking",
+      "5 TB cloud storage per user",
+      "Enhanced security and management controls, including Vault",
+      "Standard Support (paid upgrade to Enhanced Support)",
+    ],
+    popular: false,
+  },
+];
+
+const comparisons = [
+  { feature: "Professional Email", workspace: true, webmail: true, description: "Custom domain email addresses" },
+  { feature: "Cloud Storage", workspace: true, webmail: false, description: "Secure file storage and sharing" },
+  { feature: "Video Conferencing", workspace: true, webmail: false, description: "Built-in video meeting solution" },
+  { feature: "Real-time Collaboration", workspace: true, webmail: false, description: "Simultaneous document editing" },
+  { feature: "Mobile Apps", workspace: true, webmail: true, description: "Native mobile applications" },
+  { feature: "Advanced Security", workspace: true, webmail: false, description: "Enterprise-grade security features" },
+];
+
+const faqs = [
+  {
+    question: "What is Google Workspace?",
+    answer: "Google Workspace is a collection of cloud computing, productivity and collaboration tools developed by Google. It includes Gmail, Calendar, Drive, Docs, Sheets, Slides, Meet, and more.",
+  },
+  {
+    question: "How is this different from free Gmail?",
+    answer: "Google Workspace provides business email with your custom domain, advanced admin controls, 24/7 support, enhanced security features, and more storage. Free Gmail uses @gmail.com addresses and has limited features.",
+  },
+  {
+    question: "Can I use my existing domain?",
+    answer: "Yes! You can use your existing domain name for Google Workspace. We'll help you set up the necessary DNS records to get your custom email addresses working.",
+  },
+  {
+    question: "Is there a setup fee?",
+    answer: "No, there are no setup fees. You only pay the monthly subscription fee per user. We provide free setup and migration assistance.",
+  },
+  {
+    question: "Can I migrate from another email provider?",
+    answer: "Absolutely! We offer free migration services from other email providers including Outlook, Yahoo, and other business email solutions. Your emails, contacts, and calendars will be transferred safely.",
+  },
+  {
+    question: "What happens if I cancel?",
+    answer: "You can cancel anytime. Your data remains accessible for a grace period, and you can export all your data before the account is closed. No long-term contracts required.",
+  },
+];
 
 export default function GoogleWorkspacePage() {
-  
-
-  const plans = [
-    {
-      name: "Business Starter",
-      price: "$6",
-      period: "per user/month",
-      description: "Perfect for small teams getting started",
-      features: [
-        "Custom and secure business email",
-        "100 participant video meetings",
-        "30 GB cloud storage per user",
-        "Security and management controls",
-        "Standard Support",
-      ],
-      popular: false,
-    },
-    {
-      name: "Business Standard",
-      price: "$12",
-      period: "per user/month",
-      description: "Enhanced features for growing businesses",
-      features: [
-        "Custom and secure business email",
-        "150 participant video meetings + recording",
-        "2 TB cloud storage per user",
-        "Security and management controls",
-        "Standard Support (paid upgrade to Enhanced Support)",
-      ],
-      popular: true,
-    },
-    {
-      name: "Business Plus",
-      price: "$18",
-      period: "per user/month",
-      description: "Advanced features for larger teams",
-      features: [
-        "Custom and secure business email + eDiscovery, retention",
-        "500 participant video meetings + recording, attendance tracking",
-        "5 TB cloud storage per user",
-        "Enhanced security and management controls, including Vault and advanced endpoint management",
-        "Standard Support (paid upgrade to Enhanced Support)",
-      ],
-      popular: false,
-    },
-  ];
-
-  const comparisons = [
-    {
-      feature: "Professional Email",
-      workspace: true,
-      webmail: true,
-      description: "Custom domain email addresses",
-    },
-    {
-      feature: "Cloud Storage",
-      workspace: true,
-      webmail: false,
-      description: "Secure file storage and sharing",
-    },
-    {
-      feature: "Video Conferencing",
-      workspace: true,
-      webmail: false,
-      description: "Built-in video meeting solution",
-    },
-    {
-      feature: "Real-time Collaboration",
-      workspace: true,
-      webmail: false,
-      description: "Simultaneous document editing",
-    },
-    {
-      feature: "Mobile Apps",
-      workspace: true,
-      webmail: true,
-      description: "Native mobile applications",
-    },
-    {
-      feature: "Advanced Security",
-      workspace: true,
-      webmail: false,
-      description: "Enterprise-grade security features",
-    }
-  ];
-
-  const faqs = [
-    {
-      question: "What is Google Workspace?",
-      answer:
-        "Google Workspace is a collection of cloud computing, productivity and collaboration tools, software and products developed by Google. It includes Gmail, Calendar, Drive, Docs, Sheets, Slides, Meet, and more.",
-    },
-    {
-      question: "How is this different from free Gmail?",
-      answer:
-        "Google Workspace provides business email with your custom domain, advanced admin controls, 24/7 support, enhanced security features, and more storage. Free Gmail uses @gmail.com addresses and has limited features.",
-    },
-    {
-      question: "Can I use my existing domain?",
-      answer:
-        "Yes! You can use your existing domain name for Google Workspace. We'll help you set up the necessary DNS records to get your custom email addresses working.",
-    },
-    {
-      question: "Is there a setup fee?",
-      answer:
-        "No, there are no setup fees. You only pay the monthly subscription fee per user. We provide free setup and migration assistance.",
-    },
-    {
-      question: "Can I migrate from another email provider?",
-      answer:
-        "Absolutely! We offer free migration services from other email providers including Outlook, Yahoo, and other business email solutions. Your emails, contacts, and calendars will be transferred safely.",
-    },
-    {
-      question: "What happens if I cancel?",
-      answer:
-        "You can cancel anytime. Your data remains accessible for a grace period, and you can export all your data before the account is closed. No long-term contracts required.",
-    },
-  ];
-
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="py-20 bg-muted">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center flex flex-col gap-4 items-center">
-            <Badge variant="default" className="px-4 py-2 rounded-full">
+      {/* ── Hero Section ── */}
+      <section className="relative pt-24 pb-16 px-6 w-full bg-muted/80">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-10">
+            <div className="inline-block px-4 py-1.5 rounded-full bg-primary text-primary-foreground text-xs font-semibold mb-4">
               Official Google Partner
-            </Badge>
-            <h1 className="text-4xl lg:text-5xl leading-tight font-bold">Professional Email & Collaboration</h1>
-
-            <p className="text-sm  max-w-2xl mx-auto">
-              Power your business with Google Workspace. Get custom email, cloud
-              storage, video meetings, and collaboration tools all in one secure
-              platform.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-              <Button
-                size="lg"
-                variant="link"
-                className="cursor-pointer  "
-              >
-                View Pricing
-                 <ArrowRight className="ml-2 size-4" />
-              </Button>
             </div>
+            <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.1] mb-4">
+              Professional Email
+              <br />
+              <span className="text-primary">&amp; Collaboration</span>
+            </h1>
+            <p className="text-muted-foreground max-w-xl mb-6">
+              Power your business with Google Workspace. Get custom email, cloud
+              storage, video meetings, and collaboration tools all in one secure platform.
+            </p>
+            <Button size="lg" className="rounded-full cursor-pointer bg-brand-green hover:bg-brand-green/80">
+              View Pricing <ArrowRight className="ml-2 w-4 h-4" />
+            </Button>
           </div>
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="bg-foreground dark:bg-[#333333] p-10 md:col-span-2 min-h-80 rounded-2xl flex flex-col justify-between items-start">
-                <div className="h-12 w-12  mb-4 p-2 rounded-sm bg-primary flex items-center justify-center">
-                  <Mail className=" text-popover" />
-                </div>
-                <div>
-                  <h2 className="text-2xl mb-2  text-white leading-tight">Everything your business needs</h2>
-                  <p className="text-white/80 text-sm">Powerful tools that work together seamlessly to help your team collaborate, communicate, and get more done.</p>
-                </div>
+
+          {/* Bento cards */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="bg-[#0F1E3D] p-10 md:col-span-2 min-h-72 rounded-2xl flex flex-col justify-between items-start">
+              <div className="h-12 w-12 mb-4 p-2 rounded-sm bg-primary flex items-center justify-center flex-shrink-0">
+                <Mail className="text-white" />
               </div>
-              <div className="relative w-full min-h-80 rounded-2xl overflow-hidden bg-primary/50">
-                {/* The Background Image Layer */}
-                <div
-                  className="absolute inset-0 bg-[url('https://images.pexels.com/photos/4099325/pexels-photo-4099325.jpeg')] bg-cover bg-center"
-                  style={{
-                    // Mask: Solid at the top (100%), Transparent at the bottom (0%)
-                    maskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)',
-                    WebkitMaskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)'
-                  }}
-                />
-
-                {/* The Blur Overlay Layer */}
-                <div className="absolute inset-0 backdrop-blur-md"
-                  style={{
-                    // Inverse Mask: Transparent at the top (keep subject sharp), Solid at bottom (blur background)
-                    maskImage: 'linear-gradient(to bottom, transparent 20%, white 100%)',
-                    WebkitMaskImage: 'linear-gradient(to bottom, transparent 20%, white 100%)'
-                  }}
-                />
-
-                {/* Content Layer (Moved to top for readability) */}
-                <div className="relative z-10 p-8 flex flex-col justify-end h-full">
-                  <h2 className="text-1xl mb-2 font-bold text-white leading-tight">Team Collaboration</h2>
-                  <p className="text-white/80 text-xs">Real-time document editing with Docs, Sheets, and Slides. Work together seamlessly.</p>
-                </div>
+              <div>
+                <h2 className="text-2xl mb-2 text-white leading-tight">
+                  Everything your business needs in <strong>one platform.</strong>
+                </h2>
+                <p className="text-white/60 text-sm">
+                  Powerful tools that work together seamlessly to help your team collaborate, communicate, and get more done.
+                </p>
               </div>
-              <div className="relative bg-primary p-4 rounded-2xl min-h-80 overflow-hidden group">
-                {/* Content Layer */}
-                <div className="relative z-20 p-6 flex flex-col justify-start h-full">
-                  <h2 className="text-xl mb-2 font-bold text-white leading-tight">Enterprise Security</h2>
-                  <p className="text-white/80 text-xs max-w-[180px]">
-                    Advanced security features with 2-step verification and data loss prevention.
-                  </p>
-                </div>
+            </div>
 
-                {/* Floating Badges Container */}
-                <div className="absolute inset-0 z-10 pointer-events-none w-[280px]">
-                  {/* 2FA Badge */}
-                  <div className="absolute bottom-8 left-13 px-4 py-2 bg-blue-500 text-white text-xs font-bold rounded-full shadow-xl -rotate-12 border border-white/20">
-                    2FA Secured
-                  </div>
-
-                  {/* SAML Badge */}
-                  <div className="absolute bottom-13 right-10 px-4 py-2 bg-white text-primary text-xs font-bold rounded-full shadow-xl rotate-18 border border-slate-200">
-                    SAML SSO
-                  </div>
-
-                  {/* DLP Badge */}
-                  <div className="absolute bottom-2 right-12 px-5 py-2 bg-slate-800 text-white text-xs font-bold rounded-full shadow-xl -rotate-6 border border-white/10">
-                    DLP Active
-                  </div>
-
-                  {/* Encryption Badge */}
-                  <div className="absolute bottom-21 left-1/2 -translate-x-1/2 px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-full shadow-2xl -rotate-[45deg] border border-white/20 opacity-90">
-                    AES-256
-                  </div>
-                </div>
-
-                {/* Subtle Background Glow for Premium Feel */}
-                <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 blur-[50px] rounded-full" />
+            <div className="relative w-full min-h-72 rounded-2xl overflow-hidden bg-brand-green/50">
+              <div
+                className="absolute inset-0 bg-[url('https://images.pexels.com/photos/4099325/pexels-photo-4099325.jpeg')] bg-cover bg-center"
+                style={{ maskImage: "linear-gradient(to bottom, black 40%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 40%, transparent 100%)" }}
+              />
+              <div
+                className="absolute inset-0 backdrop-blur-md"
+                style={{ maskImage: "linear-gradient(to bottom, transparent 20%, white 100%)", WebkitMaskImage: "linear-gradient(to bottom, transparent 20%, white 100%)" }}
+              />
+              <div className="relative z-10 p-8 flex flex-col justify-end h-full">
+                <Users className="text-white mb-3 w-7 h-7" />
+                <h2 className="text-xl mb-1 font-bold text-white leading-tight">Team Collaboration</h2>
+                <p className="text-white/80 text-xs">Real-time editing with Docs, Sheets, and Slides. Work together seamlessly.</p>
               </div>
+            </div>
+
+            <div className="relative bg-primary p-4 rounded-2xl min-h-72 overflow-hidden">
+              <div className="relative z-20 p-6 flex flex-col justify-start h-full">
+                <Shield className="text-white mb-3 w-7 h-7" />
+                <h2 className="text-xl mb-2 font-bold text-white leading-tight">Enterprise Security</h2>
+                <p className="text-white/80 text-xs max-w-[180px]">
+                  Advanced security with 2-step verification and data loss prevention.
+                </p>
+              </div>
+              <div className="absolute inset-0 z-10 pointer-events-none">
+                <div className="absolute bottom-8 left-6 px-4 py-2 bg-blue-500 text-white text-xs font-bold rounded-full shadow-xl -rotate-12 border border-white/20">2FA Secured</div>
+                <div className="absolute bottom-14 right-4 px-4 py-2 bg-white text-primary text-xs font-bold rounded-full shadow-xl rotate-12 border border-slate-200">SAML SSO</div>
+                <div className="absolute bottom-2 right-8 px-4 py-2 bg-slate-800 text-white text-xs font-bold rounded-full shadow-xl -rotate-6 border border-white/10">DLP Active</div>
+              </div>
+              <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 blur-[50px] rounded-full" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section className="py-20 ">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Simple, transparent pricing
+      {/* ── All sections in one container ── */}
+      <section className="w-full relative flex flex-col items-center">
+        <div className="w-full max-w-[1100px] mx-auto bg-background flex flex-col border-x border-border/60">
+
+          {/* ── Pricing header ── */}
+          <div className="border-b border-border/60 p-10 lg:p-12 flex flex-col items-center text-center">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-foreground">
+              Simple, transparent pricing.
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Choose the plan that&apos;s right for your business. All plans include
-              24/7 support and a 14-day free trial.
+            <p className="text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              Choose the plan that&apos;s right for your business. All plans include 24/7 support and free setup.
             </p>
           </div>
 
-          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-            {plans.map((plan, index) => (
-              <Card
-                key={index}
-                className={` flex flex-col justify-between relative ${plan.popular
-                  ? "border-primary shadow-lg scale-105"
-                  : "border-primary/20"
-                  }`}
-              >
+          {/* ── Pricing cards grid ── */}
+          <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-px bg-border/60 border-b border-border/60">
+            {plans.map((plan) => (
+              <div key={plan.name} className="bg-background p-8 lg:p-12 flex flex-col relative">
                 {plan.popular && (
-                  <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground">
-                    Most Popular
-                  </Badge>
-                )}
-                <CardHeader className="text-center">
-                  <CardTitle className="text-xl font-bold">
-                    {plan.name}
-                  </CardTitle>
-                  <div className="mt-4">
-                    <span className="text-3xl font-bold text-primary">
-                      {plan.price}
-                    </span>
-                    <span className="text-muted-foreground ml-1 text-xs">
-                      {plan.period}
-                    </span>
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-brand-green text-white px-4 py-1 text-xs font-bold rounded-full tracking-wide shadow-md">
+                    Recommended
                   </div>
-                  <CardDescription className="mt-2">
-                    {plan.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <ul className="space-y-3">
-                    {plan.features.map((feature, featureIndex) => (
-                      <li
-                        key={featureIndex}
-                        className="flex items-start gap-2 text-sm"
-                      >
-                        <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-                <CardFooter>
-                    <Button
-                    className="w-full mt-6"
-                    variant={plan.popular ? "default" : "outline"}
-                  >
-                    Get Started
-                  </Button>
-                </CardFooter>
-              </Card>
+                )}
+                <h3 className="text-xl font-bold text-foreground ">{plan.name}</h3>
+                <p className="text-sm text-muted-foreground mb-4">{plan.description}</p>
+                <div className="mb-6">
+                  <span className="text-4xl font-bold text-foreground">{plan.price}</span>
+                  <span className="text-muted-foreground text-sm ml-1">{plan.period}</span>
+                </div>
+                <ul className="space-y-3 flex-1 mb-8">
+                  {plan.features.map((f) => (
+                    <li key={f} className="flex items-start gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-brand-green mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">{f}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Button
+                  className={`w-full rounded-full cursor-pointer ${plan.popular ? "bg-brand-green hover:bg-brand-green/80" : ""}`}
+                  variant={plan.popular ? "default" : "outline"}
+                >
+                  Get Started
+                </Button>
+              </div>
             ))}
           </div>
 
-          {/* Special Partner Offer */}
-          <div className="mt-12 max-w-5xl mx-auto">
-            <Card className="relative overflow-hidden shadow-none py-0 border-none bg-slate-50 min-h-[450px] flex justify-end">
-              {/* Layer 1: The Background Image (Sharp at bottom, Fades at top) */}
-              <div
-                className="absolute inset-0 bg-[url('https://images.pexels.com/photos/7320612/pexels-photo-7320612.jpeg')] bg-bottom bg-cover"
-                style={{
-                  // Mask: Solid at the bottom (100%), Transparent at the top (0%)
-                  maskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)',
-                  WebkitMaskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)'
-                }}
-              />
-
-              {/* Layer 2: The Blur Overlay (Sharp at bottom, Blurs at top) */}
-              <div
-                className="absolute inset-0 backdrop-blur-md"
-                style={{
-                  // Inverse Mask: Transparent at the bottom (keep sharp), Solid at top (blur out)
-                  maskImage: 'linear-gradient(to bottom, transparent 20%, black 100%)',
-                  WebkitMaskImage: 'linear-gradient(to bottom, transparent 20%, black 100%)'
-                }}
-              />
-
-              {/* Content Layer */}
-              <CardContent className="relative z-10 p-8 w-full h-full">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-6 w-full">
-                  <div className="text-left ">
-                  
-                     <Badge className="mb-4 bg-primary text-primary-foreground px-4 py-2 rounded-full border-none ">
-                      Special Google Partner Offer
-                    </Badge>
-
-                    <h3 className="text-xl md:text-3xl font-bold mb-4 dark:text-black leading-tight">
-                      Enterprise & <br className="hidden md:block" /> Custom Solutions
-                    </h3>
-                  
-
-                   
-                     <p className=" text-xs md:text-sm mb-6 leading-relaxed dark:text-black/80">
-                      <strong>Need more than 300 users?</strong> Looking for custom integrations
-                      or advanced security features? Our Google Partner
-                      specialists can create a tailored solution for your
-                      organization.
-                    </p>
-
-                    <Button
-                      size="lg"
-                      variant="default"
-                      className="cursor-pointer shadow-lg hover:shadow-primary/20 transition-all font-semibold"
-                    >
-                      Contact Sales
-                    </Button>
-                   
-                  </div>
-
-                  {/* Right side spacer to maintain visual balance */}
-                  <div className="hidden md:block w-1/3"></div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Comparison Section */}
-      <section className="py-5 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-2xl md:text-4xl font-bold mb-4">
-              Why choose Google Workspace?
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-xs md:text-sm">
-              See how Google Workspace compares to other email and productivity
-              solutions.
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse">
-                <thead>
-                  <tr className="border-b">
-                    <th className="text-left text-sm p-4 font-semibold">Features</th>
-                    <th className="text-center text-sm p-4 font-semibold text-primary">
-                      Google Workspace
-                    </th>
-                    <th className="text-center text-sm p-4 font-semibold">
-                      Traditional Webmail
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {comparisons.map((comparison, index) => (
-                    <tr key={index} className="border-b hover:bg-muted/50">
-                      <td className="p-4">
-                        <div>
-                          <div className="font-medium text-sm">
-                            {comparison.feature}
-                          </div>
-                          <div className="text-xs md:text-sm text-muted-foreground">
-                            {comparison.description}
-                          </div>
-                        </div>
-                      </td>
-                      <td className="text-center p-4">
-                        {comparison.workspace ? (
-                          <CheckCircle className="h-5 w-5 text-green-500 mx-auto" />
-                        ) : (
-                          <X className="h-5 w-5  mx-auto" />
-                        )}
-                      </td>
-                      <td className="text-center p-4">
-                        {comparison.webmail ? (
-                          <CheckCircle className="h-5 w-5 text-green-500 mx-auto" />
-                        ) : (
-                          <X className="h-5 w-5  mx-auto" />
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us Section */}
-      <section className="py-5 md:py-20 bg-muted/3">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-4xl font-bold ">
-              Why choose Momtaz Host for Google Workspace?
-            </h2>
-          </div>
-
-          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="text-center shadow-none border-none">
-              <CardHeader>
-                <div className="h-12 w-12 mx-auto mb-4 p-2 rounded-sm bg-primary/10 flex items-center justify-center">
-                  <Star className=" text-primary" />
-                </div>
-                <CardTitle className="text-lg font-bold">
-                  Official Google Partner
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-sm">
-                  We&apos;re an official Google Cloud Partner with certified
-                  expertise in Google Workspace deployment and management.
-                </CardDescription>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center shadow-none border-none">
-              <CardHeader>
-                <div className="h-12 w-12 mx-auto mb-4 p-2 rounded-sm bg-primary/10 flex items-center justify-center">
-                  <Headphones className=" text-primary" />
-                </div>
-                <CardTitle className="text-lg font-bold">
-                  Free Setup & Migration
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-sm">
-                  Our experts will set up your Google Workspace and migrate your
-                  existing emails, contacts, and calendars for free.
-                </CardDescription>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center shadow-none border-none">
-              <CardHeader>
-                <div className="h-12 w-12 mx-auto mb-4 p-2 rounded-sm bg-primary/10 flex items-center justify-center">
-                  <MapPin className=" text-primary" />
-                </div>
-                <CardTitle className="text-lg font-bold">
-                  Local Support
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-sm">
-                  Get local support in your timezone with our dedicated Google
-                  Workspace specialists available 24/7.
-                </CardDescription>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-5 md:py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-4xl font-bold mb-4">
-              Frequently Asked Questions
-            </h2>
-          </div>
-
-          <div className="max-w-3xl mx-auto">
-            <Accordion type="single" collapsible className="w-full">
-              {faqs.map((faq, index) => (
-                <AccordionItem
-                  key={index}
-                  value={`item-${index}`}
-                  className="border-b"
-                >
-                  <AccordionTrigger className="text-left hover:no-underline">
-                    <span className="font-semibold">{faq.question}</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="pb-16">
-        <div className="container mx-auto px-4 text-center">
-          <div className="bg-muted/10 py-20 rounded-lg">
-            <h3 className="text-2xl md:text-4xl font-bold  mb-4">
-              Ready to get started?
-            </h3>
-            <p className="text-muted-foreground text-sm mb-8 max-w-2xl mx-auto">
-              Join thousands of businesses that trust Google Workspace for their
-              email and collaboration needs.
-            </p>
-            <div className="flex flex-row  gap-4 justify-center">
-              <Button size="lg" >
-                Get Started Now
-              </Button>
-              <Button variant="outline" size="lg" >
+          {/* ── Enterprise CTA row ── */}
+          <div className="relative overflow-hidden min-h-[420px] flex items-end border-b border-border/60">
+            <div
+              className="absolute inset-0 bg-[url('https://images.pexels.com/photos/7320612/pexels-photo-7320612.jpeg')] bg-cover bg-center"
+              style={{ maskImage: "linear-gradient(to bottom, black 40%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 40%, transparent 100%)" }}
+            />
+            <div
+              className="absolute inset-0 backdrop-blur-md"
+              style={{ maskImage: "linear-gradient(to bottom, transparent 20%, black 100%)", WebkitMaskImage: "linear-gradient(to bottom, transparent 20%, black 100%)" }}
+            />
+            <div className="relative z-10 p-10 lg:p-16 flex flex-col md:flex-row items-end md:items-center justify-between gap-8 w-full">
+              <div>
+             
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 leading-tight">
+                  Enterprise &amp; Custom Solutions
+                </h3>
+                <p className="text-white text-sm max-w-md leading-relaxed ">
+                  <strong className="text-white ">Need more than 300 users?</strong> Looking for custom integrations or advanced security features? Our Google Partner specialists can create a tailored solution for your organization.
+                </p>
+                <Button size="lg" className="mt-3 rounded-full cursor-pointer bg-brand-green hover:bg-brand-green/80 shrink-0">
                 Contact Sales
               </Button>
+              </div>
+              
             </div>
           </div>
+
+          {/* ── Comparison table ── */}
+          <div className="border-b border-border/60 p-10 lg:p-12 flex flex-col items-center text-center">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-foreground">
+              Why Google Workspace?
+            </h2>
+            <p className="text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              See how it compares to traditional webmail solutions.
+            </p>
+          </div>
+
+          <div className=" overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="border-b border-border/60">
+                  <th className="text-left text-sm p-6 font-semibold text-foreground">Feature</th>
+                  <th className="text-center text-sm p-6 font-semibold ">Google Workspace</th>
+                  <th className="text-center text-sm p-6 font-semibold text-muted-foreground">Traditional Webmail</th>
+                </tr>
+              </thead>
+              <tbody>
+                {comparisons.map((c, i) => (
+                  <tr key={i} className="border-b border-border/60 hover:bg-muted/30 transition-colors">
+                    <td className="p-6">
+                      <p className="font-medium text-sm text-foreground">{c.feature}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">{c.description}</p>
+                    </td>
+                    <td className="text-center p-6">
+                      {c.workspace ? <CheckCircle className="h-5 w-5 text-brand-green mx-auto" /> : <X className="h-5 w-5 text-muted-foreground mx-auto" />}
+                    </td>
+                    <td className="text-center p-6">
+                      {c.webmail ? <CheckCircle className="h-5 w-5 text-brand-green mx-auto" /> : <X className="h-5 w-5 text-muted-foreground mx-auto" />}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* ── Why Momtaz Host ── */}
+          <div className="border-b border-border/60 p-10 lg:p-12 flex flex-col items-center text-center">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-foreground">
+              Why Momtaz Host?
+            </h2>
+            <p className="text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              We&apos;re not just resellers — we&apos;re your local Google Workspace partner.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-px bg-border/60 border-b border-border/60">
+            {[
+              { icon: Star, title: "Official Google Partner", desc: "Certified expertise in Google Workspace deployment and management with direct Google support." },
+              { icon: Headphones, title: "Free Setup & Migration", desc: "Our experts set up your Workspace and migrate existing emails, contacts, and calendars at no cost." },
+              { icon: MapPin, title: "Local Support", desc: "Get support in your timezone from our dedicated Google Workspace specialists, available 24/7." },
+            ].map(({ icon: Icon, title, desc }) => (
+              <div key={title} className="p-8 lg:p-12 bg-background flex flex-col">
+                <div className="w-12 h-12 mb-6 rounded-xl bg-brand-green/10 flex items-center justify-center">
+                  <Icon className="h-5 w-5 text-brand-green" />
+                </div>
+                <h3 className="text-lg font-bold tracking-tight mb-3 text-foreground">{title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* ── FAQ ── */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 w-full gap-px bg-border/60">
+            <div className="p-8 lg:p-12 bg-background flex flex-col justify-start">
+              <h2 className="text-xl md:text-3xl font-bold text-foreground leading-[1.1] tracking-tight mb-3">
+                Frequently <br className="hidden lg:block" /> Asked Questions.
+              </h2>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Everything you need to know about Google Workspace.
+              </p>
+            </div>
+            <div className="lg:col-span-2 p-8 lg:p-12 bg-background">
+              <Accordion type="single" collapsible className="w-full">
+                {faqs.map((faq, i) => (
+                  <AccordionItem key={i} value={`item-${i}`} className="border-b border-border/60">
+                    <AccordionTrigger className="text-left hover:no-underline py-5">
+                      <span className="font-semibold text-sm">{faq.question}</span>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground text-sm leading-relaxed pb-5">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          </div>
+
+          
         </div>
       </section>
     </div>

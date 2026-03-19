@@ -45,10 +45,10 @@ export default function CompanyLogos() {
     return () => observer.disconnect();
   }, []);
 
-  const fadeOutColor = isDark ? "#1a1d23" : "#f9f9fa";
+  const fadeOutColor = isDark ? "#04030c" : "#ffffff";
   return (
-    <section className="pt-0 pb-10">
-      <div className="container mx-auto">
+    <section className="py-12 border-b border-border/60 relative overflow-hidden bg-background">
+      <div className="w-full">
         <LogoLoop
           logos={imageLogos}
           speed={50}

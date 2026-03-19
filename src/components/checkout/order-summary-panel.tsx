@@ -28,10 +28,10 @@ export function OrderSummaryPanel({ order }: { order: any }) {
             </div>
 
             {/* Plan card */}
-            <div className="rounded-2xl border border-white/8 bg-white/3 p-5 space-y-4">
+            <div className="rounded-2xl border border-border/60 bg-muted/30 p-5 space-y-4">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center">
-                        <Icon className="w-5 h-5 text-indigo-400" />
+                    <div className="w-10 h-10 rounded-xl bg-brand-green/10 border border-brand-green/20 flex items-center justify-center">
+                        <Icon className="w-5 h-5 text-brand-green" />
                     </div>
                     <div>
                         <p className="font-semibold">{order.plan_name}</p>
@@ -39,7 +39,7 @@ export function OrderSummaryPanel({ order }: { order: any }) {
                     </div>
                 </div>
 
-                <div className="divide-y divide-white/5 text-sm">
+                <div className="divide-y divide-border/60 text-sm">
                     <div className="flex justify-between py-2.5">
                         <span className="text-muted-foreground">Monthly fee</span>
                         <span className="font-medium">{formatCurrency(order.total_monthly)}</span>
@@ -58,23 +58,20 @@ export function OrderSummaryPanel({ order }: { order: any }) {
                     )}
                 </div>
 
-                <div className="flex justify-between pt-2 border-t border-white/8 font-semibold">
+                <div className="flex justify-between pt-2 border-t border-border/60 font-semibold">
                     <span>Total due today</span>
-                    <span className="text-indigo-400">{formatCurrency(total)}</span>
+                    <span className="text-brand-green">{formatCurrency(total)}</span>
                 </div>
             </div>
 
             {/* Trust badges */}
-            <div className="space-y-2 text-sm text-muted-foreground">
-                <p className="flex items-center gap-2">
-                    <span className="text-green-400">✓</span> 30-day money-back guarantee
-                </p>
-                <p className="flex items-center gap-2">
-                    <span className="text-green-400">✓</span> Cancel anytime, no lock-in contracts
-                </p>
-                <p className="flex items-center gap-2">
-                    <span className="text-green-400">✓</span> 24/7 dedicated support
-                </p>
+            <div className="rounded-xl border border-border/60 bg-muted/20 p-4 space-y-2.5 text-sm text-muted-foreground">
+                {["30-day money-back guarantee", "Cancel anytime, no lock-in contracts", "24/7 dedicated support"].map(t => (
+                    <p key={t} className="flex items-center gap-2">
+                        <span className="w-4 h-4 rounded-full bg-brand-green/10 border border-brand-green/20 flex items-center justify-center shrink-0 text-brand-green text-[10px]">✓</span>
+                        {t}
+                    </p>
+                ))}
             </div>
         </div>
     );

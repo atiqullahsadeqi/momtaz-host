@@ -18,6 +18,8 @@ import {
   AlertCircle,
   DollarSign,
   Server,
+  Zap,
+  Shield,
 } from "lucide-react";
 import { ButtonGroup } from "@/components/ui/button-group";
 
@@ -61,6 +63,24 @@ const fmt = (n: number) =>
     minimumFractionDigits: 2,
   }).format(n);
 
+
+const LOCATION_NAMES: Record<string, { name: string; flag: string }> = {
+  hel1: { name: "Helsinki, Finland", flag: "🇫🇮" },
+  hel2: { name: "Helsinki, Finland", flag: "🇫🇮" },
+  fsn1: { name: "Falkenstein, Germany", flag: "🇩🇪" },
+  fsn2: { name: "Falkenstein, Germany", flag: "🇩🇪" },
+  nbg1: { name: "Nuremberg, Germany", flag: "🇩🇪" },
+  nbg2: { name: "Nuremberg, Germany", flag: "🇩🇪" },
+  ash:  { name: "Ashburn, USA", flag: "🇺🇸" },
+  hil:  { name: "Hillsboro, USA", flag: "🇺🇸" },
+  sin:  { name: "Singapore", flag: "🇸🇬" },
+};
+
+function locationLabel(code: string) {
+  const key = code.toLowerCase();
+  return LOCATION_NAMES[key] ?? { name: code, flag: "🌍" };
+}
+
 function StatPill({
   icon: Icon,
   label,
@@ -72,8 +92,8 @@ function StatPill({
 }) {
   return (
     <div className="flex items-center gap-2 text-sm">
-      <div className="w-7 h-7 rounded-md bg-muted/20 flex items-center justify-center flex-shrink-0">
-        <Icon className="w-3.5 h-3.5" />
+      <div className="w-7 h-7 flex items-center justify-center flex-shrink-0">
+        <Icon className="w-3.5 h-3.5 text-foreground" />
       </div>
       <div>
         <p className="text-[11px] leading-none mb-0.5">{label}</p>
@@ -115,7 +135,7 @@ function PlanCard({ plan }: { plan: DedicatedServerPlan }) {
             <p className="text-xs mt-0.5 line-clamp-2">{plan.cpu}</p>
           </div>
           {plan.setupFee === 0 && (
-            <Badge className="bg-green-500/20 text-green-400 border-green-500/30">
+            <Badge className="bg-brand-green/10 text-brand-green border-brand-green/20">
               No Setup Fee
             </Badge>
           )}
@@ -125,20 +145,20 @@ function PlanCard({ plan }: { plan: DedicatedServerPlan }) {
         <div className="grid grid-cols-2 gap-3">
           <StatPill icon={Cpu} label="CPU" value={plan.cpu.split(" ")[0]} />
           <StatPill icon={MemoryStick} label="RAM" value={plan.ram} />
-          <StatPill icon={HardDrive} label="Storage" value={plan.storage.split(" ")[0]} />
+          <StatPill icon={HardDrive} label="Storage" value={plan.storage} />
           <StatPill icon={Wifi} label="Traffic" value={plan.traffic} />
         </div>
 
         {/* OS Options */}
         <div className="flex items-start gap-2">
-          <Server className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
+          <Server className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-foreground" />
           <div className="flex-1">
             <p className="text-[11px] mb-1">Operating Systems</p>
             <div className="flex flex-wrap gap-1">
               {plan.operatingSystems.slice(0, 3).map((os, i) => (
                 <span
                   key={i}
-                  className="text-[10px] bg-muted/20 px-1.5 py-0.5 rounded"
+                  className="text-[10px] bg-muted text-muted-foreground px-1.5 py-0.5 rounded"
                 >
                   {os.replace(" base", "").replace(" latest minimal", "")}
                 </span>
@@ -154,19 +174,19 @@ function PlanCard({ plan }: { plan: DedicatedServerPlan }) {
 
         {/* Locations */}
         <div className="flex items-center gap-2 flex-wrap">
-          <Globe className="w-3.5 h-3.5 flex-shrink-0" />
-          {plan.locations.map((loc) => (
-            <span
-              key={loc}
-              className="text-[11px] bg-muted/20 px-1.5 py-0.5 rounded"
-            >
-              {loc}
-            </span>
-          ))}
+          <Globe className="w-3.5 h-3.5 flex-shrink-0 text-foreground" />
+          {plan.locations.map((loc) => {
+            const { name, flag } = locationLabel(loc);
+            return (
+              <span key={loc} className="text-[11px] bg-muted text-muted-foreground px-1.5 py-0.5 rounded flex items-center gap-1">
+                {flag} {name}
+              </span>
+            );
+          })}
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-muted/20" />
+        <div className="h-px bg-border/60" />
 
         {/* Price + CTA */}
         <div className="flex items-end justify-between mt-auto">
@@ -175,7 +195,7 @@ function PlanCard({ plan }: { plan: DedicatedServerPlan }) {
               Starting at
             </p>
             <div className="flex items-baseline gap-1">
-              <span className="text-2xl font-bold text-secondary font-mono">
+              <span className="text-2xl font-bold text-foreground font-mono">
                 {fmt(plan.monthlyPrice)}
               </span>
               <span className="text-xs">/mo</span>
@@ -187,7 +207,7 @@ function PlanCard({ plan }: { plan: DedicatedServerPlan }) {
             )}
           </div>
           <Link href={`/hosting/dedicated/configure/${plan.slug}`}>
-            <Button size="sm" variant="secondary" className="cursor-pointer">
+            <Button size="sm" className="cursor-pointer rounded-full bg-brand-green hover:bg-brand-green/80 text-white">
               Configure
               <ChevronRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 transition-transform" />
             </Button>
@@ -267,25 +287,77 @@ export default function DedicatedServersPage() {
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <section
-        ref={heroRef}
-        className="relative pt-24 pb-16 px-6 w-full mx-auto bg-muted/80"
-      >
+      <section ref={heroRef} className="relative pt-24 pb-16 px-6 w-full mx-auto bg-muted/80">
         <div className="max-w-6xl mx-auto">
-          <h1 className="hero-line text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.1] mb-4">
-            Dedicated Servers
-            <br />
-            <span className="text-primary">Enterprise-Grade Power</span>
-          </h1>
-          <p className="hero-line max-w-xl">
-            Bare metal servers with AMD Ryzen™ and Intel® Xeon® processors,
-            NVMe storage, and unlimited traffic. Full root access included.
-          </p>
+          <div className="mb-10">
+            <h1 className="hero-line text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.1] mb-4">
+              Dedicated Servers
+              <br />
+              <span className="text-primary">Enterprise-Grade Power</span>
+            </h1>
+            <p className="hero-line text-muted-foreground max-w-xl">
+              Bare metal servers with AMD Ryzen™ and Intel® Xeon® processors,
+              NVMe storage, and unlimited traffic. Full root access included.
+            </p>
+          </div>
+
+          {/* Bento cards */}
+          <div className="hero-line grid grid-cols-1 md:grid-cols-4 gap-4">
+            {/* Card 1 — dark promo col-span-2 */}
+            <div className="bg-primary p-10 md:col-span-2 min-h-72 rounded-2xl flex flex-col justify-between items-start">
+              <div className="h-12 w-12 mb-4 p-2 rounded-sm bg-white/10 flex items-center justify-center flex-shrink-0">
+                <Zap className="text-white" />
+              </div>
+              <div>
+                <h2 className="text-2xl mb-2 text-white leading-tight">
+                  True bare-metal performance — <strong>no hypervisor</strong>, no noisy neighbours, no shared resources.
+                </h2>
+                <p className="text-white/60 text-sm">
+                  Every CPU cycle, every GB of RAM, every NVMe IOPS is yours alone.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 2 — photo card */}
+            <div className="relative w-full min-h-72 rounded-2xl overflow-hidden bg-primary/50">
+              <div
+                className="absolute inset-0 bg-[url('https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg')] bg-cover bg-center"
+                style={{ maskImage: "linear-gradient(to bottom, black 40%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 40%, transparent 100%)" }}
+              />
+              <div
+                className="absolute inset-0 backdrop-blur-md"
+                style={{ maskImage: "linear-gradient(to bottom, transparent 20%, white 100%)", WebkitMaskImage: "linear-gradient(to bottom, transparent 20%, white 100%)" }}
+              />
+              <div className="relative z-10 p-8 flex flex-col justify-end h-full">
+                <h2 className="text-xl mb-1 font-bold text-white leading-tight">AMD Ryzen™ & Intel® Xeon®</h2>
+                <p className="text-white text-sm mb-3">Latest-gen processors</p>
+                <h2 className="text-xl mb-1 font-bold text-white leading-tight">Up to 10 Gbps</h2>
+                <p className="text-white text-sm">Dedicated uplink</p>
+              </div>
+            </div>
+
+            {/* Card 3 — primary with floating badges */}
+            <div className="relative bg-primary p-4 rounded-2xl min-h-72 overflow-hidden">
+              <div className="relative z-20 p-6 flex flex-col justify-start h-full">
+                <Shield className="text-white mb-3 w-7 h-7" />
+                <h2 className="text-xl mb-2 font-bold text-white leading-tight">Full Root Access</h2>
+                <p className="text-white/80 text-xs max-w-[160px]">
+                  Complete control over your hardware — install any OS, any software.
+                </p>
+              </div>
+              <div className="absolute inset-0 z-10 pointer-events-none">
+                <div className="absolute bottom-8 left-6 px-4 py-2 bg-blue-500 text-white text-xs font-bold rounded-full shadow-xl -rotate-12 border border-white/20">IPMI Access</div>
+                <div className="absolute bottom-14 right-4 px-4 py-2 bg-white text-primary text-xs font-bold rounded-full shadow-xl rotate-12 border border-slate-200">KVM Console</div>
+                <div className="absolute bottom-2 right-8 px-4 py-2 bg-slate-800 text-white text-xs font-bold rounded-full shadow-xl -rotate-6 border border-white/10">Root SSH</div>
+              </div>
+              <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 blur-[50px] rounded-full" />
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Filter bar */}
-      <div className="sticky top-0 z-20 backdrop-blur border-b border-white/6">
+      <div className="sticky top-0 z-20 backdrop-blur bg-background/80 border-b border-border/60">
         <div className="max-w-6xl mx-auto px-6 py-3 flex items-center gap-4 flex-wrap">
           <div className="flex items-center gap-1.5 text-xs mr-2">
             <SlidersHorizontal className="w-3.5 h-3.5" />
@@ -323,14 +395,14 @@ export default function DedicatedServersPage() {
       {/* Content */}
       <div className="max-w-6xl mx-auto px-6 py-12">
         {loading && (
-          <div className="flex items-center justify-center py-32 gap-3 text-white/40">
+          <div className="flex items-center justify-center py-32 gap-3 text-muted-foreground">
             <Loader2 className="w-5 h-5 animate-spin" />
             <span className="text-sm">Loading dedicated servers…</span>
           </div>
         )}
 
         {error && (
-          <div className="flex items-center gap-3 bg-red-500/10 border border-red-500/20 rounded-xl p-4 text-red-400 text-sm max-w-md mx-auto">
+          <div className="flex items-center gap-3 bg-destructive/10 border border-destructive/20 rounded-xl p-4 text-destructive text-sm max-w-md mx-auto">
             <AlertCircle className="w-4 h-4 flex-shrink-0" />
             {error}
           </div>
@@ -345,7 +417,7 @@ export default function DedicatedServersPage() {
               <PlanCard key={plan.id} plan={plan} />
             ))}
             {displayed.length === 0 && (
-              <p className="col-span-full text-center text-white/30 py-20 text-sm">
+              <p className="col-span-full text-center text-muted-foreground py-20 text-sm">
                 No servers available.
               </p>
             )}

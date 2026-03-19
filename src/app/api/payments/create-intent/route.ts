@@ -63,7 +63,8 @@ export async function POST(req: NextRequest) {
         const paymentIntent = await stripe.paymentIntents.create({
             amount: totalAmount,
             currency: "usd",
-            automatic_payment_methods: { enabled: true },
+            payment_method_types: ["card"],
+            // google_pay and apple_pay are enabled automatically for "card" via Stripe's wallet detection
             metadata: {
                 orderId: order.id.toString(),
                 userId: session.user.id,
