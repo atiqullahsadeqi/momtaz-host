@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState, use } from "react";
 import Link from "next/link";
+import { OrderInquiryButton } from "@/components/order-inquiry-button";
+import { dedicatedDisplayName } from "@/lib/plan-names";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { Badge } from "@/components/ui/badge";
@@ -485,7 +487,7 @@ export default function DedicatedConfigurePage({
         {/* Page title */}
         <div className="config-section mb-10">
           <h1 className="text-3xl font-bold tracking-tight">
-            Configure <span className="text-primary">{plan.name}</span>
+            Configure <span className="text-primary">{dedicatedDisplayName(plan.cpu, parseInt(plan.ram))}</span>
           </h1>
           <p className="text-muted-foreground text-sm mt-1">
             Customize your dedicated server and deploy instantly.
@@ -786,13 +788,13 @@ export default function DedicatedConfigurePage({
                     Selected Plan
                   </p>
                   <div className="mb-3">
-                    <span className="font-bold font-mono">{plan.name}</span>
+                    <span className="font-bold font-mono">{dedicatedDisplayName(plan.cpu, parseInt(plan.ram))}</span>
                   </div>
                   <div className="grid grid-cols-2 gap-y-2 text-xs">
                     {[
                       ["CPU", plan.cpu],
                       ["RAM", plan.ram],
-                      ["Storage", plan.storage],
+                      ["Storage", plan.storage.replace(/\s*(Datacenter|Edition|Software|Gen\s*\d|RAID|\(|,).*/gi, "").trim()],
                       ["Bandwidth", plan.bandwidth],
                     ].map(([label, val]) => (
                       <div key={label}>
@@ -880,36 +882,20 @@ export default function DedicatedConfigurePage({
                   </p>
                 </div>
 
-                {/* Payment method */}
-                <div className="border border-border/60 rounded-xl overflow-hidden">
-                  {(["stripe", "paypal", "offline"] as const).map((m, i) => {
-                    const labels = { stripe: "Credit / Debit Card", paypal: "PayPal", offline: "Offline / Bank Transfer" };
-                    const icons = { stripe: "💳", paypal: "🅿️", offline: "🏦" };
-                    return (
-                      <button key={m} type="button" onClick={() => setPaymentMethod(m)}
-                        className={`w-full flex items-center gap-3 px-4 py-3 text-sm transition-colors ${i > 0 ? "border-t border-border/60" : ""} ${paymentMethod === m ? "bg-primary text-white" : "bg-background text-foreground hover:bg-muted/40"}`}>
-                        <span>{icons[m]}</span>
-                        <span className="font-medium">{labels[m]}</span>
-                        {paymentMethod === m && <span className="ml-auto text-xs opacity-70">Selected</span>}
-                      </button>
-                    );
-                  })}
-                </div>
+{/* TEMP HIDDEN: Payment method selector — restore when order flow is ready */}
 
-                <Button
-                  className="w-full rounded-full bg-brand-green hover:bg-brand-green/80 text-white cursor-pointer font-bold py-5 transition-all duration-200 text-sm"
-                  disabled={isOrdering || !selectedOS || !selectedLocation}
-                  onClick={handleOrder}
-                >
-                  {isOrdering ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Processing...
-                    </>
-                  ) : (
-                    "Order Now"
-                  )}
-                </Button>
+                {/* TEMP: Order button commented for launch — original handleOrder flow preserved above */}
+                <OrderInquiryButton
+                  product="Dedicated Server"
+                  disabled={!selectedOS || !selectedLocation}
+                  details={{
+                    Plan: plan ? dedicatedDisplayName(plan.cpu, parseInt(plan.ram)) : slug,
+                    Location: selectedLocation || "—",
+                    OS: selectedOS || "—",
+                    Hostname: serverName || `server-${slug}`,
+                    "Monthly Price": `$${(() => { const bp = plan?.prices.find(p => p.location === selectedLocation)?.monthly ?? plan?.monthlyPrice ?? 0; return bp.toFixed(2); })()}`,
+                  }}
+                />
 
                 {orderStatus && (
                   <div

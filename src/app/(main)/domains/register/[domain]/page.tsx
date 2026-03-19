@@ -3,6 +3,7 @@
 import { use, useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { OrderInquiryButton } from "@/components/order-inquiry-button";
 import Link from "next/link";
 import { ChevronLeft, Loader2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -157,10 +158,17 @@ export default function DomainRegisterPage({ params }: { params: Promise<{ domai
             </div>
           )}
 
-          <Button type="submit" disabled={!isValid || isOrdering}
-            className="w-full h-12 rounded-full bg-brand-green hover:bg-brand-green/80 text-white font-semibold">
-            {isOrdering ? <><Loader2 className="w-4 h-4 animate-spin mr-2" />Placing Order…</> : `Register ${decodedDomain}`}
-          </Button>
+          {/* TEMP: Order button commented for launch — original form submit flow preserved above */}
+          <OrderInquiryButton
+            product="Domain Registration"
+            label={`Register ${decodedDomain}`}
+            details={{
+              Domain: decodedDomain,
+              Period: `${period} year(s)`,
+              "Price/Year": `$${resolvedPrice.toFixed(2)}`,
+              Total: `$${(resolvedPrice * parseInt(period)).toFixed(2)}`,
+            }}
+          />
         </form>
       </div>
     </div>

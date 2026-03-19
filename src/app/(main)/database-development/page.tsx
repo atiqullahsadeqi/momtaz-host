@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { gsap } from "gsap";
 
 import { ChevronLeft, ChevronRight,   CheckCircle, } from "lucide-react";
@@ -286,12 +287,11 @@ export default function DatabaseDevelopmentPage() {
               <div>
                 <p className="text-sm text-white/70 mb-8 mt-4 max-w-2xl">We don't believe in "one-size-fits-all." We architect high-performance, custom database solutions and ERP systems designed strictly around your operational workflows.</p>
                 <div>
-                  <Button className="bg-brand-green hover:bg-brand-green/80 text-white rounded-full">Learn More</Button>
-                  <Button variant="link" className="text-white/70 hover:text-white">Contact Us</Button>
+                  <Button className="bg-brand-green hover:bg-brand-green/80 text-white rounded-full" asChild><Link href="/contact">Contact Us</Link></Button>
                 </div>
               </div>
             </div>
-            <div className="main-visual-card flex items-center py-4 px-4 w-full md:w-1/2 h-full relative rounded-md bg-white/10 bg-center bg-cover overflow-visible">
+            <div className="main-visual-card flex items-center py-4 px-4 w-full md:w-1/2 h-full relative rounded-md  bg-center bg-cover overflow-visible">
               <div className="max-w-full md:max-w-2xl mx-auto rounded-md bg-white/70 overflow-visible">
                 <div className="workstream-grid-item gap-4 flex flex-col md:flex-row md:justify-between items-start md:items-center p-4">
                   <h3 className="text-foreground"><strong>Workstreams</strong></h3>

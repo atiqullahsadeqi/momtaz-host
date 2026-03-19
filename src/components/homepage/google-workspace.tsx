@@ -21,7 +21,7 @@ export default function GoogleWorkspace() {
 
   return (
     <section className="w-full bg-muted/5 border-b border-border/60 relative flex flex-col items-center ">
-      <div className="w-full max-w-[1100px] mx-auto border-y border-border/60 bg-background flex flex-col md:flex-row shadow-sm">
+      <div className="w-full max-w-[1100px] mx-auto border-t border-border/60 bg-background flex flex-col md:flex-row shadow-sm">
 
         {/* Left Column: Text & Features */}
         <div className="w-full md:w-[40%] p-10 lg:p-16 border-b md:border-b-0 md:border-r border-border/60 flex flex-col justify-center">
@@ -46,7 +46,7 @@ export default function GoogleWorkspace() {
             collaboration tools – all under your custom domain.
           </p>
 
-          <Button className=" flex items-center gap-2 bg-foreground text-background hover:bg-foreground/90 rounded-full px-6 py-5 font-semibold ">
+          <Button className=" flex items-center gap-2 bg-brand-green hover:bg-brand-green/90 cursor-pointer rounded-full px-6 py-5 font-semibold ">
             Explore Workspace
             <ArrowRight className="w-4 h-4" />
           </Button>

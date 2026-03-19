@@ -52,7 +52,17 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      await fetch("/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formState.name, email: formState.email,
+          product: "Contact Form",
+          details: { Subject: formState.subject, Message: formState.message },
+        }),
+      });
+    } catch { /* ignore */ }
     setSubmitted(true);
     setIsLoading(false);
   };

@@ -241,10 +241,20 @@ function QuoteForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    await new Promise((r) => setTimeout(r, 1500));
+    try {
+      await fetch("/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name, email: formData.email, company: formData.company,
+          product: "Branding & Identity",
+          details: { Service: formData.service, Budget: formData.budget, Timeline: formData.timeline, Brief: formData.brief },
+        }),
+      });
+      setSubmitted(true);
+      setTimeout(() => { setSubmitted(false); setFormData({ name: "", email: "", company: "", service: "", budget: "", timeline: "", brief: "" }); }, 3000);
+    } catch { /* ignore */ }
     setSubmitting(false);
-    setSubmitted(true);
-    setTimeout(() => { setSubmitted(false); setFormData({ name: "", email: "", company: "", service: "", budget: "", timeline: "", brief: "" }); }, 3000);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>

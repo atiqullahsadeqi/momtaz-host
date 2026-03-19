@@ -70,7 +70,7 @@ export default function BlogsSection({
   return (
     <section
       className={cn(
-        "w-full bg-background border-b border-border/60 relative flex flex-col items-center",
+        "w-full bg-background  relative flex flex-col items-center",
         className
       )}
     >

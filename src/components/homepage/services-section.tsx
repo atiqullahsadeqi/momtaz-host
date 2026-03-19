@@ -2,6 +2,7 @@
 import React from "react";
 import { ArrowRight, Code2, Smartphone, Database, Mail } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function ServicesSection() {
   return (
@@ -21,14 +22,14 @@ export default function ServicesSection() {
         </div>
 
         {/* Block 2: Web Hosting */}
-        <div className="p-8 lg:p-10 bg-background flex flex-col min-h-[350px] relative overflow-hidden cursor-pointer">
+        <Link href="/hosting/shared" className="p-8 lg:p-10 bg-background flex flex-col min-h-[350px] relative overflow-hidden cursor-pointer group">
           <div className="relative z-10 flex flex-col gap-3">
             <h3 className="text-md font-bold text-foreground tracking-tight">Web Hosting</h3>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-[260px]">
               Reliable, secure, and blazing fast servers optimized for peak performance.
             </p>
-            <div className="w-8 h-8 mt-2 rounded-full border border-border flex items-center justify-center">
-              <ArrowRight className="w-4 h-4 text-muted-foreground" />
+            <div className="w-8 h-8 mt-2 rounded-full border border-border flex items-center justify-center transition-colors group-hover:bg-brand-green group-hover:border-brand-green">
+              <ArrowRight className="w-4 h-4 text-muted-foreground transition-colors group-hover:text-white" />
             </div>
           </div>
           {/* Illustration: Server Rack */}
@@ -43,17 +44,17 @@ export default function ServicesSection() {
               </div>
             ))}
           </div>
-        </div>
+        </Link>
 
         {/* Block 3: Web Development */}
-        <div className="p-8 lg:p-10 bg-background flex flex-col min-h-[350px] relative overflow-hidden cursor-pointer">
+        <Link href="/web-development" className="p-8 lg:p-10 bg-background flex flex-col min-h-[350px] relative overflow-hidden cursor-pointer group">
           <div className="relative z-10 flex flex-col gap-3">
             <h3 className="text-md font-bold text-foreground tracking-tight">Web Development</h3>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-[260px]">
               Custom web applications and stunning websites built perfectly for your brand.
             </p>
-            <div className="w-8 h-8 mt-2 rounded-full border border-border flex items-center justify-center">
-              <ArrowRight className="w-4 h-4 text-muted-foreground" />
+            <div className="w-8 h-8 mt-2 rounded-full border border-border flex items-center justify-center transition-colors group-hover:bg-brand-green group-hover:border-brand-green">
+              <ArrowRight className="w-4 h-4 text-muted-foreground transition-colors group-hover:text-white" />
             </div>
           </div>
           {/* Illustration: Browser Editor */}
@@ -78,17 +79,17 @@ export default function ServicesSection() {
               </div>
             </div>
           </div>
-        </div>
+        </Link>
 
         {/* Block 4: Mobile Development */}
-        <div className="p-8 lg:p-10 bg-background flex flex-col min-h-[350px] relative overflow-hidden cursor-pointer">
+        <Link href="/mobile-development" className="p-8 lg:p-10 bg-background flex flex-col min-h-[350px] relative overflow-hidden cursor-pointer group">
           <div className="relative z-10 flex flex-col gap-3">
             <h3 className="text-md font-bold text-foreground tracking-tight">Mobile Development</h3>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-[260px]">
               Native iOS & Android mobile applications crafted for optimal user experience.
             </p>
-            <div className="w-8 h-8 mt-2 rounded-full border border-border flex items-center justify-center">
-              <ArrowRight className="w-4 h-4 text-muted-foreground" />
+            <div className="w-8 h-8 mt-2 rounded-full border border-border flex items-center justify-center transition-colors group-hover:bg-brand-green group-hover:border-brand-green">
+              <ArrowRight className="w-4 h-4 text-muted-foreground transition-colors group-hover:text-white" />
             </div>
           </div>
           {/* Illustration: Smartphone mockup */}
@@ -104,17 +105,17 @@ export default function ServicesSection() {
               <div className="w-1/2 h-2 rounded bg-muted" />
             </div>
           </div>
-        </div>
+        </Link>
 
         {/* Block 5: SEO Services */}
-        <div className="p-8 lg:p-10 bg-background flex flex-col min-h-[350px] relative overflow-hidden cursor-pointer">
+        <Link href="/seo-services" className="p-8 lg:p-10 bg-background flex flex-col min-h-[350px] relative overflow-hidden cursor-pointer group">
           <div className="relative z-10 flex flex-col gap-3">
             <h3 className="text-md font-bold text-foreground tracking-tight">SEO Services</h3>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-[260px]">
               Boost your visibility and rank higher with our data-driven SEO techniques.
             </p>
-            <div className="w-8 h-8 mt-2 rounded-full border border-border flex items-center justify-center">
-              <ArrowRight className="w-4 h-4 text-muted-foreground" />
+            <div className="w-8 h-8 mt-2 rounded-full border border-border flex items-center justify-center transition-colors group-hover:bg-brand-green group-hover:border-brand-green">
+              <ArrowRight className="w-4 h-4 text-muted-foreground transition-colors group-hover:text-white" />
             </div>
           </div>
           {/* Illustration: SEO Analytics Chart */}
@@ -142,17 +143,17 @@ export default function ServicesSection() {
               <div className="w-3 h-7 bg-muted rounded-md" />
             </div>
           </div>
-        </div>
+        </Link>
 
         {/* Block 6: Database Development */}
-        <div className="p-8 lg:p-10 bg-background flex flex-col min-h-[350px] relative overflow-hidden cursor-pointer">
+        <Link href="/database-development" className="p-8 lg:p-10 bg-background flex flex-col min-h-[350px] relative overflow-hidden cursor-pointer group">
           <div className="relative z-10 flex flex-col gap-3">
             <h3 className="text-md font-bold text-foreground tracking-tight">Database Development</h3>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-[260px]">
               Design, migration, and optimization of scalable database architectures.
             </p>
-            <div className="w-8 h-8 mt-2 rounded-full border border-border flex items-center justify-center">
-              <ArrowRight className="w-4 h-4 text-muted-foreground" />
+            <div className="w-8 h-8 mt-2 rounded-full border border-border flex items-center justify-center transition-colors group-hover:bg-brand-green group-hover:border-brand-green">
+              <ArrowRight className="w-4 h-4 text-muted-foreground transition-colors group-hover:text-white" />
             </div>
           </div>
           {/* Illustration: Database graph */}
@@ -190,7 +191,7 @@ export default function ServicesSection() {
               </div>
             </div>
           </div>
-        </div>
+        </Link>
 
       </div>
 
@@ -198,14 +199,14 @@ export default function ServicesSection() {
       <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-px bg-border/60 border-b border-border/60">
 
         {/* Block 7: Google Workspace */}
-        <div className="p-8 lg:p-10 bg-background flex flex-col min-h-[350px] relative overflow-hidden cursor-pointer">
+        <Link href="/google-workspace" className="p-8 lg:p-10 bg-background flex flex-col min-h-[350px] relative overflow-hidden cursor-pointer group">
           <div className="relative z-10 flex flex-col gap-3">
             <h3 className="text-md font-bold text-foreground tracking-tight">Google Workspace</h3>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-[260px]">
               Professional business email, secure cloud storage, and team collaboration tools.
             </p>
-            <div className="w-8 h-8 mt-2 rounded-full border border-border flex items-center justify-center">
-              <ArrowRight className="w-4 h-4 text-muted-foreground" />
+            <div className="w-8 h-8 mt-2 rounded-full border border-border flex items-center justify-center transition-colors group-hover:bg-brand-green group-hover:border-brand-green">
+              <ArrowRight className="w-4 h-4 text-muted-foreground transition-colors group-hover:text-white" />
             </div>
           </div>
           {/* Illustration: App Window UI */}
@@ -233,17 +234,17 @@ export default function ServicesSection() {
               </div>
             </div>
           </div>
-        </div>
+        </Link>
 
         {/* Block 8: Branding */}
-        <div className="p-8 lg:p-10 bg-background flex flex-col min-h-[350px] relative overflow-hidden cursor-pointer">
+        <Link href="/branding" className="p-8 lg:p-10 bg-background flex flex-col min-h-[350px] relative overflow-hidden cursor-pointer group">
           <div className="relative z-10 flex flex-col gap-3">
             <h3 className="text-md font-bold text-foreground tracking-tight">Branding</h3>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-[260px]">
               Visually striking brand identities, versatile logos, and comprehensive design systems.
             </p>
-            <div className="w-8 h-8 mt-2 rounded-full border border-border flex items-center justify-center">
-              <ArrowRight className="w-4 h-4 text-muted-foreground" />
+            <div className="w-8 h-8 mt-2 rounded-full border border-border flex items-center justify-center transition-colors group-hover:bg-brand-green group-hover:border-brand-green">
+              <ArrowRight className="w-4 h-4 text-muted-foreground transition-colors group-hover:text-white" />
             </div>
           </div>
           {/* Illustration: Canvas Outline */}
@@ -273,7 +274,7 @@ export default function ServicesSection() {
               </div>
             </div>
           </div>
-        </div>
+        </Link>
 
       </div>
     </section>

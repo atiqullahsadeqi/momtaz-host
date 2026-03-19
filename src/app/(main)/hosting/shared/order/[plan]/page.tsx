@@ -3,6 +3,7 @@
 import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { OrderInquiryButton } from "@/components/order-inquiry-button";
 import { Globe, Package, ChevronRight, ChevronLeft, Loader2, Check, Search, AlertCircle, CheckCircle2, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -219,48 +220,14 @@ export default function SharedOrderPage({ params }: { params: Promise<{ plan: st
                             )}
 
                             <Button className="w-full rounded-full bg-brand-green hover:bg-brand-green/80 text-white"
-                                disabled={!canProceedDomain} onClick={() => setStep("payment")}>
+                                disabled={!canProceedDomain} onClick={() => setStep("review")}>
                                 Continue <ChevronRight className="w-4 h-4 ml-1" />
                             </Button>
                         </div>
                     </div>
                 )}
 
-                {/* ── Step 2: Payment ── */}
-                {step === "payment" && (
-                    <div className="border border-border/60 rounded-2xl bg-background overflow-hidden">
-                        <div className="border-b border-border/60 p-6">
-                            <p className="font-semibold">Payment Method</p>
-                            <p className="text-xs text-muted-foreground mt-0.5">How would you like to pay?</p>
-                        </div>
-                        <div className="divide-y divide-border/60">
-                            {(["stripe", "paypal", "offline"] as const).map((m) => {
-                                const labels = { stripe: "Credit / Debit Card", paypal: "PayPal", offline: "Offline / Bank Transfer" };
-                                const descs = { stripe: "Pay securely with Stripe", paypal: "Pay via PayPal", offline: "Our team will contact you" };
-                                const icons = { stripe: "💳", paypal: "🅿️", offline: "🏦" };
-                                return (
-                                    <button key={m} type="button" onClick={() => setPaymentMethod(m)}
-                                        className={`w-full flex items-center gap-4 px-6 py-4 text-sm transition-colors ${paymentMethod === m ? "bg-primary/5 border-l-2 border-l-primary" : "hover:bg-muted/40"}`}>
-                                        <span className="text-xl">{icons[m]}</span>
-                                        <div className="text-left">
-                                            <p className="font-medium">{labels[m]}</p>
-                                            <p className="text-xs text-muted-foreground">{descs[m]}</p>
-                                        </div>
-                                        {paymentMethod === m && <Check className="w-4 h-4 text-primary ml-auto" />}
-                                    </button>
-                                );
-                            })}
-                        </div>
-                        <div className="p-6 flex gap-3">
-                            <Button variant="outline" className="rounded-full" onClick={() => setStep("domain")}>
-                                <ChevronLeft className="w-4 h-4 mr-1" />Back
-                            </Button>
-                            <Button className="flex-1 rounded-full bg-brand-green hover:bg-brand-green/80 text-white" onClick={() => setStep("review")}>
-                                Review Order <ChevronRight className="w-4 h-4 ml-1" />
-                            </Button>
-                        </div>
-                    </div>
-                )}
+                {/* TEMP HIDDEN: Payment step — restore when order flow is ready */}
 
                 {/* ── Step 3: Review ── */}
                 {step === "review" && (
@@ -290,13 +257,19 @@ export default function SharedOrderPage({ params }: { params: Promise<{ plan: st
                                 </div>
                             )}
                             <div className="flex gap-3">
-                                <Button variant="outline" className="rounded-full" onClick={() => setStep("payment")}>
+                                <Button variant="outline" className="rounded-full" onClick={() => setStep("domain")}>
                                     <ChevronLeft className="w-4 h-4 mr-1" />Back
                                 </Button>
-                                <Button className="flex-1 rounded-full bg-brand-green hover:bg-brand-green/80 text-white"
-                                    onClick={handlePlaceOrder} disabled={isOrdering}>
-                                    {isOrdering ? <><Loader2 className="w-4 h-4 animate-spin mr-2" />Placing Order…</> : "Place Order"}
-                                </Button>
+                                {/* TEMP: Order button commented for launch — original handlePlaceOrder flow preserved above */}
+                                <OrderInquiryButton
+                                    product="Shared Hosting"
+                                    className="flex-1 rounded-full bg-brand-green hover:bg-brand-green/80 text-white h-10 text-sm font-semibold"
+                                    details={{
+                                        Plan: plan?.displayName || planSlug,
+                                        Domain: domain || "—",
+                                        "Monthly Price": `$${plan?.price?.toFixed(2) || "—"}`,
+                                    }}
+                                />
                             </div>
                         </div>
                     </div>

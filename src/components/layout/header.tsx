@@ -148,10 +148,10 @@ export function Header() {
           ) : (
             <div className="hidden lg:flex items-center gap-2">
               <Button variant="ghost" size="lg" className="rounded-full" asChild>
-                <Link href="/login">Sign In</Link>
+                {/* <Link href="/login">Sign In</Link> */}
               </Button>
               <Button size="lg" className="rounded-full bg-brand-green hover:bg-brand-green/80 text-white gap-1.5" asChild>
-                <Link href="/register">Get Started <ArrowRight className="w-3.5 h-3.5" /></Link>
+                <Link href="/contact">Contact Us <ArrowRight className="w-3.5 h-3.5" /></Link>
               </Button>
             </div>
           )}
@@ -193,11 +193,11 @@ export function Header() {
                 ) : (
                   <>
                     <Button variant="outline" className="w-full rounded-full" asChild>
-                      <Link href="/login" onClick={() => setMobileOpen(false)}>Sign In</Link>
+                      {/* <Link href="/login" onClick={() => setMobileOpen(false)}>Sign In</Link> */}
                     </Button>
                     <Button className="w-full rounded-full bg-brand-green hover:bg-brand-green/80 text-white gap-1.5" asChild>
-                      <Link href="/register" onClick={() => setMobileOpen(false)}>
-                        Get Started <ArrowRight className="w-3.5 h-3.5" />
+                      <Link href="/contact" onClick={() => setMobileOpen(false)}>
+                        Contact Us <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
                     </Button>
                   </>

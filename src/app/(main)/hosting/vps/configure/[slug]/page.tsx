@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState, use } from "react";
 import Link from "next/link";
+import { OrderInquiryButton } from "@/components/order-inquiry-button";
+import { vpsDisplayName } from "@/lib/plan-names";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { Badge } from "@/components/ui/badge";
@@ -326,7 +328,7 @@ export default function ConfigurePage({
         <div className="config-section mb-10">
           <h1 className="text-3xl font-bold tracking-tight">
             Configure{" "}
-            <span className="">{plan.name}</span>
+            <span className="">{vpsDisplayName(plan.cores, plan.memory)}</span>
           </h1>
           <p className=" text-sm mt-1">
             Customize your server and deploy instantly.
@@ -500,7 +502,7 @@ export default function ConfigurePage({
                 <div>
                   <p className="text-xs  mb-2">Selected Plan</p>
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="font-bold font-mono">{plan.name}</span>
+                    <span className="font-bold font-mono">{vpsDisplayName(plan.cores, plan.memory)}</span>
                   </div>
                   <div className="grid grid-cols-2 gap-y-2 text-xs">
                     {[
@@ -583,34 +585,22 @@ export default function ConfigurePage({
                 {orderStatus && !orderStatus.success && (
                   <p className="text-xs text-red-400 text-center">{orderStatus.message}</p>
                 )}
-                {/* Payment method */}
-                <div className="border border-border/60 rounded-xl overflow-hidden">
-                  {(["stripe", "paypal", "offline"] as const).map((m, i) => {
-                    const labels = { stripe: "Credit / Debit Card", paypal: "PayPal", offline: "Offline / Bank Transfer" };
-                    const icons = { stripe: "💳", paypal: "🅿️", offline: "🏦" };
-                    return (
-                      <button key={m} type="button" onClick={() => setPaymentMethod(m)}
-                        className={`w-full flex items-center gap-3 px-4 py-3 text-sm transition-colors ${i > 0 ? "border-t border-border/60" : ""} ${paymentMethod === m ? "bg-primary text-white" : "bg-background text-foreground hover:bg-muted/40"}`}>
-                        <span>{icons[m]}</span>
-                        <span className="font-medium">{labels[m]}</span>
-                        {paymentMethod === m && <span className="ml-auto text-xs opacity-70">Selected</span>}
-                      </button>
-                    );
-                  })}
-                </div>
+{/* TEMP HIDDEN: Payment method selector — restore when order flow is ready */}
 
-                <Button
-                  className="w-full rounded-full bg-brand-green hover:bg-brand-green/80 text-white cursor-pointer font-bold py-5 transition-all duration-200 text-sm"
-                  disabled={!selectedImage || !selectedDC || isOrdering}
-                  onClick={handleOrder}
-                >
-                  {isOrdering ? (
-                    <span className="flex items-center gap-2">
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      Placing Order…
-                    </span>
-                  ) : "Place Order"}
-                </Button>
+                {/* TEMP: Order button commented for launch — original handleOrder flow preserved above */}
+                <OrderInquiryButton
+                  product="VPS Hosting"
+                  disabled={!selectedImage || !selectedDC}
+                  details={{
+                    Plan: plan ? vpsDisplayName(plan.cores, plan.memory) : slug,
+                    vCPU: `${plan?.cores || "—"} Cores`,
+                    RAM: `${plan?.memory || "—"} GB`,
+                    Storage: `${plan?.disk || "—"} GB NVMe`,
+                    OS: images.find(i => i.id === selectedImage)?.description || "—",
+                    Datacenter: datacenters.find(d => d.id === selectedDC)?.name || "—",
+                    "Monthly Price": `$${(plan?.monthlyPrice ?? 0).toFixed(2)}`,
+                  }}
+                />
 
               </div>
             </div>

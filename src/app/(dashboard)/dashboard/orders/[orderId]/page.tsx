@@ -95,8 +95,8 @@ const STATUS_CONFIG = {
     },
 } as Record<string, { label: string; icon: any; color: string; bg: string; border: string; message: string }>;
 
-const TYPE_LABELS = { dedicated: "Dedicated Server", vps: "VPS", shared: "Shared Hosting" };
-const TypeIconMap = { dedicated: Server, vps: Cpu, shared: Globe };
+const TYPE_LABELS: Record<string, string> = { dedicated: "Dedicated Server", vps: "VPS", shared: "Shared Hosting", domain: "Domain" };
+const TypeIconMap: Record<string, typeof Server> = { dedicated: Server, vps: Cpu, shared: Globe, domain: Globe };
 
 function ConfigRow({ label, value }: { label: string; value: string }) {
     return (

@@ -2,11 +2,14 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Loader2, Check, ArrowRight } from "lucide-react";
+import { vpsDisplayName, dedicatedDisplayName } from "@/lib/plan-names";
+import Link from "next/link";
 
 type TabType = 'shared' | 'vps' | 'dedicated';
 
 interface Plan {
   name: string;
+  slug: string;
   displayName: string;
   price: number;
   features: string[];
@@ -16,29 +19,52 @@ interface Plan {
 export default function PricingSection() {
   const [activeTab, setActiveTab] = useState<TabType>('shared');
   const [sharedPlans, setSharedPlans] = useState<Plan[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loadingShared, setLoadingShared] = useState(true);
+  const [loadingVps, setLoadingVps] = useState(true);
+  const [loadingDedicated, setLoadingDedicated] = useState(true);
 
   useEffect(() => {
-    const fetchPlans = async () => {
-      try {
-        const response = await fetch('/api/hosting/packages');
-        const data = await response.json();
-        if (data.success) {
-          setSharedPlans(data.data.slice(0, 3));
-        }
-      } catch (error) {
-        console.error('Error fetching plans:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    fetch("/api/hosting/packages")
+      .then(r => r.json())
+      .then(data => { if (data.success) setSharedPlans(data.data.slice(0, 3).map((p: any) => ({ ...p, slug: p.name }))); })
+      .catch(() => {})
+      .finally(() => setLoadingShared(false));
 
-    fetchPlans();
+    fetch("/api/hetzner/server-types")
+      .then(r => r.json())
+      .then(data => {
+        if (data.plans?.length) {
+          setVpsPlans(data.plans.slice(0, 3).map((p: any, i: number) => ({
+            name: p.name, slug: p.slug, displayName: vpsDisplayName(p.cores, p.memory), price: p.monthlyPrice, isPopular: i === 1,
+            features: [`${p.cores} vCPU Cores`, `${p.memory} GB RAM`, `${p.disk} GB NVMe`, `${p.includedTraffic || "20 TB"} Traffic`, "Full Root Access", "Free SSL Certificate", "24/7 Support"],
+          })));
+        }
+      })
+      .catch(() => {})
+      .finally(() => setLoadingVps(false));
+
+    fetch("/api/hetzner/dedicated-servers")
+      .then(r => r.json())
+      .then(data => {
+        if (data.plans?.length) {
+          setDedicatedPlans(data.plans.slice(0, 3).map((p: any, i: number) => {
+            const ramNum = parseInt(p.ram) || 0;
+            const storageShort = (p.storage || "").replace(/\s*(Datacenter|Edition|Software|Gen\s*\d|RAID|\(|,).*/gi, "").trim();
+            return {
+              name: p.name, slug: p.slug, displayName: dedicatedDisplayName(p.cpu, ramNum), price: p.monthlyPrice, isPopular: i === 1,
+              features: [p.cpu, p.ram, storageShort || "NVMe Storage", p.traffic || "Unlimited Traffic", "Full Root Access", "Free SSL Certificate", "24/7 Support"],
+            };
+          }));
+        }
+      })
+      .catch(() => {})
+      .finally(() => setLoadingDedicated(false));
   }, []);
 
   const fallbackSharedPlans = [
     {
       name: "Starter Plan",
+      slug: "Starter Plan",
       displayName: "Starter Plan",
       price: 2.29,
       features: [
@@ -55,6 +81,7 @@ export default function PricingSection() {
     },
     {
       name: "Business Plan",
+      slug: "Business Plan",
       displayName: "Business Plan",
       price: 6.89,
       features: [
@@ -71,6 +98,7 @@ export default function PricingSection() {
     },
     {
       name: "Ultimate Plan",
+      slug: "Ultimate Plan",
       displayName: "Ultimate Plan",
       price: 8.59,
       features: [
@@ -88,116 +116,34 @@ export default function PricingSection() {
     }
   ];
 
-  const vpsPlans = [
-    {
-      name: "VPS Basic",
-      displayName: "VPS Basic",
-      price: 19.99,
-      features: [
-        "2 CPU Cores",
-        "4GB RAM",
-        "80GB SSD Storage",
-        "2TB Bandwidth",
-        "Full Root Access",
-        "Free SSL Certificate",
-        "1 Dedicated IP",
-        "24/7 Support",
-      ],
-      isPopular: false,
-    },
-    {
-      name: "VPS Pro",
-      displayName: "VPS Pro",
-      price: 39.99,
-      features: [
-        "4 CPU Cores",
-        "8GB RAM",
-        "160GB SSD Storage",
-        "4TB Bandwidth",
-        "Full Root Access",
-        "Free SSL Certificate",
-        "2 Dedicated IPs",
-        "Priority Support",
-      ],
-      isPopular: true,
-    },
-    {
-      name: "VPS Enterprise",
-      displayName: "VPS Enterprise",
-      price: 79.99,
-      features: [
-        "8 CPU Cores",
-        "16GB RAM",
-        "320GB SSD Storage",
-        "8TB Bandwidth",
-        "Full Root Access",
-        "Free SSL Certificate",
-        "4 Dedicated IPs",
-        "24/7 Priority Support",
-      ],
-      isPopular: false,
-    }
+  const [vpsPlans, setVpsPlans] = useState<Plan[]>([]);
+  const fallbackVpsPlans: Plan[] = [
+    { name: "cx22", slug: "cx22", displayName: "VPS 2C-4G", price: 4.82, features: ["2 vCPU Cores", "4 GB RAM", "40 GB NVMe", "20 TB Traffic", "Full Root Access", "Free SSL Certificate", "24/7 Support"], isPopular: false },
+    { name: "cx32", slug: "cx32", displayName: "VPS 4C-8G", price: 8.39, features: ["4 vCPU Cores", "8 GB RAM", "80 GB NVMe", "20 TB Traffic", "Full Root Access", "Free SSL Certificate", "24/7 Support"], isPopular: true },
+    { name: "cx42", slug: "cx42", displayName: "VPS 8C-16G", price: 16.13, features: ["8 vCPU Cores", "16 GB RAM", "160 GB NVMe", "20 TB Traffic", "Full Root Access", "Free SSL Certificate", "24/7 Support"], isPopular: false },
   ];
 
-  const dedicatedPlans = [
-    {
-      name: "Dedicated Starter",
-      displayName: "Dedicated Starter",
-      price: 149.99,
-      features: [
-        "Intel Xeon E3-1230",
-        "16GB DDR4 RAM",
-        "1TB SSD Storage",
-        "10TB Bandwidth",
-        "Full Root Access",
-        "5 Dedicated IPs",
-        "Free SSL Certificate",
-        "24/7 Support",
-      ],
-      isPopular: false,
-    },
-    {
-      name: "Dedicated Pro",
-      displayName: "Dedicated Pro",
-      price: 249.99,
-      features: [
-        "Intel Xeon E5-2670",
-        "32GB DDR4 RAM",
-        "2TB SSD Storage",
-        "20TB Bandwidth",
-        "Full Root Access",
-        "10 Dedicated IPs",
-        "Free SSL Certificate",
-        "24/7 Priority Support",
-      ],
-      isPopular: true,
-    },
-    {
-      name: "Dedicated Enterprise",
-      displayName: "Dedicated Enterprise",
-      price: 399.99,
-      features: [
-        "Dual Intel Xeon E5-2690",
-        "64GB DDR4 RAM",
-        "4TB SSD Storage",
-        "Unlimited Bandwidth",
-        "Full Root Access",
-        "20 Dedicated IPs",
-        "Free SSL Certificate",
-        "24/7 Premium Support",
-      ],
-      isPopular: false,
-    }
+
+
+  const [dedicatedPlans, setDedicatedPlans] = useState<Plan[]>([]);
+  const fallbackDedicatedPlans: Plan[] = [
+    { name: "ax42", slug: "ax42", displayName: "Server R5-64G", price: 55.34, features: ["AMD Ryzen 5 3600", "64 GB DDR4", "2× 512 GB NVMe", "Unlimited Traffic", "Full Root Access", "Free SSL Certificate", "24/7 Support"], isPopular: false },
+    { name: "ax52", slug: "ax52", displayName: "Server R7-64G", price: 79.34, features: ["AMD Ryzen 7 3700X", "64 GB DDR4", "2× 1 TB NVMe", "Unlimited Traffic", "Full Root Access", "Free SSL Certificate", "24/7 Support"], isPopular: true },
+    { name: "ax102", slug: "ax102", displayName: "Server R9-128G", price: 138.58, features: ["AMD Ryzen 9 5950X", "128 GB DDR4", "2× 1.92 TB NVMe", "Unlimited Traffic", "Full Root Access", "Free SSL Certificate", "24/7 Support"], isPopular: false },
   ];
+
+
+
+  const isCurrentTabLoading = activeTab === "shared" ? loadingShared : activeTab === "vps" ? loadingVps : loadingDedicated;
 
   const getCurrentPlans = () => {
     switch (activeTab) {
       case 'shared':
-        return isLoading || sharedPlans.length === 0 ? fallbackSharedPlans : sharedPlans;
+        return sharedPlans.length > 0 ? sharedPlans : fallbackSharedPlans;
       case 'vps':
-        return vpsPlans;
+        return vpsPlans.length > 0 ? vpsPlans : fallbackVpsPlans;
       case 'dedicated':
-        return dedicatedPlans;
+        return dedicatedPlans.length > 0 ? dedicatedPlans : fallbackDedicatedPlans;
     }
   };
 
@@ -258,6 +204,11 @@ export default function PricingSection() {
         </div>
 
         {/* Pricing Cards Grid */}
+        {isCurrentTabLoading ? (
+          <div className="flex items-center justify-center py-24 col-span-full bg-background">
+            <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+          </div>
+        ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-px bg-border/60">
           {currentPlans.map((plan, index) => (
             <div
@@ -285,17 +236,8 @@ export default function PricingSection() {
                 </div>
               </div>
 
-              {isLoading && activeTab === 'shared' ? (
-                <div className="flex-1 flex items-center justify-center py-12">
-                  <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
-                </div>
-              ) : (
                 <div className="flex-1 flex flex-col">
-                  {/* Divider */}
-                  {/* Vercel uses a subtle text to head the features */}
-                  <div className="text-sm font-medium text-foreground mb-4">
-                    {index === 0 ? "Includes:" : index === 1 ? `All ${currentPlans[0].name.split(' ')[0]} features, plus:` : `All ${currentPlans[1].name.split(' ')[0]} features, plus:`}
-                  </div>
+
                   <ul className="space-y-4 mb-8">
                     {plan.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-start text-sm gap-3 text-muted-foreground">
@@ -305,24 +247,27 @@ export default function PricingSection() {
                     ))}
                   </ul>
                 </div>
-              )}
 
               {/* Button */}
               <div className="mt-auto pt-4">
                 <Button
+                  asChild
                   className={`w-full flex items-center justify-center px-6 py-6 rounded-full font-semibold transition-all cursor-pointer ${plan.isPopular
                     ? "bg-brand-green text-white hover:bg-brand-green/90 border-transparent shadow-md shadow-brand-green/20"
                     : "bg-transparent text-foreground border border-border hover:bg-muted/30"
                     }`}
                   variant={plan.isPopular || index === 2 ? "default" : "outline"}
                 >
-                  Order Now
-                  <ArrowRight className="w-4 h-4" />
+                  <Link href={activeTab === "shared" ? `/hosting/shared/order/${plan.slug}` : activeTab === "vps" ? `/hosting/vps/configure/${plan.slug}` : `/hosting/dedicated/configure/${plan.slug}`}>
+                    Order Now
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
                 </Button>
               </div>
             </div>
           ))}
         </div>
+        )}
 
       </div>
     </section>

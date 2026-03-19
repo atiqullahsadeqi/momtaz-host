@@ -113,10 +113,10 @@ export default function WebDevelopmentPage() {
               Pixel-perfect, secure, and scalable websites designed to elevate your brand and engage your audience. Whether you need a simple refresh or a complex custom platform, we turn your vision into code.
             </p>
             <div className="flex gap-3">
-              <Button className="rounded-full bg-brand-green hover:bg-brand-green/80 text-white">
-                Start a Project <ArrowRight className="ml-2 h-4 w-4" />
+              <Button className="rounded-full bg-brand-green hover:bg-brand-green/80 text-white cursor-pointer" asChild>
+                <Link href="/contact">Start a Project <ArrowRight className="ml-2 h-4 w-4" /></Link>
               </Button>
-              <Button variant="outline" className="rounded-full">View Our Work</Button>
+             
             </div>
           </div>
 
@@ -165,10 +165,10 @@ export default function WebDevelopmentPage() {
               </div>
               <div className="absolute inset-0 z-10 pointer-events-none">
                 {[
-                  { label: "Next.js", cls: "top-[30%] left-4 -rotate-6" },
-                  { label: "React", cls: "top-[48%] right-3 rotate-3" },
-                  { label: "WordPress", cls: "top-[62%] left-6 rotate-2" },
-                  { label: "WooCommerce", cls: "top-[76%] right-2 -rotate-2" },
+                  { label: "Next.js", cls: "bottom-7 left-17 -rotate-10" },
+                  { label: "React", cls: "bottom-11 right-15 -rotate-7" },
+                  { label: "WordPress", cls: "bottom-13 left-22 rotate-2" },
+                  { label: "WooCommerce", cls: "bottom-5 right-14 -rotate-2" },
                 ].map(({ label, cls }) => (
                   <span key={label} className={`absolute ${cls} bg-white/10 text-primary-foreground text-[10px] font-medium px-2.5 py-1 rounded-full border border-white/20`}>
                     {label}

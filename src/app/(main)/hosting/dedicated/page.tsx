@@ -2,6 +2,7 @@
 
 import { JSX, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { dedicatedDisplayName } from "@/lib/plan-names";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Badge } from "@/components/ui/badge";
@@ -130,7 +131,7 @@ function PlanCard({ plan }: { plan: DedicatedServerPlan }) {
         <div className="flex items-start justify-between gap-3">
           <div>
             <h3 className="text-lg font-bold tracking-tight font-mono">
-              {plan.name}
+              {dedicatedDisplayName(plan.cpu, parseInt(plan.ram))}
             </h3>
             <p className="text-xs mt-0.5 line-clamp-2">{plan.cpu}</p>
           </div>
@@ -142,48 +143,14 @@ function PlanCard({ plan }: { plan: DedicatedServerPlan }) {
         </div>
 
         {/* Stats grid */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-2">
           <StatPill icon={Cpu} label="CPU" value={plan.cpu.split(" ")[0]} />
           <StatPill icon={MemoryStick} label="RAM" value={plan.ram} />
-          <StatPill icon={HardDrive} label="Storage" value={plan.storage} />
+          <StatPill icon={HardDrive} label="Storage" value={plan.storage.replace(/\s*(Datacenter|Edition|Software|Gen\s*\d|RAID|\(|,).*/gi, "").trim()} />
           <StatPill icon={Wifi} label="Traffic" value={plan.traffic} />
         </div>
 
-        {/* OS Options */}
-        <div className="flex items-start gap-2">
-          <Server className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-foreground" />
-          <div className="flex-1">
-            <p className="text-[11px] mb-1">Operating Systems</p>
-            <div className="flex flex-wrap gap-1">
-              {plan.operatingSystems.slice(0, 3).map((os, i) => (
-                <span
-                  key={i}
-                  className="text-[10px] bg-muted text-muted-foreground px-1.5 py-0.5 rounded"
-                >
-                  {os.replace(" base", "").replace(" latest minimal", "")}
-                </span>
-              ))}
-              {plan.operatingSystems.length > 3 && (
-                <span className="text-[10px]">
-                  +{plan.operatingSystems.length - 3} more
-                </span>
-              )}
-            </div>
-          </div>
-        </div>
 
-        {/* Locations */}
-        <div className="flex items-center gap-2 flex-wrap">
-          <Globe className="w-3.5 h-3.5 flex-shrink-0 text-foreground" />
-          {plan.locations.map((loc) => {
-            const { name, flag } = locationLabel(loc);
-            return (
-              <span key={loc} className="text-[11px] bg-muted text-muted-foreground px-1.5 py-0.5 rounded flex items-center gap-1">
-                {flag} {name}
-              </span>
-            );
-          })}
-        </div>
 
         {/* Divider */}
         <div className="h-px bg-border/60" />
@@ -411,7 +378,7 @@ export default function DedicatedServersPage() {
         {!loading && !error && (
           <div
             ref={gridRef}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             {displayed.map((plan) => (
               <PlanCard key={plan.id} plan={plan} />

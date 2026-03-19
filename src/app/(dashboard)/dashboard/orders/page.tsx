@@ -14,7 +14,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface Order {
     id: string;
-    order_type: "dedicated" | "vps" | "shared";
+    order_type: string;
     status: string;
     plan_id: string;
     plan_name: string;

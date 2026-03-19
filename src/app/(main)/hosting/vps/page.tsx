@@ -2,6 +2,7 @@
 
 import { JSX, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { vpsDisplayName } from "@/lib/plan-names";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "@/components/ui/button";
@@ -103,7 +104,7 @@ function PlanRow({ plan }: { plan: VPSPlan }) {
       {/* Name */}
       <td className="px-5 py-4">
         <div>
-          <p className="font-semibold text-sm leading-tight">{plan.name}</p>
+          <p className="font-semibold text-sm leading-tight">{vpsDisplayName(plan.cores, plan.memory)}</p>
           <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
             {plan.description}
           </p>
