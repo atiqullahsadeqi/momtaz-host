@@ -19,6 +19,9 @@ import {
   Users,
   Cloud,
 } from "lucide-react";
+import { AnimatedShinyText } from "@/components/ui/animated-shiny-text";
+import GoogleWorkspaceOrbits from "@/components/homepage/google-workspace-orbits";
+import { Safari } from "@/components/ui/safari";
 
 const plans = [
   {
@@ -105,72 +108,37 @@ export default function GoogleWorkspacePage() {
   return (
     <div className="min-h-screen">
       {/* ── Hero Section ── */}
-      <section className="relative pt-24 pb-16 px-6 w-full bg-muted/80">
-        <div className="max-w-6xl mx-auto">
-          <div className="mb-10">
-            <div className="inline-block px-4 py-1.5 rounded-full bg-primary text-primary-foreground text-xs font-semibold mb-4">
-              Official Google Partner
-            </div>
-            <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.1] mb-4">
-              Professional Email
-              <br />
-              <span className="text-primary">&amp; Collaboration</span>
-            </h1>
-            <p className="text-muted-foreground max-w-xl mb-6">
-              Power your business with Google Workspace. Get custom email, cloud
-              storage, video meetings, and collaboration tools all in one secure platform.
-            </p>
-            <Button size="lg" className="rounded-full cursor-pointer bg-brand-green hover:bg-brand-green/80">
-              View Pricing <ArrowRight className="ml-2 w-4 h-4" />
-            </Button>
+      <section className="relative pt-24 pb-16 px-6 w-full bg-brand-blue overflow-hidden">
+        {/* Noise overlay */}
+    
+        <div className="max-w-4xl mx-auto relative z-10 flex flex-col items-center text-center">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-1 mb-4">
+            <svg viewBox="0 0 24 24" width="14" height="14" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+            </svg>
+            <AnimatedShinyText shimmerWidth={80} className="text-xs font-medium text-white/70 bg-linear-to-r from-transparent via-white via-50% to-transparent">
+              Official Google Workspace Partner
+            </AnimatedShinyText>
           </div>
-
-          {/* Bento cards */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="bg-[#0F1E3D] p-10 md:col-span-2 min-h-72 rounded-2xl flex flex-col justify-between items-start">
-              <div className="h-12 w-12 mb-4 p-2 rounded-sm bg-primary flex items-center justify-center flex-shrink-0">
-                <Mail className="text-white" />
-              </div>
-              <div>
-                <h2 className="text-2xl mb-2 text-white leading-tight">
-                  Everything your business needs in <strong>one platform.</strong>
-                </h2>
-                <p className="text-white/60 text-sm">
-                  Powerful tools that work together seamlessly to help your team collaborate, communicate, and get more done.
-                </p>
-              </div>
-            </div>
-
-            <div className="relative w-full min-h-72 rounded-2xl overflow-hidden bg-brand-green/50">
-              <div
-                className="absolute inset-0 bg-[url('https://images.pexels.com/photos/4099325/pexels-photo-4099325.jpeg')] bg-cover bg-center"
-                style={{ maskImage: "linear-gradient(to bottom, black 40%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 40%, transparent 100%)" }}
-              />
-              <div
-                className="absolute inset-0 backdrop-blur-md"
-                style={{ maskImage: "linear-gradient(to bottom, transparent 20%, white 100%)", WebkitMaskImage: "linear-gradient(to bottom, transparent 20%, white 100%)" }}
-              />
-              <div className="relative z-10 p-8 flex flex-col justify-end h-full">
-                <Users className="text-white mb-3 w-7 h-7" />
-                <h2 className="text-xl mb-1 font-bold text-white leading-tight">Team Collaboration</h2>
-                <p className="text-white/80 text-xs">Real-time editing with Docs, Sheets, and Slides. Work together seamlessly.</p>
-              </div>
-            </div>
-
-            <div className="relative bg-primary p-4 rounded-2xl min-h-72 overflow-hidden">
-              <div className="relative z-20 p-6 flex flex-col justify-start h-full">
-                <Shield className="text-white mb-3 w-7 h-7" />
-                <h2 className="text-xl mb-2 font-bold text-white leading-tight">Enterprise Security</h2>
-                <p className="text-white/80 text-xs max-w-[180px]">
-                  Advanced security with 2-step verification and data loss prevention.
-                </p>
-              </div>
-              <div className="absolute inset-0 z-10 pointer-events-none">
-                <div className="absolute bottom-8 left-6 px-4 py-2 bg-blue-500 text-white text-xs font-bold rounded-full shadow-xl -rotate-12 border border-white/20">2FA Secured</div>
-                <div className="absolute bottom-14 right-4 px-4 py-2 bg-white text-primary text-xs font-bold rounded-full shadow-xl rotate-12 border border-slate-200">SAML SSO</div>
-                <div className="absolute bottom-2 right-8 px-4 py-2 bg-slate-800 text-white text-xs font-bold rounded-full shadow-xl -rotate-6 border border-white/10">DLP Active</div>
-              </div>
-              <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 blur-[50px] rounded-full" />
+          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-shadow-lg leading-[1.1] mb-4 text-white">
+            Professional Email
+            <br />
+            <span className="text-white">&amp; Collaboration</span>
+          </h1>
+          <p className="text-white/70 max-w-xl mb-8">
+            Power your business with Google Workspace. Get custom email, cloud
+            storage, video meetings, and collaboration tools all in one secure platform.
+          </p>
+          <Button size="lg" className="rounded-full cursor-pointer bg-brand-green hover:bg-brand-green/80 mb-12">
+            <a href="#pricing">View Pricing <ArrowRight className="ml-2 w-4 h-4 inline" /></a>
+          </Button>
+          <div className="relative w-full max-w-3xl">
+            <Safari url="workspace.google.com" className="w-full" />
+            <div className="absolute inset-0 top-[7%] flex items-center justify-center z-10 bg-background" style={{ left: "0.1%", width: "99.8%", borderRadius: "0 0 11px 11px" }}>
+              <GoogleWorkspaceOrbits />
             </div>
           </div>
         </div>
@@ -180,7 +148,37 @@ export default function GoogleWorkspacePage() {
       <section className="w-full relative flex flex-col items-center">
         <div className="w-full max-w-[1100px] mx-auto bg-background flex flex-col border-x border-border/60">
 
+          {/* ── Feature cards ── */}
+          <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-px bg-border/60 border-b border-border/60">
+            <div className="bg-background p-10 lg:p-12 flex flex-col gap-4 md:col-span-2">
+              <div className="h-12 w-12 p-2 rounded-sm bg-brand-green/10 border border-brand-green/20 flex items-center justify-center">
+                <Mail className="text-brand-green" />
+              </div>
+              <h2 className="text-xl font-bold text-foreground leading-tight">
+                Everything your business needs in <strong>one platform.</strong>
+              </h2>
+              <p className="text-muted-foreground text-sm">
+                Powerful tools that work together seamlessly to help your team collaborate, communicate, and get more done.
+              </p>
+            </div>
+            <div className="bg-background p-10 lg:p-12 flex flex-col gap-4 relative overflow-hidden">
+              <div className="relative z-10">
+                <Shield className="text-foreground mb-3 w-7 h-7" />
+                <h2 className="text-xl font-bold text-foreground leading-tight mb-2">Enterprise Security</h2>
+                <p className="text-muted-foreground text-sm">
+                  Advanced security with 2-step verification and data loss prevention.
+                </p>
+              </div>
+              <div className="absolute inset-0 z-0 pointer-events-none flex items-end justify-end gap-2 p-6">
+                <span className="px-3 py-1.5 bg-muted text-foreground text-[10px] font-medium rounded-full border border-border/60">2FA Secured</span>
+                <span className="px-3 py-1.5 bg-muted text-foreground text-[10px] font-medium rounded-full border border-border/60">SAML SSO</span>
+                <span className="px-3 py-1.5 bg-muted text-foreground text-[10px] font-medium rounded-full border border-border/60">DLP Active</span>
+              </div>
+            </div>
+          </div>
+
           {/* ── Pricing header ── */}
+          <div id="pricing" />
           <div className="border-b border-border/60 p-10 lg:p-12 flex flex-col items-center text-center">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-foreground">
               Simple, transparent pricing.

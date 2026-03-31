@@ -28,8 +28,8 @@ export default function Homepage() {
 
   return (
     <div className="min-h-screen bg-background relative selection:bg-brand-blue/20 ">
-      <div className="max-w-[1100px] mx-auto border-x border-border/60 min-h-[calc(100vh-4rem)] flex flex-col">
-        <HeroSection />
+      <HeroSection />
+      <div className="relative z-10 max-w-[1100px] mx-auto border-x border-border/60 min-h-[calc(100vh-4rem)] flex flex-col bg-background">
         <CompanyLogos />
         <DomainSearchSection />
         <ServicesSection />

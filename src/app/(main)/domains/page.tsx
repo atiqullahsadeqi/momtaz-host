@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/accordion";
 import { Confetti, type ConfettiRef } from "@/components/ui/confetti";
 import { Globe, Shield, Gift, Headphones, Loader2, Search, Mail, MessageCircleWarning, CheckCircle } from "lucide-react";
+import { AnimatedShinyText } from "@/components/ui/animated-shiny-text";
 import Link from "next/link";
 import LogoLoop from "@/components/LogoLoop";
 import { useState, useEffect, useMemo, Suspense, useRef } from "react";
@@ -331,80 +332,49 @@ function DomainsPageContent() {
     <div className="w-full flex flex-col items-center">
 
       {/* ── HERO — full-width bg-muted ── */}
-      <section className="w-full bg-muted/60 pt-16 pb-12 px-6">
-        <div className="max-w-[1100px] mx-auto">
-          <div className="mb-8 flex flex-col items-start gap-4">
-            <div className="inline-block px-4 py-1.5 rounded-full bg-primary text-primary-foreground text-xs font-semibold">
-              Domain Registration
+      <section className="w-full bg-brand-blue pt-16 pb-12 px-6 relative overflow-hidden">
+        {/* Noise overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none z-[20] opacity-[0.12]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.6' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+            filter: 'contrast(100%) brightness(20%) grayscale(50%)',
+            mixBlendMode: 'multiply',
+          }}
+        />
+        <div className="max-w-[1100px] mx-auto relative z-10">
+          <div className="mb-8 flex flex-col items-center gap-4 text-center">
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-1">
+              <Globe className="h-3.5 w-3.5 text-white" />
+              <AnimatedShinyText shimmerWidth={80} className="text-xs font-medium text-white/70 [--shiny-width:80px] bg-linear-to-r from-transparent via-white via-50% to-transparent">
+                .af Partner
+              </AnimatedShinyText>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] text-white">
               Find Your Perfect<br />
-              <span className="text-primary">Domain Name.</span>
+              <span className="text-white/60">Domain Name</span><span className="text-brand-green">.</span>
             </h1>
-            <p className="text-muted-foreground max-w-xl text-sm leading-relaxed">
+            <p className="text-white/70 max-w-xl text-sm leading-relaxed">
               Search, register, and manage your domain with Afghanistan&apos;s trusted registrar.
             </p>
           </div>
 
           {/* Search bar */}
-          <div className="max-w-2xl mb-10">
-            <div className="flex items-center rounded-full bg-background border border-border/60 overflow-hidden py-1 pr-2 shadow-sm">
+          <div className="w-full mx-auto mb-10">
+            <div className="flex items-center rounded-xl bg-white overflow-hidden shadow-lg">
               <Input
                 type="text"
                 placeholder="Enter your domain name"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter" && handleSearch()}
-                className="flex-1 px-6 py-3 text-sm border-0 bg-transparent focus:outline-none focus:ring-0"
+                className="flex-1 px-6 h-14 text-base border-0 bg-transparent focus:outline-none focus:ring-0"
               />
-              <Button variant="default" size="icon" className="rounded-full shrink-0" onClick={handleSearch} disabled={isSearching}>
-                {isSearching ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search />}
+              <Button className="h-14 px-6 cursor-pointer rounded-none rounded-r-xl bg-brand-green hover:bg-brand-green/80 text-white font-medium" onClick={handleSearch} disabled={isSearching}>
+                {isSearching ? <Loader2 className="h-4 w-4 animate-spin" /> : "Search"}
               </Button>
             </div>
-          </div>
-
-          {/* Bento cards */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="bg-foreground dark:bg-[#1a1a2e] p-10 md:col-span-2 min-h-72 rounded-2xl flex flex-col justify-between">
-              <div className="h-12 w-12 p-2 rounded-sm bg-primary flex items-center justify-center">
-                <Mail className="text-white" />
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold text-white leading-tight mb-2">
-                  Register <strong>.com</strong> and get up to <strong>50% off</strong> for the 1st year.
-                </h2>
-                <p className="text-white/60 text-sm">Applicable with a 3-year term. Standard rates at renewal.</p>
-              </div>
-            </div>
-
-            <div className="relative w-full min-h-72 rounded-2xl overflow-hidden bg-brand-green/50">
-              <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/3183155/pexels-photo-3183155.jpeg')] bg-cover bg-center"
-                style={{ maskImage: "linear-gradient(to bottom, black 40%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 40%, transparent 100%)" }} />
-              <div className="absolute inset-0 backdrop-blur-md"
-                style={{ maskImage: "linear-gradient(to bottom, transparent 20%, white 100%)", WebkitMaskImage: "linear-gradient(to bottom, transparent 20%, white 100%)" }} />
-              <div className="relative z-10 p-8 flex flex-col justify-end h-full">
-                <p className="text-white font-bold">1K+ Registered domains</p>
-                <p className="text-white/60 text-xs mt-1">100+ supported TLDs</p>
-              </div>
-            </div>
-
-            <div className="relative bg-primary p-4 rounded-2xl min-h-72 overflow-hidden">
-              <div className="relative z-20 p-6">
-                <h2 className="text-xl font-bold text-white mb-2">.af Partner</h2>
-                <p className="text-white/70 text-xs max-w-[180px]">Register .af domains in just a few clicks as an AFGNIC-accredited registrar.</p>
-              </div>
-              <div className="absolute inset-0 z-10 pointer-events-none">
-                {[
-                  { label: ".af", cls: "bottom-20 left-6 -rotate-12" },
-                  { label: ".com.af", cls: "bottom-14 right-4 rotate-6" },
-                  { label: ".org.af", cls: "bottom-6 left-10 rotate-3" },
-                  { label: ".edu.af", cls: "bottom-2 right-8 -rotate-6" },
-                ].map(({ label, cls }) => (
-                  <span key={label} className={`absolute ${cls} bg-white/10 text-white text-[10px] font-medium px-2.5 py-1 rounded-full border border-white/20`}>{label}</span>
-                ))}
-              </div>
-              <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 blur-[50px] rounded-full" />
-            </div>
+            <p className="text-sm text-white/60 mt-3">See list of supported TLDs and prices <a href="#tld-pricing" className="text-brand-green hover:underline font-medium">click here</a></p>
           </div>
         </div>
       </section>
@@ -513,7 +483,7 @@ function DomainsPageContent() {
           </div>
 
           {/* TLD Pricing Table */}
-          <div className="border-b border-border/60 p-10 lg:p-12 flex flex-col items-center text-center">
+          <div id="tld-pricing" className="border-b border-border/60 p-10 lg:p-12 flex flex-col items-center text-center">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">All Domain Extension Prices</h2>
             <p className="text-muted-foreground text-sm max-w-xl">Compare prices for all available domain extensions</p>
           </div>

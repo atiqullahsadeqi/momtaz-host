@@ -1,8 +1,12 @@
 "use client";
 import React from "react";
-import { ArrowRight, Code2, Smartphone, Database, Mail } from "lucide-react";
+import { ArrowRight, Code2, Smartphone, Database, Mail, BrainCircuit, SplinePointer, CircleGauge, EarthLock, Search, TrendingUp, Link2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import DatabaseBeamIllustration from "./database-beam";
+import MobileIconCloud from "./mobile-icon-cloud";
+import GoogleWorkspaceOrbits from "./google-workspace-orbits";
+import { AnimatedShinyText } from "@/components/ui/animated-shiny-text";
 
 export default function ServicesSection() {
   return (
@@ -33,11 +37,11 @@ export default function ServicesSection() {
             </div>
           </div>
           {/* Illustration: Server Rack */}
-          <div className="absolute py-3 -bottom-0 right-1/2 translate-x-1/2 w-[85%] max-w-[210px] h-[110px] bg-background rounded-t-xl border-x border-t border-border/80 flex flex-col items-center justify-end pb-4 gap-3">
+          <div className="absolute py-3  -bottom-0 right-1/2 translate-x-1/2 w-[85%] max-w-[210px] h-[110px] bg-card rounded-t-xl border-x border-t border-border/80 flex flex-col items-center justify-end pb-4 gap-3">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="w-5/6 h-10 rounded-md border border-border/60 bg-muted/10 flex items-center px-4 justify-between">
+              <div key={i} className="w-5/6 h-10 rounded-md border border-border/60 bg-background/20 flex items-center px-4 justify-between">
                 <div className="flex gap-2">
-                  <div className={`w-1.5 h-1.5 rounded-full ${i === 0 ? 'bg-brand-green' : 'bg-muted'}`} />
+                  <div className={`w-1.5 h-1.5 rounded-full ${i === 0 ? 'bg-brand-green' : 'bg-muted/80'}`} />
                   <div className="w-1.5 h-1.5 rounded-full bg-muted" />
                 </div>
                 <div className="w-1/3 h-1.5 bg-muted rounded-full" />
@@ -58,26 +62,33 @@ export default function ServicesSection() {
             </div>
           </div>
           {/* Illustration: Browser Editor */}
-          <div className="absolute -bottom-0 right-1/2 translate-x-1/2 w-[90%] max-w-[210px] h-[110px] bg-background rounded-t-xl border-x border-t border-border/80 flex flex-col">
-            <div className="h-8 py-1 border-b border-border/60 flex items-center px-3 gap-1.5 bg-muted/20">
-              <div className="w-1.5 h-1.5 rounded-full border border-border/60 bg-red-400" />
-              <div className="w-1.5 h-1.5 rounded-full border border-border/60 bg-amber-400" />
-              <div className="w-1.5 h-1.5 rounded-full border border-border/60 bg-brand-green " />
-            </div>
-            <div className="flex-1 p-5 flex  gap-3">
+          <div className="absolute -bottom-5 right-1/2 translate-x-1/2 w-[90%] max-w-[310px] h-[110px]  rounded-t-xl  flex  gap-3 items-center justify-center flex-wrap">
 
-              <div className="w-full flex gap-3">
-                <div className="w-1/3 h-16 rounded border border-border/60 bg-muted/10 flex items-center justify-center">
-                  <Code2 className="w-4 h-4 text-muted-foreground/40" />
-                </div>
-                <div className="flex-1 flex flex-col gap-2">
-                  <div className="w-1/2 h-1 rounded bg-muted " />
-                  <div className="w-full h-1 rounded bg-muted" />
-                  <div className="w-4/5 h-1 rounded bg-muted" />
-                  <div className="w-2/5 h-1 rounded bg-muted" />
-                </div>
-              </div>
-            </div>
+          <div className=" flex gap-1 items-center border border-border/80 bg-card py-2 px-4 rounded-lg shadow-lg">
+          <BrainCircuit width={15} />
+            <p className="text-sm">UI/UX</p>
+          </div>
+          <div className=" flex gap-1 items-center border border-border/80 bg-card py-2 px-4 rounded-lg shadow-lg">
+          <SplinePointer width={15} />
+            <p className="text-sm">Unique</p>
+          </div>
+          <div className=" flex gap-1 items-center border border-border/80 bg-card py-2 px-4 rounded-lg shadow-lg">
+          <CircleGauge width={15} />
+            <p className="text-sm">Speed</p>
+          </div>
+          <div className=" flex gap-1 items-center border border-border/80 bg-card py-2 px-4 rounded-lg shadow-lg">
+            <p className="text-sm">Responsive</p>
+          </div>
+          <div className=" flex gap-1 items-center border border-border/80 bg-card py-2 px-4 rounded-lg shadow-lg">
+            <p className="text-sm">CMS</p>
+          </div>
+          <div className=" flex gap-1 items-center border border-border/80 bg-card py-2 px-4 rounded-lg shadow-lg">
+          <EarthLock width={15} />
+            <p className="text-sm">Secure</p>
+          </div>
+          
+        
+
           </div>
         </Link>
 
@@ -92,18 +103,9 @@ export default function ServicesSection() {
               <ArrowRight className="w-4 h-4 text-muted-foreground transition-colors group-hover:text-white" />
             </div>
           </div>
-          {/* Illustration: Smartphone mockup */}
-          <div className="absolute -bottom-35 right-1/2 translate-x-1/2 w-[140px] h-[280px] bg-background border border-muted rounded-[25px] flex flex-col items-center pt-3 px-2 pb-2">
-            <div className="w-12 h-1.5 bg-muted rounded-full mb-4" />
-            <div className="w-full h-full rounded-xl bg-muted border-t border-border/60  p-2 flex flex-col gap-2 bg-muted/10">
-
-              <div className="w-full h-8 rounded-md bg-brand-blue/10 border border-brand-purple/10 " />
-              <div className="flex gap-1">
-                <div className="h-2 w-2 rounded-full bg-brand-green" />
-                <div className="w-3/4 h-2 rounded bg-muted" />
-              </div>
-              <div className="w-1/2 h-2 rounded bg-muted" />
-            </div>
+          {/* Illustration: Icon Cloud */}
+          <div className="absolute -bottom-10 right-1/2 translate-x-1/2 w-[200px] h-[200px]" style={{ maskImage: "radial-gradient(circle, black 30%, transparent 70%)", WebkitMaskImage: "radial-gradient(circle, black 30%, transparent 70%)" }}>
+            <MobileIconCloud />
           </div>
         </Link>
 
@@ -118,29 +120,29 @@ export default function ServicesSection() {
               <ArrowRight className="w-4 h-4 text-muted-foreground transition-colors group-hover:text-white" />
             </div>
           </div>
-          {/* Illustration: SEO Analytics Chart */}
-          <div className="absolute -bottom-0 right-1/2 translate-x-1/2 w-[85%] max-w-[210px] h-[110px] bg-background rounded-t-xl border-x border-t border-border/80 flex flex-col justify-end  pb-0">
-            <div className="h-8 py-1 w-full border-b border-border/60 flex items-center px-3 gap-1.5 bg-muted/20">
-              <div className="w-1.5 h-1.5 rounded-full border border-border/60 bg-red-400" />
-              <div className="w-1.5 h-1.5 rounded-full border border-border/60 bg-amber-400" />
-              <div className="w-1.5 h-1.5 rounded-full border border-border/60 bg-brand-green " />
+          {/* Illustration: SEO Keywords */}
+          <div className="absolute -bottom-5 right-1/2 translate-x-1/2 w-[90%] max-w-[310px] h-[110px] rounded-t-xl flex gap-3 items-center justify-center flex-wrap">
+            <div className="flex gap-1 items-center border border-border/80 bg-card py-2 px-4 rounded-lg shadow-lg">
+              <Search width={15} />
+              <p className="text-sm">Keywords</p>
             </div>
-            <div className="w-full h-full relative flex gap-1 items-end justify-center">
-              <div className="absolute -bottom-2">
-                <svg width="123" height="72" viewBox="0 0 123 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0.365229 69.5191C-0.176524 70.1458 -0.107634 71.093 0.5191 71.6348C1.14583 72.1766 2.09308 72.1077 2.63483 71.4809L1.50003 70.5L0.365229 69.5191ZM123 0L106.776 6.0636L120.139 17.0826L123 0ZM78.0467 54.5178L79.204 55.4721L78.0467 54.5178ZM60.5296 30.2691L59.2449 29.4947L60.5296 30.2691ZM42.2168 60.6516L40.9322 59.8773L42.2168 60.6516ZM28.4214 43.369L29.7077 42.5972L28.4214 43.369ZM1.50003 70.5L2.63483 71.4809L26.3282 44.071L25.1934 43.0901L24.0586 42.1091L0.365229 69.5191L1.50003 70.5ZM28.4214 43.369L27.1352 44.1407L37.5027 61.4199L38.7889 60.6482L40.0752 59.8764L29.7077 42.5972L28.4214 43.369ZM42.2168 60.6516L43.5015 61.426L61.8143 31.0434L60.5296 30.2691L59.2449 29.4947L40.9322 59.8773L42.2168 60.6516ZM64.0664 30.4808L62.6985 31.0963L73.3119 54.6817L74.6798 54.0662L76.0477 53.4506L65.4343 29.8652L64.0664 30.4808ZM78.0467 54.5178L79.204 55.4721L115.569 11.3701L114.412 10.4158L113.254 9.46151L76.8894 53.5636L78.0467 54.5178ZM74.6798 54.0662L73.3119 54.6817C74.3764 57.0471 77.5539 57.4733 79.204 55.4721L78.0467 54.5178L76.8894 53.5636C76.6537 53.8494 76.1998 53.7886 76.0477 53.4506L74.6798 54.0662ZM60.5296 30.2691L61.8143 31.0434C62.0225 30.698 62.533 30.7285 62.6985 31.0963L64.0664 30.4808L65.4343 29.8652C64.2757 27.2906 60.7024 27.0768 59.2449 29.4947L60.5296 30.2691ZM38.7889 60.6482L37.5027 61.4199C38.8605 63.683 42.1392 63.6863 43.5015 61.426L42.2168 60.6516L40.9322 59.8773C40.7375 60.2002 40.2692 60.1997 40.0752 59.8764L38.7889 60.6482ZM25.1934 43.0901L26.3282 44.071C26.5508 43.8135 26.96 43.8488 27.1352 44.1407L28.4214 43.369L29.7077 42.5972C28.4817 40.554 25.6168 40.3065 24.0586 42.1091L25.1934 43.0901Z" fill="#00C897" />
-                </svg>
-              </div>
-              <div className="w-3 h-8 bg-muted rounded-md" />
-              <div className="w-3 h-10 bg-muted rounded-md" />
-              <div className="w-3 h-16 bg-muted rounded-md" />
-              <div className="w-3 h-18 bg-muted rounded-md" />
-              <div className="w-3 h-12 bg-muted rounded-md" />
-              <div className="w-3 h-8 bg-muted rounded-md" />
-              <div className="w-3 h-15 bg-muted rounded-md" />
-              <div className="w-3 h-5 bg-muted rounded-md" />
-              <div className="w-3 h-11 bg-muted rounded-md" />
-              <div className="w-3 h-7 bg-muted rounded-md" />
+            <div className="flex gap-1 items-center border border-border/80 bg-card py-2 px-4 rounded-lg shadow-lg">
+              <TrendingUp width={15} />
+              <p className="text-sm">Ranking</p>
+            </div>
+            <div className="flex gap-1 items-center border border-border/80 bg-card py-2 px-4 rounded-lg shadow-lg">
+              <Link2 width={15} />
+              <p className="text-sm">Backlinks</p>
+            </div>
+            <div className="flex gap-1 items-center border border-border/80 bg-card py-2 px-4 rounded-lg shadow-lg">
+              <p className="text-sm">On-Page</p>
+            </div>
+            <div className="flex gap-1 items-center border border-border/80 bg-card py-2 px-4 rounded-lg shadow-lg">
+              <p className="text-sm">Analytics</p>
+            </div>
+            <div className="flex gap-1 items-center border border-border/80 bg-card py-2 px-4 rounded-lg shadow-lg">
+              <CircleGauge width={15} />
+              <p className="text-sm">Audit</p>
             </div>
           </div>
         </Link>
@@ -156,40 +158,10 @@ export default function ServicesSection() {
               <ArrowRight className="w-4 h-4 text-muted-foreground transition-colors group-hover:text-white" />
             </div>
           </div>
-          {/* Illustration: Database graph */}
-          <div className="absolute -bottom-0 right-1/2 translate-x-1/2 w-[90%] max-w-[210px] h-[110px] bg-background rounded-t-xl border-x border-t border-border/80 flex flex-col items-center justify-center ">
-            <div className="h-8 py-1 w-full border-b border-border/60 flex items-center px-3 gap-1.5 bg-muted/20">
-              <div className="w-1.5 h-1.5 rounded-full border border-border/60 bg-red-400" />
-              <div className="w-1.5 h-1.5 rounded-full border border-border/60 bg-amber-400" />
-              <div className="w-1.5 h-1.5 rounded-full border border-border/60 bg-brand-green " />
-            </div>
-            <div className="relative w-full h-full flex items-center justify-between px-4">
-              {/* Connecting Lines */}
-              <svg className="absolute inset-0 w-full h-full text-border/60" style={{ zIndex: 0 }}>
-                <line x1="25%" y1="50%" x2="70%" y2="20%" stroke="currentColor" strokeWidth="1.5" />
-                <line x1="25%" y1="50%" x2="70%" y2="50%" stroke="currentColor" strokeWidth="1.5" />
-                <line x1="25%" y1="50%" x2="70%" y2="80%" stroke="currentColor" strokeWidth="1.5" />
-              </svg>
-              {/* Main DB Node */}
-              <div className="w-9 h-9  bg-brand-purple rounded-md flex items-center justify-center relative z-10">
-                <Database className="w-5 h-5 text-white" />
-              </div>
-              {/* Child Nodes */}
-              <div className="flex flex-col justify-between h-full py-2 z-10">
-                <div className="w-12 h-4 bg-background border border-border/80 rounded-md flex items-center px-2 gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-brand-green" />
-                  <div className="w-5 h-1.5 bg-muted rounded-full" />
-                </div>
-                <div className="w-12 h-4 bg-background border border-border/80 rounded-md flex items-center px-2 gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-muted" />
-                  <div className="w-5 h-1.5 bg-muted rounded-full" />
-                </div>
-                <div className="w-12 h-4 bg-background border border-border/80 rounded-md flex items-center px-2 gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-muted" />
-                  <div className="w-5 h-1.5 bg-muted rounded-full" />
-                </div>
-              </div>
-            </div>
+          {/* Illustration: Database beam */}
+          <div className="absolute -bottom-5 right-1/2 translate-x-1/2 w-[90%] max-w-[310px] h-[180px] flex flex-col items-center justify-center">
+         
+            <DatabaseBeamIllustration />
           </div>
         </Link>
 
@@ -201,6 +173,17 @@ export default function ServicesSection() {
         {/* Block 7: Google Workspace */}
         <Link href="/google-workspace" className="p-8 lg:p-10 bg-background flex flex-col min-h-[350px] relative overflow-hidden cursor-pointer group">
           <div className="relative z-10 flex flex-col gap-3">
+            <div className="group/shiny inline-flex w-fit items-center gap-1.5 rounded-full border border-border/60 bg-muted/30 px-3 py-1">
+              <svg viewBox="0 0 24 24" width="14" height="14" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+              <AnimatedShinyText className="text-[11px] font-medium">
+                Official Google Workspace Partner
+              </AnimatedShinyText>
+            </div>
             <h3 className="text-md font-bold text-foreground tracking-tight">Google Workspace</h3>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-[260px]">
               Professional business email, secure cloud storage, and team collaboration tools.
@@ -209,30 +192,9 @@ export default function ServicesSection() {
               <ArrowRight className="w-4 h-4 text-muted-foreground transition-colors group-hover:text-white" />
             </div>
           </div>
-          {/* Illustration: App Window UI */}
-          <div className="absolute -bottom-0 right-1/2 translate-x-1/2 w-[90%] max-w-[280px] h-[110px] bg-background rounded-t-xl border-x border-t border-border/80 flex flex-col overflow-hidden">
-            <div className="h-10 border-b border-border/60 bg-muted/10 flex items-center px-3 gap-3">
-              <div className="w-6 h-6 rounded  bg-background flex items-center justify-center">
-                <Image src="/images/Gmail.png" alt="Google Workspace" width={10} height={10} />
-              </div>
-              <div className="h-2 w-16 rounded bg-muted" />
-            </div>
-            <div className="flex-1 p-3 flex flex-col gap-2">
-              <div className="flex items-center gap-3 w-full p-2 border border-border/40 rounded-md bg-muted/10">
-                <div className="w-6 h-6 rounded-full border border-border/60 bg-brand-green/10 flex items-center justify-center text-[10px] text-brand-green font-medium">A</div>
-                <div className="flex-1 flex flex-col gap-1.5">
-                  <div className="w-1/2 h-1.5 rounded bg-muted" />
-                  <div className="w-3/4 h-1.5 rounded bg-muted/60" />
-                </div>
-              </div>
-              <div className="flex items-center gap-3 w-full p-2 border border-border/40 rounded-md bg-muted/5">
-                <div className="w-6 h-6 rounded-full border border-border/60 bg-muted/20" />
-                <div className="flex-1 flex flex-col gap-1.5">
-                  <div className="w-1/3 h-1.5 rounded bg-muted" />
-                  <div className="w-2/3 h-1.5 rounded bg-muted/60" />
-                </div>
-              </div>
-            </div>
+          {/* Illustration: Orbiting Google Apps */}
+          <div className="absolute -bottom-[50%] right-1/2 translate-x-1/2 w-[100%] h-[100%] ">
+            <GoogleWorkspaceOrbits />
           </div>
         </Link>
 
@@ -248,7 +210,7 @@ export default function ServicesSection() {
             </div>
           </div>
           {/* Illustration: Canvas Outline */}
-          <div className="absolute -bottom-0 right-1/2 translate-x-1/2 w-[90%] max-w-[280px] h-[110px] bg-background rounded-t-xl border-x border-t border-border/80 flex flex-col overflow-hidden">
+          <div className="absolute -bottom-0 right-1/2 translate-x-1/2 w-[90%] max-w-[280px] h-[110px] bg-card rounded-t-xl border-x border-t border-border/80 flex flex-col overflow-hidden">
             <div className="flex-1 flex">
               {/* Toolbar */}
               <div className="w-10 h-full border-r border-border/60 bg-muted/10 flex flex-col items-center py-3 gap-2">
